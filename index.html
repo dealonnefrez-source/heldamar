@@ -64,6 +64,10 @@
         .panel-boczny input:focus, .panel-boczny select:focus, .panel-boczny textarea:focus { outline: none; border-color: #c97a00; }
 
         .opis-wyboru { font-size: 12px; color: #999; font-style: italic; margin-top: 8px; margin-bottom: 5px; padding: 8px 10px; background: #1a1a1a; border-radius: 4px; border-left: 3px solid #555; line-height: 1.4; }
+        .skazania-sekcja { margin-top: 18px; }
+        .skazania-naglowek { margin-bottom: 10px; color: #f0d8a8; font-size: 15px; }
+        .skazania-lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+        .skazanie-item { padding: 10px 12px; background: rgba(201,122,0,0.13); border: 1px solid rgba(201,122,0,0.22); border-radius: 12px; color: #f5f0dc; line-height: 1.4; font-size: 14px; }
         .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
         .tag { background: #333; border: 1px solid #555; padding: 6px 10px; border-radius: 999px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; }
         .tag button { background: transparent; border: none; color: #c97a00; cursor: pointer; font-size: 14px; }
@@ -154,6 +158,19 @@
         <label>Imię postaci:</label>
         <input type="text" id="wlasne-imie" placeholder="Wpisz imię...">
 
+        <label>Bóstwo:</label>
+        <select id="wlasne-boztwo">
+            <option value="">Wybierz bóstwo</option>
+            <option value="Crom">Crom</option>
+            <option value="Mitra">Mitra</option>
+            <option value="Set">Set</option>
+            <option value="Yog">Yog</option>
+            <option value="Ymir">Ymir</option>
+            <option value="Derketo">Derketo</option>
+            <option value="Jhebbal Sag">Jhebbal Sag</option>
+            <option value="Zath">Zath</option>
+        </select>
+
         <label>Pochodzenie:</label>
         <select id="wlasne-pochodzenie" onchange="zaktualizujOpis('wlasne-pochodzenie', 'opis-wlasne-pochodzenie', pochodzenia)"></select>
         <div id="opis-wlasne-pochodzenie" class="opis-wyboru"></div>
@@ -197,6 +214,19 @@
 
         <label>Imię postaci:</label>
         <input type="text" id="reczne-imie" placeholder="Wpisz imię...">
+
+        <label>Bóstwo:</label>
+        <select id="reczne-boztwo">
+            <option value="">Wybierz bóstwo</option>
+            <option value="Crom">Crom</option>
+            <option value="Mitra">Mitra</option>
+            <option value="Set">Set</option>
+            <option value="Yog">Yog</option>
+            <option value="Ymir">Ymir</option>
+            <option value="Derketo">Derketo</option>
+            <option value="Jhebbal Sag">Jhebbal Sag</option>
+            <option value="Zath">Zath</option>
+        </select>
 
         <label>Pochodzenie:</label>
         <select id="reczne-pochodzenie" onchange="zaktualizujOpis('reczne-pochodzenie', 'opis-reczne-pochodzenie', pochodzenia)"></select>
@@ -722,6 +752,7 @@ const historieKast = {
                 wyksztalcenie: wynikWyksztalcenie,
                 usposobienie: wynikUsposobienie,
                 cechaNegatywna: wynikCechaNegatywna,
+                boztwo: 'Brak',
                 skazanoZa: wynikSkazanoZa.join(', ')
             });
 
@@ -731,6 +762,19 @@ const historieKast = {
                     <input type="text" id="losuj-discord" placeholder="np. MójNick#1234">
                     <label>Imię postaci:</label>
                     <input type="text" id="losuj-imie" placeholder="Wpisz imię...">
+                    <label>Bóstwo:</label>
+                    <select id="losuj-boztwo">
+                        <option value="">Wybierz bóstwo</option>
+                        <option value="Crom">Crom</option>
+                        <option value="Mitra">Mitra</option>
+                        <option value="Set">Set</option>
+                        <option value="Yog">Yog</option>
+                        <option value="Ymir">Ymir</option>
+                        <option value="Derketo">Derketo</option>
+                        <option value="Jhebbal Sag">Jhebbal Sag</option>
+                        <option value="Zath">Zath</option>
+                    </select>
+                    <p id="wybrane-boztwo" class="opis-cechy"></p>
                     <button class="btn-wybierz-karte" style="margin: 20px 0 20px;" onclick="generujKarte()">Losuj</button>
                     <p><strong>Pochodzenie:</strong> ${wynikPochodzenie.kraina} - 
                         <span class="tooltip">${wynikPochodzenie.cecha}
@@ -753,7 +797,12 @@ const historieKast = {
                     <p><strong>Usposobienie:</strong> ${wynikUsposobienie.nazwa}</p>
                     <p class="opis-cechy">${wynikUsposobienie.opis}</p>
                     <p><strong>Cecha negatywna:</strong> ${wynikCechaNegatywna}</p>
-                    <p><strong>Za co skazano:</strong><br>${wynikSkazanoZa.map(s => `&ndash; ${s}`).join('<br>')}</p>
+                    <div class="skazania-sekcja">
+                        <div class="skazania-naglowek"><strong>Za co skazano:</strong></div>
+                        <div class="skazania-lista">
+                            ${wynikSkazanoZa.map(s => `<div class="skazanie-item">${s}</div>`).join('')}
+                        </div>
+                    </div>
 
                     <button class="btn-wyslij" onclick="wyslijWylosowanaKarte()">Wyślij</button>
                 </div>
@@ -771,6 +820,7 @@ const historieKast = {
 
         function wyslijWylosowanaKarte() {
             const imie = document.getElementById('losuj-imie').value.trim();
+            const boztwo = document.getElementById('losuj-boztwo').value || 'Brak';
             const discordNick = document.getElementById('losuj-discord').value.trim();
 
             if (!imie || !discordNick) {
@@ -782,7 +832,8 @@ const historieKast = {
                 return;
             }
 
-            zapiszIWyslij(discordNick, imie, aktualneKarty[0]);
+            const karta = { ...aktualneKarty[0], boztwo };
+            zapiszIWyslij(discordNick, imie, karta);
         }
 
         function wyslijZPaneluWyboru() {
@@ -799,6 +850,7 @@ const historieKast = {
                 historia: aktywneHistorieRaczne[document.getElementById("reczne-historia").value],
                 wyksztalcenie: wyksztalcenie[document.getElementById("reczne-wyksztalcenie").value],
                 usposobienie: usposobienia[document.getElementById("reczne-usposobienie").value],
+                boztwo: document.getElementById("reczne-boztwo").value || 'Brak',
                 skazanoZa: skazanoZa.join(", ")
             };
 
@@ -812,6 +864,7 @@ const historieKast = {
             const wyksztalcenieVal = document.getElementById("wlasne-wyksztalcenie").value.trim();
             const usposobienieVal = document.getElementById("wlasne-usposobienie").value.trim();
             const skazanoZaVal = document.getElementById("wlasne-skazano").value.trim();
+            const boztwoVal = document.getElementById("wlasne-boztwo").value || 'Brak';
             
             if (!discordNick || !imie || !historiaVal || !wyksztalcenieVal || !usposobienieVal || !skazanoZaVal) {
                 alert("Aby wysłać własną Kartę Postaci, musisz wypełnić WSZYSTKIE pola tekstem!");
@@ -825,6 +878,7 @@ const historieKast = {
                 historia: { nazwa: "Własna historia gracza", opis: historiaVal },
                 wyksztalcenie: { nazwa: "Wykształcenie (własne)", opis: wyksztalcenieVal },
                 usposobienie: { nazwa: "Usposobienie (własne)", opis: usposobienieVal },
+                boztwo: boztwoVal,
                 skazanoZa: skazanoZaVal
             };
 
@@ -863,6 +917,7 @@ const historieKast = {
             if (k.wyksztalcenie.opis) tekst += `${k.wyksztalcenie.opis}\r\n`;
             tekst += `\r\nUsposobienie: ${k.usposobienie.nazwa}\r\n`;
             if (k.usposobienie.opis) tekst += `${k.usposobienie.opis}\r\n`;
+            tekst += `\r\nBóstwo: ${k.boztwo || 'Brak'}\r\n`;
             if (k.cechaNegatywna) tekst += `\r\nCecha negatywna: ${k.cechaNegatywna}\r\n`;
             tekst += `\r\nZa co skazano: ${k.skazanoZa || 'Brak informacji'}\r\n`;
             tekst += `\r\n=====================================\r\nWygenerowano w systemie Heldamar\r\n`;
@@ -893,6 +948,7 @@ const historieKast = {
                         { name: "Kasta", value: `**${k.kasta.nazwa}**` + (k.kasta.opis ? `\n*${k.kasta.opis}*` : ""), inline: false },
                         { name: "Historia", value: `**${k.historia.nazwa}**` + (k.historia.opis ? `\n*${k.historia.opis}*` : ""), inline: false },
                         { name: "Wykształcenie", value: `**${k.wyksztalcenie.nazwa}**` + (k.wyksztalcenie.opis ? `\n*${k.wyksztalcenie.opis}*` : ""), inline: false },
+                        { name: "Bóstwo", value: k.boztwo || "Brak", inline: false },
                         { name: "Usposobienie", value: `**${k.usposobienie.nazwa}**` + (k.usposobienie.opis ? `\n*${k.usposobienie.opis}*` : ""), inline: false },
                         { name: "Cecha negatywna", value: k.cechaNegatywna || "Brak", inline: false },
                         { name: "Za co skazano", value: k.skazanoZa || "Nie podano", inline: false }
@@ -915,6 +971,9 @@ const historieKast = {
                     document.getElementById("reczne-imie").value = "";
                     document.getElementById("wlasne-imie").value = "";
                     document.getElementById("losuj-imie").value = "";
+                    document.getElementById("losuj-boztwo").value = "";
+                    document.getElementById("reczne-boztwo").value = "";
+                    document.getElementById("wlasne-boztwo").value = "";
                     document.getElementById("losuj-discord").value = "";
                     document.getElementById("wlasne-historia").value = "";
                     document.getElementById("wlasne-wyksztalcenie").value = "";
