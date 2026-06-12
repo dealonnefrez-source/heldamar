@@ -5,12 +5,14 @@
     <title>Heldamar - Generator Kart Postaci</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; background-image: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 22%), radial-gradient(circle at bottom right, rgba(255,255,255,0.025), transparent 18%), linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.01) 100%), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: auto, auto, auto, 24px 24px, 24px 24px; background-position: center center, center center, center center, 0 0, 0 0; color: #eaeaea; text-align: center; padding: 40px; display: flex; flex-direction: column; min-height: 100vh; margin: 0; overflow-x: hidden; }
-        .logo-heldamar { color: #c97a00; font-size: 48px; letter-spacing: 5px; margin: 40px 0 0 0; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .logo-heldamar { color: #c97a00; font-size: 48px; letter-spacing: 5px; margin: 40px 0 0 0; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); position: relative; }
+        .logo-heldamar::after { content: ""; position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); width: 220px; height: 2px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.85), transparent); box-shadow: 0 0 16px rgba(201,122,0,0.25); }
         h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; }
 
-        .przyciski-lewe { position: fixed; top: 360px; left: 20px; display: flex; flex-direction: column; gap: 16px; z-index: 1000; }
-        .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #444; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 8px; color: white; border: none; cursor: pointer; transition: 0.2s; font-weight: bold; text-align: left; }
-        .przyciski-lewe .przycisk-boczny:hover { background-color: #555; transform: scale(1.03); }
+        .przyciski-lewe { position: fixed; top: 20px; left: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); border: 1px solid #444; border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 14px 40px rgba(0,0,0,0.45); z-index: 1000; position: fixed; }
+        .przyciski-lewe::before { content: "KP MENU"; position: absolute; top: -12px; left: 16px; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+        .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #3b3b3b; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 10px; color: white; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: 0.2s; font-weight: bold; text-align: center; min-width: 140px; }
+        .przyciski-lewe .przycisk-boczny:hover { background-color: #575757; transform: translateY(-1px); }
 
         .info-lewe { position: fixed; bottom: 20px; left: 20px; width: 320px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
         .info-lewe h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
@@ -115,24 +117,13 @@
         <h3>Generator Imion</h3>
         <label for="generator-pochodzenie">Wybierz pochodzenie</label>
         <select id="generator-pochodzenie"></select>
+        <label for="generator-plec">Wybierz płeć imion</label>
+        <select id="generator-plec">
+            <option value="m">Męskie</option>
+            <option value="f">Żeńskie</option>
+        </select>
         <button type="button" onclick="generujImiona()">Generuj 10 imion</button>
         <div id="generator-wyniki" class="lista-imion"></div>
-    </div>
-
-    <div id="modal-wyslij" class="modal-overlay" onclick="if(event.target===this) closeSendModal()">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeSendModal()">✖</button>
-            <h3>Wyślij wybraną postać</h3>
-            <p>Podaj imię postaci i swój nick Discord, aby wysłać kartę w jednym kroku.</p>
-            <label for="modal-imie">Imię postaci</label>
-            <input id="modal-imie" type="text" placeholder="np. Kaela" autocomplete="off">
-            <label for="modal-discord">Nick Discord</label>
-            <input id="modal-discord" type="text" placeholder="np. MójNick#1234" autocomplete="off">
-            <div class="modal-actions">
-                <button type="button" class="modal-cancel" onclick="closeSendModal()">Anuluj</button>
-                <button type="button" class="modal-confirm" onclick="confirmSendCard()">Wyślij</button>
-            </div>
-        </div>
     </div>
 
     <div class="przyciski-lewe">
@@ -330,43 +321,56 @@
 
         const nazwyRegionow = {
             western: {
-                first: ["Alaric","Cassian","Lucan","Mara","Sabina","Julian","Livia","Tiber","Serena","Marius"],
-                last: ["Aquil","Nemar","Brynn","Korin","Valen","Torrin","Marin","Dorin","Levan","Hadrian"]
+                first: ["Alaric","Cassian","Lucan","Mara","Sabina","Julian","Livia","Tiber","Serena","Marius","Celia","Faelan","Lucia","Marcell","Sylva","Toma","Vesta","Galen","Elara","Quintus","Nerina","Riona","Faustus","Delia","Orin","Camilla","Justus","Daria","Silas","Mirena","Cyrus","Talia","Varen","Luca","Faust","Anara","Joren","Lenora","Corvin","Maela","Torin"],
+                last: ["Aquil","Nemar","Brynn","Korin","Valen","Torrin","Marin","Dorin","Levan","Hadrian","Celian","Rael","Serran","Bastian","Alden","Corin","Darius","Lorin","Maelis","Varric","Feran","Garren","Lareth","Nestor","Peregrin","Rowen","Silvas","Tavian","Ulric","Vander","Wren","Aldric","Kelden","Marlo","Roan","Senna","Tarin","Brycel","Dalen"]
             },
             stygia: {
-                first: ["Nefert","Seth","Taha","Ramses","Zahara","Meri","Amon","Khemet","Bast","Nefru"],
-                last: ["Kemet","Khafra","Seti","Horus","Anpu","Bastet","Nefer","Ramses","Sobek","Amon" ]
+                first: ["Nefert","Seth","Taha","Ramses","Zahara","Meri","Khemet","Bast","Nefru","Imhotep","Shari","Amen","Maat","Thara","Isis","Hapu","Namu","Senu","Pekka","Aset","Deren","Senet","Keris","Tanis","Amani","Kiya","Zena","Menka","Riya","Sethe","Ankha","Petra","Sahra","Abar","Dajia","Lemaa","Meret","Tahira","Simia","Beket"],
+                last: ["Kemet","Khafra","Seti","Horus","Anpu","Bastet","Nefer","Sobek","Menes","Imset","Horem","Khufu","Nubet","Seket","Tilak","Rahit","Saren","Mafra","Tuban","Meri","Ptolema","Safet","Barqet","Kirsh","Namis","Amunet","Djehuti","Sekhet","Tefen","Rahet","Nebet","Sahra","Isket","Anakh","Khetef","Mernet","Uarit","Senen"]
             },
             shem: {
-                first: ["Joram","Amal","Kelad","Basim","Nair","Selim","Rashid","Yara","Tala","Nahla"],
-                last: ["Harad","Rashid","Sabir","Basim","Nabil","Zahir","Karim","Rami","Mazin","Nasir" ]
+                first: ["Joram","Amal","Kelad","Basim","Nair","Selim","Rashid","Yara","Tala","Nahla","Rehan","Farid","Lamia","Samir","Anisa","Basil","Nadia","Rumi","Salim","Zara","Karim","Tahira","Nizar","Layla","Hadi","Amira","Zaleh","Rafi","Samara","Naim","Amina","Aziza","Kamal","Lina","Jasmin","Hassan","Noura","Razan","Faiz","Malik"],
+                last: ["Harad","Rashid","Sabir","Nabil","Zahir","Karim","Rami","Mazin","Nasir","Faris","Kadir","Malik","Yazid","Hafiz","Tariq","Kamir","Jahir","Azim","Sari","Nasim","Zamir","Qadir","Rashad","Khalid","Latif","Majid","Sahim","Zaman","Amjad","Fazan","Hadi","Jamil","Nadeem","Saif","Zafir","Rayan","Habib","Nayel","Javed"]
             },
             northern: {
-                first: ["Bjorn","Hakon","Erik","Astrid","Freya","Sven","Inga","Runa","Gunnar","Sigrid"],
-                last: ["Bjornson","Haldor","Sten","Frost","Iron","Storm","Leifson","Ulfsson","Mork","Thorin" ]
+                firstMale: ["Bjorn","Hakon","Erik","Sven","Gunnar","Eirik","Alrik","Kjell","Ragnar","Odin","Brynjar","Ivar","Leif","Torvald","Sigurd","Birger","Frode","Thorsten","Viggo","Hjalmar","Arnesson","Olafsson","Haraldson","Magnusson","Ragnarson","Anund","Hjalmerson","Thorvaldson","Njalsson","Gunnarson","Stark","Vigfus"],
+                firstFemale: ["Astrid","Freya","Inga","Runa","Sigrid","Solveig","Hedda","Thora","Lotta","Hilda","Eira","Sigrun","Helga","Yrsa","Kari","Siri","Gudrun","Ingrid","Runa","Hilda","Astrid","Leifsdottir","Eiriksdottir","Sigridsson","Estrid","Eydis"],
+                last: ["Bjornson","Haldor","Sten","Frost","Iron","Storm","Leifson","Ulfsson","Mork","Thorin","Raven","Skald","Berg","Hrafn","Valko","Njal","Gudrun","Svenn","Torg","Hjalmar","Arnesson","Eiriksdottir","Olafsson","Haraldson","Magnusson","Ragnarson","Anund","Leifsdottir","Viggo","Eydis","Hjalmerson","Thorvaldson","Njalsson","Sigridsson","Fjorn","Estrid","Gunnarson","Stark","Vigfus"]
             },
             zingara: {
-                first: ["Mira","Dario","Luca","Elena","Rafi","Sofia","Nico","Alina","Pasco","Vera"],
-                last: ["Marin","Rosse","Valen","Canto","Delmar","Vento","Nero","Mori","Sera","Lucan" ]
+                firstMale: ["Dario","Luca","Rafi","Nico","Pasco","Bruno","Renzo","Toma","Ciro","Marco","Jani","Rico","Vero","Enzo"],
+                firstFemale: ["Mira","Elena","Sofia","Alina","Vera","Isla","Rocio","Lea","Gina","Elisa","Maya","Lena","Nina","Carmen","Sera","Liora","Tova","Mina","Aria","Rosa","Fiora","Mira","Luna"],
+                last: ["Marin","Rosse","Valen","Canto","Delmar","Vento","Nero","Mori","Sera","Lucan","Fiore","Rocco","Luca","Amara","Seren","Rialto","Vivaan","Nerea","Gioia","Palmi","Torin","Dalle","Solin","Marro","Vento","Rossi","Cielo","Canio","Larco","Marec","Delia","Serro","Fanti","Bello","Rivello","Neri","Orino","Sarina","Zorie","Camio"]
             },
             eastern: {
-                first: ["Rajah","Kalan","Mina","Saira","Devan","Anika","Rav","Laila","Zafir","Chandra"],
-                last: ["Kesh","Khaji","Vendh","Turan","Khara","Rajit","Azar","Niraj","Chand","Salim" ]
+                firstMale: ["Rajah","Kalan","Devan","Rav","Zafir","Ishar","Kiran","Amir","Sohan","Jahan","Naveen","Sami","Ayaan","Navin","Kavi","Soren"],
+                firstFemale: ["Mina","Saira","Anika","Laila","Chandra","Priya","Nila","Leela","Rhea","Mila","Asha","Riya","Tara","Indira","Leena","Rina","Farah","Iman","Veda","Saura","Kia","Yara"],
+                last: ["Kesh","Khaji","Vendh","Turan","Khara","Rajit","Azar","Niraj","Chand","Salim","Arun","Devak","Rajan","Zanan","Amaya","Kabir","Sahir","Lian","Tarek","Bijan","Nayan","Rashid","Jafar","Amir","Selim","Zubin","Tariq","Jahan","Naresh","Rahim","Ayaan","Rajan","Dassan","Haris","Samad","Miraj","Navid","Faris","Rahul"]
             },
             default: {
-                first: ["Aran","Talia","Eldon","Mira","Soren","Lina","Doran","Kira","Hale","Nara"],
-                last: ["Rowan","Vale","Kerr","Thorn","Maris","Quinn","Graye","Fen","Alden","Reeve" ]
+                firstMale: ["Aran","Eldon","Doran","Hale","Bran","Joren","Thane","Cael","Fen","Ari","Kalen","Rion","Corin","Arius","Melan","Zeph","Darien"],
+                firstFemale: ["Talia","Mira","Lina","Kira","Nara","Edda","Elia","Rhea","Nira","Syla","Lysa","Nessa","Lira","Elda","Tael","Maren","Seren","Liora","Zara","Thera","Vira","Jessa","Bryn"],
+                last: ["Rowan","Vale","Kerr","Thorn","Maris","Quinn","Graye","Fen","Alden","Reeve","Bram","Alder","Rowe","Dale","Wynn","Rook","Hale","Glen","Kade","Nyle","Ashby","Bramwell","Cairn","Dorn","Elden","Falk","Greer","Hart","Lorne","Merrin","North","Perrin","Radley","Soren","Thorne","Vale","Winthrop","Yarrow","Zeph","Darien"]
             }
         };
 
-        function pobierzZestawImion(region) {
+        function pobierzZestawImion(region, plec) {
             const name = region.toLowerCase();
-            if (/hyperborea|nordheim|cymmeria/.test(name)) return nazwyRegionow.northern;
-            if (/stygia|khauran|zembabwei|punt|iranistan|ghulistan|darfar|turan|kush|koth|ophir/.test(name)) return nazwyRegionow.stygia;
-            if (/shem|zamora|gunderlandia|nemedia|akwilonia|brythunia|królestwa graniczne|argos|korinthia/.test(name)) return nazwyRegionow.shem;
-            if (/zingara/.test(name)) return nazwyRegionow.zingara;
-            if (/keshan|khoradża|khitaj|vendhya|hyrkania/.test(name)) return nazwyRegionow.eastern;
-            return nazwyRegionow.default;
+            let zestaw;
+            if (/hyperborea|nordheim|cymmeria/.test(name)) zestaw = nazwyRegionow.northern;
+            else if (/stygia|khauran|zembabwei|punt|iranistan|ghulistan|darfar|turan|kush|koth|ophir/.test(name)) zestaw = nazwyRegionow.stygia;
+            else if (/shem|zamora|gunderlandia|nemedia|akwilonia|brythunia|królestwa graniczne|argos|korinthia/.test(name)) zestaw = nazwyRegionow.shem;
+            else if (/zingara/.test(name)) zestaw = nazwyRegionow.zingara;
+            else if (/keshan|khoradża|khitaj|vendhya|hyrkania/.test(name)) zestaw = nazwyRegionow.eastern;
+            else zestaw = nazwyRegionow.default;
+
+            if (plec === 'f' && zestaw.firstFemale) {
+                return { first: zestaw.firstFemale, last: zestaw.last };
+            }
+            if (plec === 'm' && zestaw.firstMale) {
+                return { first: zestaw.firstMale, last: zestaw.last };
+            }
+            return { first: zestaw.first || [...(zestaw.firstMale || []), ...(zestaw.firstFemale || [])], last: zestaw.last };
         }
 
         function losujImieNazwisko(zestaw) {
@@ -375,21 +379,36 @@
             return `${first} ${last}`;
         }
 
+        function losujUnikalneImiona(zestaw, ile) {
+            const firstCopy = [...zestaw.first];
+            const lastCopy = [...zestaw.last];
+            const wynik = [];
+
+            for (let i = 0; i < ile && firstCopy.length && lastCopy.length; i++) {
+                const firstIndex = Math.floor(Math.random() * firstCopy.length);
+                const lastIndex = Math.floor(Math.random() * lastCopy.length);
+                const first = firstCopy.splice(firstIndex, 1)[0];
+                const last = lastCopy.splice(lastIndex, 1)[0];
+                wynik.push(`${first} ${last}`);
+            }
+
+            while (wynik.length < ile) {
+                const name = losujImieNazwisko(zestaw);
+                if (!wynik.includes(name)) wynik.push(name);
+            }
+
+            return wynik;
+        }
+
         function generujImiona() {
             const index = document.getElementById('generator-pochodzenie').value;
+            const plec = document.getElementById('generator-plec').value;
             const region = pochodzenia[index]?.kraina || 'nieznany region';
-            const zestaw = pobierzZestawImion(region);
-            const wygenerowane = [];
-            const seen = new Set();
-            while (wygenerowane.length < 10) {
-                const name = losujImieNazwisko(zestaw);
-                if (!seen.has(name)) {
-                    seen.add(name);
-                    wygenerowane.push(name);
-                }
-            }
+            const zestaw = pobierzZestawImion(region, plec);
+            const wygenerowane = losujUnikalneImiona(zestaw, 10);
+            const genderLabel = plec === 'f' ? 'żeńskie' : 'męskie';
             document.getElementById('generator-wyniki').innerHTML = `
-                <div><strong>Imiona dla ${region}:</strong></div>
+                <div><strong>${genderLabel.charAt(0).toUpperCase() + genderLabel.slice(1)} imiona dla ${region}:</strong></div>
                 <ol>${wygenerowane.map(n => `<li>${n}</li>`).join('')}</ol>
             `;
         }
@@ -708,7 +727,11 @@ const historieKast = {
 
             const wygladKarty = `
                 <div class="karta flat">
-                    <button class="btn-wybierz-karte" style="margin-bottom: 20px;" onclick="generujKarte()">Losuj</button>
+                    <label>Twój nick na Discordzie:</label>
+                    <input type="text" id="losuj-discord" placeholder="np. MójNick#1234">
+                    <label>Imię postaci:</label>
+                    <input type="text" id="losuj-imie" placeholder="Wpisz imię...">
+                    <button class="btn-wybierz-karte" style="margin: 20px 0 20px;" onclick="generujKarte()">Losuj</button>
                     <p><strong>Pochodzenie:</strong> ${wynikPochodzenie.kraina} - 
                         <span class="tooltip">${wynikPochodzenie.cecha}
                             <span class="tooltiptext">${wynikPochodzenie.opis}</span>
@@ -732,7 +755,7 @@ const historieKast = {
                     <p><strong>Cecha negatywna:</strong> ${wynikCechaNegatywna}</p>
                     <p><strong>Za co skazano:</strong><br>${wynikSkazanoZa.map(s => `&ndash; ${s}`).join('<br>')}</p>
 
-                    <button class="btn-wybierz-karte" onclick="wybierzKartaLosowa(0)">Wybierz i Wyślij</button>
+                    <button class="btn-wyslij" onclick="wyslijWylosowanaKarte()">Wyślij</button>
                 </div>
             `;
             
@@ -746,35 +769,20 @@ const historieKast = {
         // GŁÓWNA FUNKCJA WYSYŁAJĄCA + ZBIERANIE DANYCH
         // ==========================================
 
-        let wysylanaKartaIndex = null;
+        function wyslijWylosowanaKarte() {
+            const imie = document.getElementById('losuj-imie').value.trim();
+            const discordNick = document.getElementById('losuj-discord').value.trim();
 
-        function wybierzKartaLosowa(indeks) {
-            wysylanaKartaIndex = indeks;
-            document.getElementById('modal-imie').value = '';
-            document.getElementById('modal-discord').value = '';
-            document.getElementById('modal-wyslij').classList.add('active');
-        }
-
-        function closeSendModal() {
-            document.getElementById('modal-wyslij').classList.remove('active');
-        }
-
-        function confirmSendCard() {
-            const imie = document.getElementById('modal-imie').value.trim();
-            const discordNick = document.getElementById('modal-discord').value.trim();
-            if (!imie) {
-                alert('Wpisz imię swojej postaci.');
+            if (!imie || !discordNick) {
+                alert('Wypełnij pole imię postaci oraz nick Discord, aby wysłać kartę.');
                 return;
             }
-            if (!discordNick) {
-                alert('Wpisz swój nick na Discordzie.');
+            if (!aktualneKarty.length) {
+                alert('Najpierw wylosuj postać, aby móc ją wysłać.');
                 return;
             }
 
-            const skazanoZa = losujSkazania(3).join(', ');
-            const karta = { ...aktualneKarty[wysylanaKartaIndex], skazanoZa };
-            closeSendModal();
-            zapiszIWyslij(discordNick, imie, karta);
+            zapiszIWyslij(discordNick, imie, aktualneKarty[0]);
         }
 
         function wyslijZPaneluWyboru() {
@@ -906,13 +914,14 @@ const historieKast = {
                     
                     document.getElementById("reczne-imie").value = "";
                     document.getElementById("wlasne-imie").value = "";
+                    document.getElementById("losuj-imie").value = "";
+                    document.getElementById("losuj-discord").value = "";
                     document.getElementById("wlasne-historia").value = "";
                     document.getElementById("wlasne-wyksztalcenie").value = "";
                     document.getElementById("wlasne-usposobienie").value = "";
                     
                     document.getElementById("panel-wlasny").classList.remove("otwarty");
-                    document.getElementById("panel-reczny").classList.remove("otwarty");
-                } else {
+                    document.getElementById("panel-reczny").classList.remove("otwarty");                    document.getElementById("panel-losuj").classList.remove("otwarta");                } else {
                     alert("Wystąpił błąd API! Karta została pobrana na dysk, ale Discord odrzucił wiadomość.");
                 }
             } catch (error) {
