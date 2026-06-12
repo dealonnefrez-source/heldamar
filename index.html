@@ -76,6 +76,12 @@
         .sekcja-nagrod { margin-top: 30px; margin-bottom: 10px; padding: 15px; border: 1px solid #444; border-radius: 6px; background-color: #1a1a1a; color: #ccc; font-size: 13px; line-height: 1.5; border-left: 3px solid #c97a00; }
         .sekcja-nagrod b { color: #c97a00; display: block; margin-bottom: 8px; font-size: 14px; }
 
+        .tabela-sap { width: 100%; border-collapse: collapse; margin-top: 14px; background: #101010; border: 1px solid #333; border-radius: 14px; overflow: hidden; }
+        .tabela-sap th, .tabela-sap td { padding: 14px 16px; }
+        .tabela-sap th { background: #111; color: #e6b85a; text-align: left; font-size: 14px; font-weight: 700; }
+        .tabela-sap td { background: #0f0f0f; color: #d3d3d3; font-size: 14px; line-height: 1.6; }
+        .tabela-sap tr:not(:last-child) td { border-bottom: 1px solid #222; }
+
         .panel-boczny .btn-wyslij { width: 100%; margin-top: 20px; margin-bottom: 20px; font-size: 16px; background-color: #c97a00; color: white; border: none; padding: 15px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .panel-boczny .btn-wyslij:hover { background-color: #e68d00; }
 
@@ -803,8 +809,16 @@ const historieKast = {
                             ${wynikSkazanoZa.map(s => `<div class="skazanie-item">${s}</div>`).join('')}
                         </div>
                     </div>
+                    <div class="skazania-sekcja">
+                        <div class="skazania-naglowek"><strong>Nagroda SAP:</strong></div>
+                        <table class="tabela-sap">
+                            <tr>
+                                <td>Gracz z wylosowaną postacią otrzymuje na start 5 SAP. Dodatkowo za każdym razem, otrzymywane pkt SAP są podwajane. Wynika to z trudności grania taką postacią.</td>
+                            </tr>
+                        </table>
+                    </div>
 
-                    <button class="btn-wyslij" onclick="wyslijWylosowanaKarte()">Wyślij</button>
+                    <button class="btn-wyslij" onclick="wyslijWylosowanaKarte()">Zapisz i Wyślij na Discord</button>
                 </div>
             `;
             
