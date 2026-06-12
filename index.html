@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Heldamar - Generator Kart Postaci</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #eaeaea;
+            text-align: center;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+            margin: 0;
+            overflow-x: hidden; 
+        }
+
+        .logo-heldamar {
+            color: #c97a00;
+            font-size: 48px;
+            letter-spacing: 5px;
+            margin-bottom: 0;
+            margin-top: 40px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            margin-top: 10px;
+            margin-bottom: 30px;
+            color: #aaa;
+            font-weight: normal;
+        }
+
+        .przyciski-top {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-sizing: border-box;
+            z-index: 900;
+            pointer-events: none; 
+        }
+
+        .przycisk-boczny {
+            pointer-events: auto; 
+            background-color: #444;
+            padding: 10px 20px;
+            font-size: 14px;
+            margin-bottom: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+            border-radius: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+
+        .przycisk-boczny:hover { background-color: #555; transform: scale(1.05); }
+
+        button.btn-glowny {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #c97a00; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            transition: 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        button.btn-glowny:hover { background-color: #e68d00; transform: scale(1.02); }
+
+        .panel-boczny {
+            position: fixed;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background-color: #222;
+            box-shadow: 0 0 20px rgba(0,0,0,0.9);
+            z-index: 1000;
+            transition: 0.3s ease-in-out;
+            overflow-y: auto;
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        #panel-reczny { right: -450px; border-left: 2px solid #c97a00; }
+        #panel-reczny.otwarty { right: 0; }
+        #panel-wlasny { left: -450px; border-right: 2px solid #c97a00; }
+        #panel-wlasny.otwarty { left: 0; }
+
+        .zamknij-panel {
+            background: none;
+            color: #aaa;
+            border: none;
+            font-size: 24px;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            cursor: pointer;
+            box-shadow: none;
+            padding: 0;
+            margin: 0;
+        }
+        .zamknij-panel:hover { color: white; transform: scale(1.1); }
+
+        .panel-boczny h3 {
+            color: #c97a00;
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .panel-boczny label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            color: #ccc;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .panel-boczny input, .panel-boczny select, .panel-boczny textarea {
+            width: 100%;
+            background-color: #151515;
+            color: #eaeaea;
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .panel-boczny textarea { resize: vertical; min-height: 80px; }
+
+        .panel-boczny input:focus, .panel-boczny select:focus, .panel-boczny textarea:focus {
+            outline: none;
+            border-color: #c97a00;
+        }
+
+        .opis-wyboru {
+            font-size: 12px;
+            color: #999;
+            font-style: italic;
+            margin-top: 8px;
+            margin-bottom: 5px;
+            padding: 8px 10px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            border-left: 3px solid #555;
+            line-height: 1.4;
+        }
+
+        .panel-boczny .btn-wyslij {
+            width: 100%;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            background-color: #c97a00;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .panel-boczny .btn-wyslij:hover { background-color: #e68d00; }
+
+        .pojemnik-na-karty {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; 
+            flex-grow: 1; 
+        }
+
+        .karta {
+            background-color: #2a2a2a;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            width: 380px; 
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .karta h3 {
+            margin-top: 0;
+            color: #c97a00;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        .karta p { margin: 10px 0; line-height: 1.4; }
+
+        .opis-cechy {
+            font-size: 14px;
+            font-style: italic;
+            color: #bbb;
+            margin-top: 5px !important;
+            margin-bottom: 15px !important;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #444;
+        }
+
+        .btn-wybierz-karte {
+            margin-top: auto; 
+            margin-bottom: 0;
+            background-color: #444;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-wybierz-karte:hover { background-color: #555; }
+
+        .stopka-zespolu {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1.8;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            border-bottom: 1px dotted #c97a00;
+            color: #c97a00;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 280px;
+            background-color: #111;
+            color: #eee;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            border: 1px solid #c97a00;
+            font-size: 12px;
+            font-style: normal;
+            line-height: 1.4;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; 
+            left: 50%;
+            margin-left: -140px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
+
+        .blok-oceny {
+            margin-top: 28px;
+            padding: 16px 18px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-left: 3px solid #c97a00;
+            border-radius: 6px;
+            color: #ddd;
+        }
+        .blok-oceny h4 { margin: 0 0 10px 0; color: #c97a00; font-size: 18px; }
+        .blok-oceny p { margin: 0 0 10px 0; color: #ccc; }
+        .blok-oceny ul { margin: 0; padding-left: 18px; }
+
+        @media (max-width: 480px) {
+            .panel-boczny { width: 100vw; padding: 20px; }
+            #panel-wlasny { left: -100vw; }
+            #panel-wlasny.otwarty { left: 0; }
+            #panel-reczny { right: -100vw; }
+            #panel-reczny.otwarty { right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="przyciski-top">
+        <button class="przycisk-boczny" onclick="togglePanelWlasny()">📝 Napisz KP od zera</button>
+        <button class="przycisk-boczny" onclick="togglePanelWybierany()">⚙️ Skomponuj KP z listy</button>
+    </div>
+
+    <h1 class="logo-heldamar">HELDAMAR</h1>
+    <h2>Wybór Przeznaczenia</h2>
+    
+    <div>
+        <button class="btn-glowny" onclick="generujKarte()">Wylosuj postać</button>
+    </div>
+
+    <div id="miejsce-na-karty" class="pojemnik-na-karty"></div>
+
+    <div class="stopka-zespolu">
+        Stworzone przez zespół Heldamar<br>
+        Na podstawie podręcznika Conan: Przygody w Erze Niewyśnionej
+    </div>
+
+    <!-- LEWY PANEL -->
+    <div id="panel-wlasny" class="panel-boczny">
+        <button class="zamknij-panel" onclick="togglePanelWlasny()">✖</button>
+        <h3>Napisz KP od zera</h3>
+        
+        <label>Twój nick na Discordzie:</label>
+        <input type="text" id="wlasne-discord" placeholder="np. MójNick#1234">
+
+        <label>Imię postaci:</label>
+        <input type="text" id="wlasne-imie" placeholder="Wpisz imię...">
+
+        <label>Pochodzenie:</label>
+        <select id="wlasne-pochodzenie" onchange="aktualizujOpisWlasnePochodzenie()"></select>
+        <div id="opis-wlasne-pochodzenie" class="opis-wyboru"></div>
+
+        <label>Archetyp:</label>
+        <select id="wlasne-archetyp" onchange="aktualizujOpisWlasnyArchetyp()"></select>
+        <div id="opis-wlasne-archetyp" class="opis-wyboru"></div>
+
+        <label>Kasta:</label>
+        <select id="wlasne-kasta" onchange="aktualizujOpisWlasnaKasta()"></select>
+        <div id="opis-wlasne-kasta" class="opis-wyboru"></div>
+
+        <label>Historia kasty (Tytuł i/lub krótki opis):</label>
+        <textarea id="wlasne-historia" placeholder="Opisz w kilku zdaniach historię..."></textarea>
+
+        <label>Wykształcenie:</label>
+        <input type="text" id="wlasne-wyksztalcenie" placeholder="np. Nauki na polu bitwy">
+
+        <label>Usposobienie:</label>
+        <input type="text" id="wlasne-usposobienie" placeholder="np. Praktyczne, Mściwe">
+
+        <button class="btn-wyslij" onclick="wyslijWlasnaKarte()">Zapisz i Wyślij na Discord</button>
+
+        <div class="blok-oceny">
+            <h4>Ocena Karty przez MG</h4>
+            <p>Twoja Karta Postaci zostanie rozpatrzona i oceniona przez Mistrza Gry. W zależności od jakości i spójności fabularnej możesz otrzymać nagrody:</p>
+            <ul>
+                <li><strong>Poziom 1 — Dobra Karta:</strong> 5 pkt SAP</li>
+                <li><strong>Poziom 2 — Wspaniała Karta:</strong> 5 pkt SAP i 2 Mapy Skarbów</li>
+                <li><strong>Poziom 3 — Mistrzowska Karta:</strong> 10 pkt SAP i 3 Mapy Skarbów</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PRAWY PANEL -->
+    <div id="panel-reczny" class="panel-boczny">
+        <button class="zamknij-panel" onclick="togglePanelWybierany()">✖</button>
+        <h3>Skomponuj KP</h3>
+        
+        <label>Twój nick na Discordzie:</label>
+        <input type="text" id="reczne-discord" placeholder="np. MójNick#1234">
+
+        <label>Imię postaci:</label>
+        <input type="text" id="reczne-imie" placeholder="Wpisz imię...">
+
+        <label>Pochodzenie:</label>
+        <select id="reczne-pochodzenie" onchange="aktualizujOpisPochodzenia()"></select>
+        <div id="opis-reczne-pochodzenie" class="opis-wyboru"></div>
+
+        <label>Archetyp:</label>
+        <select id="reczne-archetyp" onchange="aktualizujOpisArchetypu()"></select>
+        <div id="opis-reczne-archetyp" class="opis-wyboru"></div>
+
+        <label>Kasta:</label>
+        <select id="reczne-kasta" onchange="aktualizujKasteIHistorie()"></select>
+        <div id="opis-reczne-kasta" class="opis-wyboru"></div>
+
+        <label>Historia kasty:</label>
+        <select id="reczne-historia" onchange="aktualizujOpisHistorii()"></select>
+        <div id="opis-reczne-historia" class="opis-wyboru"></div>
+
+        <label>Wykształcenie:</label>
+        <select id="reczne-wyksztalcenie" onchange="aktualizujOpisWyksztalcenia()"></select>
+        <div id="opis-reczne-wyksztalcenie" class="opis-wyboru"></div>
+
+        <label>Usposobienie:</label>
+        <select id="reczne-usposobienie" onchange="aktualizujOpisUsposobienia()"></select>
+        <div id="opis-reczne-usposobienie" class="opis-wyboru"></div>
+
+        <button class="btn-wyslij" onclick="wyslijZPaneluWyboru()">Zapisz i Wyślij na Discord</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
