@@ -4,321 +4,139 @@
     <meta charset="UTF-8">
     <title>Heldamar - Generator Kart Postaci</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #eaeaea;
-            text-align: center;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            min-height: 90vh;
-            margin: 0;
-            overflow-x: hidden; 
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; background-image: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 22%), radial-gradient(circle at bottom right, rgba(255,255,255,0.025), transparent 18%), linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.01) 100%), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: auto, auto, auto, 24px 24px, 24px 24px; background-position: center center, center center, center center, 0 0, 0 0; color: #eaeaea; text-align: center; padding: 40px; display: flex; flex-direction: column; min-height: 100vh; margin: 0; overflow-x: hidden; }
+        .logo-heldamar { color: #c97a00; font-size: 48px; letter-spacing: 5px; margin: 40px 0 0 0; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; }
 
-        .logo-heldamar {
-            color: #c97a00;
-            font-size: 48px;
-            letter-spacing: 5px;
-            margin-bottom: 0;
-            margin-top: 40px;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
+        .przyciski-lewe { position: fixed; top: 360px; left: 20px; display: flex; flex-direction: column; gap: 16px; z-index: 1000; }
+        .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #444; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 8px; color: white; border: none; cursor: pointer; transition: 0.2s; font-weight: bold; text-align: left; }
+        .przyciski-lewe .przycisk-boczny:hover { background-color: #555; transform: scale(1.03); }
 
-        h2 {
-            margin-top: 10px;
-            margin-bottom: 30px;
-            color: #aaa;
-            font-weight: normal;
-        }
+        .info-lewe { position: fixed; top: 360px; right: 20px; width: 320px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
+        .info-lewe h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
+        .info-lewe p { margin: 0 0 12px 0; color: #d3d3d3; line-height: 1.5; font-size: 14px; text-align: left; }
+        .info-lewe .info-kategoria { margin-bottom: 18px; }
+        .info-lewe .info-kategoria strong { display: block; color: #e6b85a; margin-bottom: 6px; }
+        .info-lewe .info-kategoria span { display: block; color: #bbb; font-size: 13px; line-height: 1.4; }
 
-        .przyciski-top {
-            position: fixed;
-            top: 20px;
-            width: 100%;
-            left: 0;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 30px;
-            box-sizing: border-box;
-            z-index: 900;
-            pointer-events: none; 
-        }
-
-        .przycisk-boczny {
-            pointer-events: auto; 
-            background-color: #444;
-            padding: 10px 20px;
-            font-size: 14px;
-            margin-bottom: 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-            border-radius: 5px;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: bold;
-        }
-
-        .przycisk-boczny:hover { background-color: #555; transform: scale(1.05); }
-
-        button.btn-glowny {
-            padding: 15px 30px;
-            font-size: 18px;
-            cursor: pointer;
-            background-color: #c97a00; 
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
+        button.btn-glowny { padding: 15px 30px; font-size: 18px; cursor: pointer; background-color: #c97a00; color: white; border: none; border-radius: 5px; font-weight: bold; margin-bottom: 40px; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
         button.btn-glowny:hover { background-color: #e68d00; transform: scale(1.02); }
 
-        .panel-boczny {
-            position: fixed;
-            top: 0;
-            width: 400px;
-            height: 100vh;
-            background-color: #222;
-            box-shadow: 0 0 20px rgba(0,0,0,0.9);
-            z-index: 1000;
-            transition: 0.3s ease-in-out;
-            overflow-y: auto;
-            padding: 30px;
-            box-sizing: border-box;
-            text-align: left;
-        }
+        .panel-boczny { display: none; position: relative; width: min(92vw, 760px); margin: 30px auto 40px; background-color: #222; box-shadow: 0 0 30px rgba(0,0,0,0.9); overflow-y: auto; padding: 30px; box-sizing: border-box; text-align: left; border-radius: 16px; }
+        .panel-boczny.otwarta { display: block; }
 
-        #panel-reczny { right: -450px; border-left: 2px solid #c97a00; }
-        #panel-reczny.otwarty { right: 0; }
-        #panel-wlasny { left: -450px; border-right: 2px solid #c97a00; }
-        #panel-wlasny.otwarty { left: 0; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(29, 29, 29, 0.82); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 2000; }
+        .modal-overlay.active { display: flex; }
+        .modal-card { width: min(500px, 95vw); background: rgba(48, 48, 48, 0.98); border: 1px solid rgba(27, 27, 27, 0.12); box-shadow: 0 32px 90px rgba(0,0,0,0.5); border-radius: 28px; padding: 28px 26px; position: relative; }
+        .modal-card h3 { margin-top: 0; color: #ffd88c; font-size: 1.6rem; text-align: left; letter-spacing: 0.04em; }
+        .modal-card p { margin: 10px 0 22px; color: #d1d6f7; line-height: 1.6; }
+        .modal-card label { display: block; margin-top: 18px; margin-bottom: 8px; color: #e6e8ff; font-weight: 700; font-size: 0.95rem; }
+        .modal-card input { width: 100%; background: rgba(40, 40, 40, 0.98); color: #eef2ff; border: 1px solid rgba(255,255,255,0.08); padding: 14px 16px; border-radius: 14px; font-size: 0.96rem; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+        .modal-card input:focus { outline: none; border-color: #f2b756; box-shadow: 0 0 0 4px rgba(242,183,86,0.12); }
+        .modal-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; justify-content: flex-end; }
+        .modal-actions button { min-width: 140px; padding: 14px 18px; border-radius: 18px; border: none; font-weight: 700; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .modal-actions .modal-confirm { background: linear-gradient(135deg, #e2aa3b 0%, #c97a00 100%); color: #11131b; }
+        .modal-actions .modal-confirm:hover { transform: translateY(-1px); box-shadow: 0 18px 36px rgba(201,122,0,0.25); }
+        .modal-actions .modal-cancel { background: rgba(255,255,255,0.06); color: #eef2ff; }
+        .modal-actions .modal-cancel:hover { background: rgba(255,255,255,0.1); }
+        .modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: #cdd3ef; font-size: 24px; cursor: pointer; transition: color 0.2s ease, transform 0.2s ease; }
+        .modal-close:hover { color: #fff; transform: scale(1.08); }
 
-        .zamknij-panel {
-            background: none;
-            color: #aaa;
-            border: none;
-            font-size: 24px;
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            cursor: pointer;
-            box-shadow: none;
-            padding: 0;
-            margin: 0;
-        }
+        .zamknij-panel { background: none; color: #aaa; border: none; font-size: 24px; position: absolute; top: 15px; right: 20px; cursor: pointer; }
         .zamknij-panel:hover { color: white; transform: scale(1.1); }
 
-        .panel-boczny h3 {
-            color: #c97a00;
-            margin-top: 0;
-            border-bottom: 1px solid #444;
-            padding-bottom: 15px;
-            text-align: center;
-            font-size: 22px;
-        }
-
-        .panel-boczny label {
-            display: block;
-            margin-top: 20px;
-            margin-bottom: 5px;
-            color: #ccc;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .panel-boczny input, .panel-boczny select, .panel-boczny textarea {
-            width: 100%;
-            background-color: #151515;
-            color: #eaeaea;
-            border: 1px solid #444;
-            padding: 10px;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
+        .panel-boczny h3 { color: #c97a00; margin-top: 0; border-bottom: 1px solid #444; padding-bottom: 15px; text-align: center; font-size: 22px; }
+        .panel-boczny label { display: block; margin-top: 20px; margin-bottom: 5px; color: #ccc; font-weight: bold; font-size: 14px; }
+        .panel-boczny input, .panel-boczny select, .panel-boczny textarea { width: 100%; background-color: #151515; color: #eaeaea; border: 1px solid #444; padding: 10px; border-radius: 4px; font-family: inherit; font-size: 14px; box-sizing: border-box; }
         .panel-boczny textarea { resize: vertical; min-height: 80px; }
+        .panel-boczny input:focus, .panel-boczny select:focus, .panel-boczny textarea:focus { outline: none; border-color: #c97a00; }
 
-        .panel-boczny input:focus, .panel-boczny select:focus, .panel-boczny textarea:focus {
-            outline: none;
-            border-color: #c97a00;
-        }
+        .opis-wyboru { font-size: 12px; color: #999; font-style: italic; margin-top: 8px; margin-bottom: 5px; padding: 8px 10px; background: #1a1a1a; border-radius: 4px; border-left: 3px solid #555; line-height: 1.4; }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        .tag { background: #333; border: 1px solid #555; padding: 6px 10px; border-radius: 999px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; }
+        .tag button { background: transparent; border: none; color: #c97a00; cursor: pointer; font-size: 14px; }
+        .tag button:hover { color: #e68d00; }
+        
+        .sekcja-nagrod { margin-top: 30px; margin-bottom: 10px; padding: 15px; border: 1px solid #444; border-radius: 6px; background-color: #1a1a1a; color: #ccc; font-size: 13px; line-height: 1.5; border-left: 3px solid #c97a00; }
+        .sekcja-nagrod b { color: #c97a00; display: block; margin-bottom: 8px; font-size: 14px; }
 
-        .opis-wyboru {
-            font-size: 12px;
-            color: #999;
-            font-style: italic;
-            margin-top: 8px;
-            margin-bottom: 5px;
-            padding: 8px 10px;
-            background: #1a1a1a;
-            border-radius: 4px;
-            border-left: 3px solid #555;
-            line-height: 1.4;
-        }
-
-        .panel-boczny .btn-wyslij {
-            width: 100%;
-            margin-top: 35px;
-            margin-bottom: 20px;
-            font-size: 16px;
-            background-color: #c97a00;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+        .panel-boczny .btn-wyslij { width: 100%; margin-top: 20px; margin-bottom: 20px; font-size: 16px; background-color: #c97a00; color: white; border: none; padding: 15px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .panel-boczny .btn-wyslij:hover { background-color: #e68d00; }
 
-        .pojemnik-na-karty {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap; 
-            flex-grow: 1; 
-        }
-
-        .karta {
-            background-color: #2a2a2a;
-            border: 2px solid #444;
-            border-radius: 8px;
-            padding: 20px;
-            width: 380px; 
-            text-align: left;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        .karta h3 {
-            margin-top: 0;
-            color: #c97a00;
-            border-bottom: 1px solid #444;
-            padding-bottom: 10px;
-            text-align: center;
-        }
+        .pojemnik-na-karty { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; flex-grow: 1; }
+        #losuj-zawartosc { display: flex; justify-content: center; }
+        .karta { background-color: #2a2a2a; border: 2px solid #444; border-radius: 8px; padding: 20px; width: 380px; text-align: left; box-shadow: 0 4px 8px rgba(0,0,0,0.5); margin-bottom: 20px; display: flex; flex-direction: column; }
+        .karta h3 { margin-top: 0; color: #c97a00; border-bottom: 1px solid #444; padding-bottom: 10px; text-align: center; }
         .karta p { margin: 10px 0; line-height: 1.4; }
+        .opis-cechy { font-size: 14px; font-style: italic; color: #bbb; margin-top: 5px !important; margin-bottom: 15px !important; padding-bottom: 10px; border-bottom: 1px dashed #444; }
 
-        .opis-cechy {
-            font-size: 14px;
-            font-style: italic;
-            color: #bbb;
-            margin-top: 5px !important;
-            margin-bottom: 15px !important;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #444;
-        }
-
-        .btn-wybierz-karte {
-            margin-top: auto; 
-            margin-bottom: 0;
-            background-color: #444;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+        .btn-wybierz-karte { margin-top: auto; margin-bottom: 0; background-color: #444; padding: 10px 20px; font-size: 16px; color: white; border: none; border-radius: 4px; cursor: pointer; transition: 0.2s; }
         .btn-wybierz-karte:hover { background-color: #555; }
+        .stopka-zespolu { margin-top: auto; padding-top: 20px; border-top: 1px solid #333; color: #666; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; line-height: 1.8; }
 
-        .stopka-zespolu {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            color: #666;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            line-height: 1.8;
-        }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-            border-bottom: 1px dotted #c97a00;
-            color: #c97a00;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 280px;
-            background-color: #111;
-            color: #eee;
-            text-align: center;
-            border-radius: 6px;
-            padding: 10px;
-            border: 1px solid #c97a00;
-            font-size: 12px;
-            font-style: normal;
-            line-height: 1.4;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%; 
-            left: 50%;
-            margin-left: -140px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
+        .tooltip { position: relative; display: inline-block; cursor: help; border-bottom: 1px dotted #c97a00; color: #c97a00; }
+        .tooltip .tooltiptext { visibility: hidden; width: 280px; background-color: #111; color: #eee; text-align: center; border-radius: 6px; padding: 10px; border: 1px solid #c97a00; font-size: 12px; font-style: normal; line-height: 1.4; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -140px; opacity: 0; transition: opacity 0.3s; }
         .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
-
-        .blok-oceny {
-            margin-top: 28px;
-            padding: 16px 18px;
-            background: #1a1a1a;
-            border: 1px solid #444;
-            border-left: 3px solid #c97a00;
-            border-radius: 6px;
-            color: #ddd;
-        }
-        .blok-oceny h4 { margin: 0 0 10px 0; color: #c97a00; font-size: 18px; }
-        .blok-oceny p { margin: 0 0 10px 0; color: #ccc; }
-        .blok-oceny ul { margin: 0; padding-left: 18px; }
-
-        @media (max-width: 480px) {
-            .panel-boczny { width: 100vw; padding: 20px; }
-            #panel-wlasny { left: -100vw; }
-            #panel-wlasny.otwarty { left: 0; }
-            #panel-reczny { right: -100vw; }
-            #panel-reczny.otwarty { right: 0; }
-        }
+        .linia-logo { width: min(92vw, 760px); margin: 0 auto 20px; border: none; border-top: 1px solid #444; }
+        .karta.flat { background: transparent; border: none; box-shadow: none; padding: 0; }
+        .karta.flat p { margin: 10px 0; }
+        .karta.flat .opis-cechy { margin-top: 5px !important; margin-bottom: 15px !important; padding-bottom: 10px; border-bottom: 1px dashed #444; }
     </style>
 </head>
 <body>
 
-    <div class="przyciski-top">
-        <button class="przycisk-boczny" onclick="togglePanelWlasny()">📝 Napisz KP od zera</button>
-        <button class="przycisk-boczny" onclick="togglePanelWybierany()">⚙️ Skomponuj KP z listy</button>
+    <div class="info-lewe">
+        <h3>Jak działają KP wyboru?</h3>
+        <div class="info-kategoria">
+            <strong>Napisz KP od zera</strong>
+            <span>Samodzielnie napisz KP jako jedyne; ta forma KP jest oceniana przez MG. Im lepsze KP, tym większa nagroda na start.</span>
+        </div>
+        <div class="info-kategoria">
+            <strong>Skomponuj KP z listy</strong>
+            <span>Jeśli nie masz pomysłu, a żadna postać z wylosowanych nie odpowiada, możesz skomponować postać po swojemu, używając gotowych wzorców.</span>
+        </div>
+        <div class="info-kategoria">
+            <strong>Wylosuj postać</strong>
+            <span>To najtrudniejsza forma KP. Gracz całkowicie podporządkowuje się woli przeznaczenia i deklaruje grę wylosowaną postacią. Taki gracz otrzymuje 5 SAP na start, a z czasem, gdy inni gracze dostają np. 1 SAP, ty dostajesz 2 punkty SAP.</span>
+        </div>
+    </div>
+
+    <div id="modal-wyslij" class="modal-overlay" onclick="if(event.target===this) closeSendModal()">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeSendModal()">✖</button>
+            <h3>Wyślij wybraną postać</h3>
+            <p>Podaj imię postaci i swój nick Discord, aby wysłać kartę w jednym kroku.</p>
+            <label for="modal-imie">Imię postaci</label>
+            <input id="modal-imie" type="text" placeholder="np. Kaela" autocomplete="off">
+            <label for="modal-discord">Nick Discord</label>
+            <input id="modal-discord" type="text" placeholder="np. MójNick#1234" autocomplete="off">
+            <div class="modal-actions">
+                <button type="button" class="modal-cancel" onclick="closeSendModal()">Anuluj</button>
+                <button type="button" class="modal-confirm" onclick="confirmSendCard()">Wyślij</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="przyciski-lewe">
+        <button class="przycisk-boczny" onclick="showPanel('panel-wlasny')">📝 Napisz KP od zera</button>
+        <button class="przycisk-boczny" onclick="showPanel('panel-reczny')">⚙️ Skomponuj KP z listy</button>
+        <button class="przycisk-boczny" onclick="generujKarte()">🎲 Wylosuj postać</button>
     </div>
 
     <h1 class="logo-heldamar">HELDAMAR</h1>
+    <hr class="linia-logo">
     <h2>Wybór Przeznaczenia</h2>
     
-    <div>
-        <button class="btn-glowny" onclick="generujKarte()">Wylosuj postać</button>
-    </div>
-
     <div id="miejsce-na-karty" class="pojemnik-na-karty"></div>
 
-    <div class="stopka-zespolu">
-        Stworzone przez zespół Heldamar<br>
-        Na podstawie podręcznika Conan: Przygody w Erze Niewyśnionej
+    <div id="panel-losuj" class="panel-boczny">
+        <button class="zamknij-panel" onclick="hidePanel('panel-losuj')">✖</button>
+        <h3>Wylosowana postać</h3>
+        <div id="losuj-zawartosc"></div>
     </div>
 
-    <!-- LEWY PANEL -->
     <div id="panel-wlasny" class="panel-boczny">
-        <button class="zamknij-panel" onclick="togglePanelWlasny()">✖</button>
+        <button class="zamknij-panel" onclick="hidePanel('panel-wlasny')">✖</button>
         <h3>Napisz KP od zera</h3>
         
         <label>Twój nick na Discordzie:</label>
@@ -328,19 +146,19 @@
         <input type="text" id="wlasne-imie" placeholder="Wpisz imię...">
 
         <label>Pochodzenie:</label>
-        <select id="wlasne-pochodzenie" onchange="aktualizujOpisWlasnePochodzenie()"></select>
+        <select id="wlasne-pochodzenie" onchange="zaktualizujOpis('wlasne-pochodzenie', 'opis-wlasne-pochodzenie', pochodzenia)"></select>
         <div id="opis-wlasne-pochodzenie" class="opis-wyboru"></div>
 
         <label>Archetyp:</label>
-        <select id="wlasne-archetyp" onchange="aktualizujOpisWlasnyArchetyp()"></select>
+        <select id="wlasne-archetyp" onchange="zaktualizujOpis('wlasne-archetyp', 'opis-wlasne-archetyp', archetypy)"></select>
         <div id="opis-wlasne-archetyp" class="opis-wyboru"></div>
 
         <label>Kasta:</label>
-        <select id="wlasne-kasta" onchange="aktualizujOpisWlasnaKasta()"></select>
+        <select id="wlasne-kasta" onchange="zaktualizujOpis('wlasne-kasta', 'opis-wlasne-kasta', kasty)"></select>
         <div id="opis-wlasne-kasta" class="opis-wyboru"></div>
 
-        <label>Historia kasty (Tytuł i/lub krótki opis):</label>
-        <textarea id="wlasne-historia" placeholder="Opisz w kilku zdaniach historię..."></textarea>
+        <label>Historia postaci:</label>
+        <textarea id="wlasne-historia" placeholder="Opisz historię postaci z uwzględnieniem, jak trafiła na ziemie wygnańców..."></textarea>
 
         <label>Wykształcenie:</label>
         <input type="text" id="wlasne-wyksztalcenie" placeholder="np. Nauki na polu bitwy">
@@ -348,22 +166,21 @@
         <label>Usposobienie:</label>
         <input type="text" id="wlasne-usposobienie" placeholder="np. Praktyczne, Mściwe">
 
-        <button class="btn-wyslij" onclick="wyslijWlasnaKarte()">Zapisz i Wyślij na Discord</button>
+        <label>Za co skazano:</label>
+        <textarea id="wlasne-skazano" placeholder="Opisz sam, za co twoja postać została skazana..." rows="3"></textarea>
 
-        <div class="blok-oceny">
-            <h4>Ocena Karty przez MG</h4>
-            <p>Twoja Karta Postaci zostanie rozpatrzona i oceniona przez Mistrza Gry. W zależności od jakości i spójności fabularnej możesz otrzymać nagrody:</p>
-            <ul>
-                <li><strong>Poziom 1 — Dobra Karta:</strong> 5 pkt SAP</li>
-                <li><strong>Poziom 2 — Wspaniała Karta:</strong> 5 pkt SAP i 2 Mapy Skarbów</li>
-                <li><strong>Poziom 3 — Mistrzowska Karta:</strong> 10 pkt SAP i 3 Mapy Skarbów</li>
-            </ul>
+        <div class="sekcja-nagrod">
+            <b>Nagrody za jakość karty (ocenia MG):</b>
+            • Poziom 1 (Dobra karta): 5 pkt SAP<br>
+            • Poziom 2 (Wspaniała karta): 5 pkt SAP + 2 Mapy Skarbów<br>
+            • Poziom 3 (Mistrzowska karta): 10 pkt SAP + 3 Mapy Skarbów
         </div>
+
+        <button class="btn-wyslij" onclick="wyslijWlasnaKarte()">Zapisz i Wyślij na Discord</button>
     </div>
 
-    <!-- PRAWY PANEL -->
     <div id="panel-reczny" class="panel-boczny">
-        <button class="zamknij-panel" onclick="togglePanelWybierany()">✖</button>
+        <button class="zamknij-panel" onclick="hidePanel('panel-reczny')">✖</button>
         <h3>Skomponuj KP</h3>
         
         <label>Twój nick na Discordzie:</label>
@@ -373,32 +190,650 @@
         <input type="text" id="reczne-imie" placeholder="Wpisz imię...">
 
         <label>Pochodzenie:</label>
-        <select id="reczne-pochodzenie" onchange="aktualizujOpisPochodzenia()"></select>
+        <select id="reczne-pochodzenie" onchange="zaktualizujOpis('reczne-pochodzenie', 'opis-reczne-pochodzenie', pochodzenia)"></select>
         <div id="opis-reczne-pochodzenie" class="opis-wyboru"></div>
 
         <label>Archetyp:</label>
-        <select id="reczne-archetyp" onchange="aktualizujOpisArchetypu()"></select>
+        <select id="reczne-archetyp" onchange="zaktualizujOpis('reczne-archetyp', 'opis-reczne-archetyp', archetypy)"></select>
         <div id="opis-reczne-archetyp" class="opis-wyboru"></div>
 
         <label>Kasta:</label>
-        <select id="reczne-kasta" onchange="aktualizujKasteIHistorie()"></select>
+        <select id="reczne-kasta" onchange="zmianaKastyReczne()"></select>
         <div id="opis-reczne-kasta" class="opis-wyboru"></div>
 
         <label>Historia kasty:</label>
-        <select id="reczne-historia" onchange="aktualizujOpisHistorii()"></select>
+        <select id="reczne-historia" onchange="zaktualizujOpisHistoriiRecznej()"></select>
         <div id="opis-reczne-historia" class="opis-wyboru"></div>
 
         <label>Wykształcenie:</label>
-        <select id="reczne-wyksztalcenie" onchange="aktualizujOpisWyksztalcenia()"></select>
+        <select id="reczne-wyksztalcenie" onchange="zaktualizujOpis('reczne-wyksztalcenie', 'opis-reczne-wyksztalcenie', wyksztalcenie)"></select>
         <div id="opis-reczne-wyksztalcenie" class="opis-wyboru"></div>
 
         <label>Usposobienie:</label>
-        <select id="reczne-usposobienie" onchange="aktualizujOpisUsposobienia()"></select>
+        <select id="reczne-usposobienie" onchange="zaktualizujOpis('reczne-usposobienie', 'opis-reczne-usposobienie', usposobienia)"></select>
         <div id="opis-reczne-usposobienie" class="opis-wyboru"></div>
+
+        <label>Za co skazano (wybierz 3):</label>
+        <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+            <select id="reczne-skazano-wybierz" style="flex: 1;"></select>
+            <button type="button" class="btn-wyslij" style="width: auto; padding: 12px 18px; font-size: 14px;" onclick="dodajSkazanieDoWyboru()">Dodaj</button>
+        </div>
+        <div id="reczne-skazano-wybrane" class="tag-list"></div>
+        <div id="reczne-skazano-podpowiedz" class="opis-wyboru">Wybierz 3 skazania. Po dodaniu wyświetlą się tutaj.</div>
 
         <button class="btn-wyslij" onclick="wyslijZPaneluWyboru()">Zapisz i Wyślij na Discord</button>
     </div>
 
-    <script src="script.js"></script>
+    <div class="stopka-zespolu">
+        Stworzone przez zespół Heldamar<br>
+        Na podstawie podręcznika Conan: Przygody w Erze Niewyśnionej
+    </div>
+
+    <script>
+        let aktualneKarty = [];
+        let aktywneHistorieRaczne = []; 
+
+        const webhookUrl = "https://discord.com/api/webhooks/1509893519832121515/jM4ven9IVd6BvjRv45MEuROREItHhd0v6f7tBo_CLY4F-jA5lcVXpM5nVdKYfkYM5CgF";
+
+        const pochodzenia = [
+            { kraina: "Akwilonia", cecha: "Światowiec", opis: "Twoją ojczyznę odwiedza wielu podróżników z różnych stron świata. Zamieszkuje ją także wiele ludów o odmiennych zwyczajach i posługujących się różnymi językami. W kontaktach z drugim człowiekiem mało co potrafi cię zaskoczyć." },
+            { kraina: "Rubieże Bossońskie", cecha: "Dziecię natury", opis: "Zamieszkiwałeś wśród dzikich ostępów i wiesz, jak czerpiąc z natury, pozyskiwać rzeczy niezbędne do przetrwania." },
+            { kraina: "Keshan", cecha: "Prawo pięści", opis: "Cywilizowane zachowanie wciąż jest nowością w twej ojczystej krainie. Nigdy nie wiadomo, kiedy stare zwyczaje znów dadzą o sobie znać." },
+            { kraina: "Kush", cecha: "Ręka na pulsie", opis: "Czujność popłaca, zwłaszcza pośród buntowniczej szlachty i w obliczu niemal nieustającej wojny domowej, w której się wychowałeś." },
+            { kraina: "Khoradża", cecha: "Światowiec", opis: "Twoją ojczyznę odwiedza wielu podróżników z różnych stron świata. Zamieszkuje ją także wiele ludów o odmiennych zwyczajach i posługujących się różnymi językami. W kontaktach z drugim człowiekiem mało co potrafi cię zaskoczyć." },
+            { kraina: "Cymmeria", cecha: "Dziecię natury", opis: "Zamieszkiwałeś wśród dzikich ostępów i wiesz, jak czerpiąc z natury, pozyskiwać rzeczy niezbędne do przetrwania." },
+            { kraina: "Hyperborea", cecha: "Prawo pięści", opis: "Cywilizowane zachowanie wciąż jest nowością w twej ojczystej krainie. Nigdy nie wiadomo, kiedy stare zwyczaje znów dadzą o sobie znać." },
+            { kraina: "Królestwa Graniczne", cecha: "Ręka na pulsie", opis: "Czujność popłaca, zwłaszcza pośród buntowniczej szlachty i w obliczu niemal nieustającej wojny domowej, w której się wychowałeś." },
+            { kraina: "Nordheim: Asgard lub Vanaheim", cecha: "Dziecię zimy", opis: "Urodziłeś się w miejscu, gdzie panują srogie zimy, a niskie temperatury utrzymują się często przez cały rok. Jesteś przyzwyczajony do mroźnego klimatu, jednak gorące piaski pustyni stanowią dla ciebie nielada wyzwanie." },
+            { kraina: "Ophir", cecha: "Miarka w oku", opis: "W krainie, w której złoto niemal leży na ulicach, nauczyłeś się zwracać uwagę na wartość różnych towarów, w tym także i ludzi." },
+            { kraina: "Koth", cecha: "Ręka na pulsie", opis: "Czujność popłaca, zwłaszcza pośród buntowniczej szlachty i w obliczu niemal nieustającej wojny domowej, w której się wychowałeś." },
+            { kraina: "Argos", cecha: "Morski rozbójnik", opis: "Bliskość morza i portów oswoiła cię z perspektywą żeglowania. Szerokie wody nie są ci straszne, a bujanie łodzi nie stanowi problemu." },
+            { kraina: "Gunderlandia", cecha: "Dziecię natury", opis: "Zamieszkiwałeś wśród dzikich ostępów i wiesz, jak czerpiąc z natury, pozyskiwać rzeczy niezbędne do przetrwania." },
+            { kraina: "Brythunia", cecha: "Światowiec", opis: "Twoją ojczyznę odwiedza wielu podróżników z różnych stron świata. Zamieszkuje ją także wiele ludów o odmiennych zwyczajach i posługujących się różnymi językami. W kontaktach z drugim człowiekiem mało co potrafi cię zaskoczyć." },
+            { kraina: "Nemedia", cecha: "Światowiec", opis: "Twoją ojczyznę odwiedza wielu podróżników z różnych stron świata. Zamieszkuje ją także wiele ludów o odmiennych zwyczajach i posługujących się różnymi językami. W kontaktach z drugim człowiekiem mało co potrafi cię zaskoczyć." },
+            { kraina: "Zamora", cecha: "Wyczucie fałszu", opis: "W krainie skorumpowanych kupców i uczciwych złodziei udało ci się wypracować coś w rodzaju szóstego zmysłu albo już po prostu wszędzie widzisz spisek i trudniej jest innym zyskać twoje zaufanie." },
+            { kraina: "Shem", cecha: "Ręka na pulsie", opis: "Czujność popłaca, zwłaszcza pośród buntowniczej szlachty i w obliczu niemal nieustającej wojny domowej, w której się wychowałeś." },
+            { kraina: "Zingara", cecha: "Morski rozbójnik", opis: "Bliskość morza i portów oswoiła cię z perspektywą żeglowania. Szerokie wody nie są ci straszne, a bujanie łodzi nie stanowi problemu." },
+            { kraina: "Korinthia", cecha: "Ręka na pulsie", opis: "Czujność popłaca, zwłaszcza pośród buntowniczej szlachty i w obliczu niemal nieustającej wojny domowej, w której się wychowałeś." },
+            { kraina: "Stygia", cecha: "Dziecię pustyni", opis: "Twoja ojczyzna jest suchą, surową krainą, bezlitosną dla mieszkańców. Na pustyni czujesz się jak w domu, jednakże regiony pokryte śniegiem stanowią dla ciebie wyzwanie." },
+            { kraina: "Khauran", cecha: "Światowiec", opis: "Twoją ojczyznę odwiedza wielu podróżników z różnych stron świata. Zamieszkuje ją także wiele ludów o odmiennych zwyczajach i posługujących się różnymi językami. W kontaktach z drugim człowiekiem mało co potrafi cię zaskoczyć." },
+            { kraina: "Zembabwei", cecha: "Dziecię pustyni", opis: "Twoja ojczyzna jest suchą, surową krainą, bezlitosną dla mieszkańców. Na pustyni czujesz się jak w domu, jednakże regiony pokryte śniegiem stanowią dla ciebie wyzwanie." },
+            { kraina: "Punt", cecha: "Miarka w oku", opis: "W krainie, w której złoto niemal leży na ulicach, nauczyłeś się zwracać uwagę na wartość różnych towarów, w tym także i ludzi." },
+            { kraina: "Czarne Królestwa", cecha: "Ręka na pulsie", opis: "Czujność popłaca, zwłaszcza pośród buntowniczej szlachty i w obliczu niemal nieustającej wojny domowej, w której się wychowałeś." },
+            { kraina: "Darfar", cecha: "Prawo pięści", opis: "Cywilizowane zachowanie wciąż jest nowością w twej ojczystej krainie. Nigdy nie wiadomo, kiedy stare zwyczaje znów dadzą o sobie znać." },
+            { kraina: "Turan", cecha: "Miarka w oku", opis: "W krainie, w której złoto niemal leży na ulicach, nauczyłeś się zwracać uwagę na wartość różnych towarów, w tym także i ludzi." },
+            { kraina: "Hyrkania", cecha: "W siodle urodzony", opis: "Hyrkańscy jeźdźcy są powszechnie znani ze swoich umiejętności. Opowieści o tych konnych łucznikach docierają do wszystkich zakątków świata. Ponieważ pochodzisz z Hyrkanii jazda konna nie stanowi dla ciebie problemu, a nawet czujesz większą pewność siebie w towarzystwie swojego wiernego wierzchowca." },
+            { kraina: "Iranistan lub Ghulistan", cecha: "Dziecię pustyni", opis: "Twoja ojczyzna jest suchą, surową krainą, bezlitosną dla mieszkańców. Na pustyni czujesz się jak w domu, jednakże regiony pokryte śniegiem stanowią dla ciebie wyzwanie." },
+            { kraina: "Vendhya", cecha: "Miarka w oku", opis: "W krainie, w której złoto niemal leży na ulicach, nauczyłeś się zwracać uwagę na wartość różnych towarów, w tym także i ludzi." },
+            { kraina: "Khitaj", cecha: "Prawo pięści", opis: "Cywilizowane zachowanie wciąż jest nowością w twej ojczystej krainie. Nigdy nie wiadomo, kiedy stare zwyczaje znów dadzą o sobie znać." }
+        ];
+
+        const skazania = [
+            "Przemyt czarnego lotosu – Próba szmuglowania silnie uzależniających i trujących narkotyków ze Stygii.",
+            "Morderstwo w karczemnej bójce – Rozbicie dzbana na głowie kogoś, kto okazał się mieć wysoko postawionych znajomych.",
+            "Kradzież królewskiego rumaka – Kradzież rasowego wierzchowca prosto ze stajni szlachcica.",
+            "Plądrowanie starożytnych grobowców – Hiennictwo cmentarne w ruinach, z których rzekomo wyniesiono cenne artefakty.",
+            "Fałszowanie monet – Bicie miedzianych monet i powlekanie ich cienką warstwą złota, by oszukać kupców.",
+            "Nielegalne oswobodzenie niewolników – Pomoc w ucieczce grupie niewolników z kamieniołomów.",
+            "Piractwo – Służba na statku łupiącym flotę handlową.",
+            "Niespłacenie długów u lichwiarzy – Długi urosły do tego stopnia, że tańsze okazało się przekupienie sędziego, by skazał Cię na wygnanie.",
+            "Próba otrucia władyki – Znalezienie flakonu z trucizną w Twoich rzeczach po tym, jak lokalny lord nagle zachorował.",
+            "Podżeganie do buntu – Wygłaszanie wywrotowych mów na rynku przeciwko drakońskim podatkom.",
+            "Uwodzenie członka rodu arystokratycznego – Złapanie na gorącym uczynku w komnacie syna lub córki potężnego rodu, z którym nie masz prawa się równać statusem.",
+            "Dezercja z oddziałów najemnych – Ucieczka z pola bitwy tuż przed starciem z przeważającymi siłami wroga.",
+            "Zamordowanie poborcy podatkowego – Zrzucenie ze schodów urzędnika, który przyszedł odebrać ostatnie zapasy zimy.",
+            "Zaśnięcie na warcie podczas oblężenia – Zlekceważenie obowiązków strażniczych, co doprowadziło do przełamania bram przez wroga.",
+            "Zbezczeszczenie świątyni – Kradzież złotej misy z ołtarza boga lub wandalizm w świętym przybytku.",
+            "Praktykowanie czarnej magii – Posiadanie przeklętych pergaminów i oskarżenie o rzucanie uroków na sąsiadów.",
+            "Odmowa złożenia ofiary – Znieważenie kultu poprzez otwartą odmowę wzięcia udziału w rytuale.",
+            "Zniesławienie potężnego arcykapłana – Rozsiewanie (nawet prawdziwych) plotek o korupcji w kręgach kapłańskich.",
+            "Posiadanie bluźnierczych artefaktów – Handel reliktami z prastarych ruin Acheronu, których samo dotknięcie wywołuje szaleństwo.",
+            "Herezja i fałszywe proroctwa – Głoszenie nadejścia fałszywych bóstw i odciąganie wiernych od oficjalnej religii państwowej."
+        ];
+
+        const cechyNegatywne = [
+            "Alkoholizm",
+            "Narkomania",
+            "Hazardzista",
+            "Arachnofobia",
+            "Klaustrofobia",
+            "Fobia przed magią",
+            "Fobia przed ogniem",
+            "Fobia przed nieumarłymi",
+            "Lęk wysokości",
+            "Fobia przed wodą",
+            "Fanatyzm religijny",
+            "Analfabeta",
+            "Ślepy",
+            "Kuleje",
+            "Słaby wzrok",
+            "Lekceważący zagrożenia"
+        ];
+
+        const archetypy = [
+            { nazwa: "BARBARZYŃCA", opis: "Pochodzisz z jednej z nieokiełznanych krain leżących na pograniczu cywilizacji – być może z dalekiej północy, wschodu, południa lub innych nieznanych terytoriów. Cywilizowane ludy uznają twoje obyczaje za dziwaczne, podobnie jak ty nie rozumiesz ich zwyczajów." },
+            { nazwa: "KAPŁAN", opis: "Niezależnie od tego, czy urodziłeś się do życia w wierze, czy też nawróciłeś się później, czujesz powołanie do służby jednemu z wielu bogów ery hyboryjskiej: świętemu Mitrze, przeklętemu Setowi, Isztar, Boriemu, Asurze, Ibisowi, Erlikowi, Belowi, Derketo, a nawet któremuś z bóstw nieobdarzanych powszechną czcią, takim jak Crom, Ymir lub zamorański Bóg Pająk. Możesz być związany z konkretną świątynią lub wędrować po świecie i krzewić wiarę, przemierzając kolejne krainy i nawracając niewiernych na wszelkie dostępne sposoby, czy to poprzez kazania, czy też czyniąc to mieczem." },
+            { nazwa: "KOCZOWNIK", opis: "Od wschodu i południa królestwa hyboryjskie otoczone są przez pustynie, stepy, tundrę i pustkowia – tereny niegościnne dla cywilizowanych ludzi, będące jednak domem dla ciebie i twego ludu. Wiesz, jak przetrwać w takich miejscach, znaleźć pożywienie i wodę, zbudować schronienie i bezpiecznie się przemieszczać. Życie jest trudne w twojej ojczystej krainie, być może właśnie dlatego opuściłeś rodzinne strony." },
+            { nazwa: "ŁOTR", opis: "Zarabiasz na życie, wykorzystując słabości innych, na przykład poprzez hazard, kradzieże lub wręcz akty bandytyzmu. Udaje ci się przetrwać dzięki własnemu sprytowi. Nie znasz innego sposobu na życie i jesteś w tym całkiem dobry. Pomysłowość, refleks i brak skrupułów raz po raz wyciągają cię z tarapatów, chociaż w taki czy inny sposób często ponownie wpadasz w kłopoty." },
+            { nazwa: "ŁUCZNIK", opis: "Nieważne, czy wyszkolili cię bossońscy łucznicy, armia któregoś z wielkich środkowych królestw, czy może nawet hyrkańscy łucznicy konni. Jesteś już doświadczonym łucznikiem, umiejącym z wyjątkową precyzją posyłać strzały o żelaznych grotach na duże odległości." },
+            { nazwa: "NAJEMNIK", opis: "Być może wcielono cię do lokalnej straży za młodu lub w dojrzałym wieku bądź sam zgłosiłeś się do służby wojskowej. Tak czy inaczej, stałeś się najemnikiem, opłacanym żołnierzem, lojalnym jedynie wobec tych, którzy są wystarczająco zamożni. Podróżujesz przez królestwa hyboryjskie w poszukiwaniu zajęcia, nierzadko walcząc przeciwko swoim wcześniejszym pracodawcom." },
+            { nazwa: "PIRAT", opis: "Byłeś kiedyś żeglarzem, kupcem, może nawet służyłeś w marynarce wojennej jednej z morskich potęg, lecz ostatecznie wstąpiłeś na ścieżkę piractwa. Co prawda na wodzie czujesz się swobodniej niż na lądzie, lecz jesteś skłonny szukać szczęścia wszędzie tam, gdzie poprowadzi cię los." },
+            { nazwa: "RYCERZ", opis: "Możesz być pasowanym na rycerza szlachcicem pochodzącym z jednego z cywilizowanych królestw hyboryjskich (na przykład Akwilonii, Nemedii, Zingary, Brythunii) lub z innej krainy. Niezależnie od tego, czy w działaniu kierujesz się kodeksem rycerskim, czy też jesteś po prostu dobrze wyszkolonym i wyposażonym wojownikiem, walczysz głównie za siebie i za sprawy, które uznajesz za ważne." },
+            { nazwa: "SZAMAN / WIEDŹMA", opis: "Zawarłeś pakt z siłami nie z tego świata, poszukując zakazanej, budzącej przestrach wiedzy. Dzięki tym śmiałym czynom zyskałeś moc i przenikliwość przekraczające zdolności zwykłych śmiertelników. Mimo że nie parasz się czarnoksięstwem, dobrze zgłębiłeś wiedzę tajemną, a także sekrety świata przyrody. Od ciebie zależy, czy używasz swoich umiejętności, aby nieść pomoc innym, czy w celu zaspokojenia własnych pragnień." },
+            { nazwa: "UCZONY", opis: "Historia i najstarsze nawet pokłady ludzkiej mądrości nie mają przed tobą tajemnic. Zgłębiłeś je, nawet nie ruszając się z fotela, spędzając niezliczone godziny na studiowaniu opasłych tomów wypełnionych wiedzą. Być może najbardziej interesuje cię jeden określony obszar nauki lub też specjalizujesz się w wielu różnych dziedzinach. Pomimo swego upodobania do studiów akademickich wyruszyłeś w świat, aby osobiście zdobyć nowe doświadczenia." }
+        ];
+
+        const kasty = [
+            { nazwa: "Drobna szlachta", opis: "Twoja rodzina niezbyt cię potrzebuje, ponieważ zajmujesz zbyt daleką pozycję w linii sukcesji. Ojciec odesłał cię ze słowami, które wciąż dźwięczą ci w uszach: Okryj się chwałą lub ponieś porażkę i popadnij w zapomnienie. Masz nieograniczone możliwości, by znaleźć własną drogę przez życie, lecz możesz wpaść w kłopoty, jeśli wrogowie rodu dowiedzą się o twoich poczynaniach." },
+            { nazwa: "Duchowieństwo", opis: "Bogowie istnieją, a ich działania są widoczne w otaczającym cię świecie. To bezsprzeczny fakt. Wymagają ofiar i oddania, lecz nie są jednak tak miłosierni, jakbyśmy tego chcieli. Niezależnie od tego, czy czcisz bogów z miłości, strachu, ambicji bądź przywiązania do tradycji, stale towarzyszy ci pewność przekonań potrzebna do odprawiania najbardziej skomplikowanych obrzędów, a także do dopilnowania, by wszechmocni nie zsyłali klątw na tych, których pragniesz chronić." },
+            { nazwa: "Kupcy", opis: "W dużych rodzinach, połączonych układami i małżeństwami, nie ma zbyt wiele miejsca dla najmłodszych potomków. Niezależnie od tego, czy przypadło ci w udziale zajmowanie się straganami twojego wuja, sprzedawanie klejnotów wyszukanych przez złodziei w Omłocie, czy też nadzorowanie karawan wędrujących między potężnymi miastami, dobrze wiesz, że dostarczając bogaczom rzadkie towary, można liczyć na spore zyski. Być może właśnie dzięki temu zajęciu rozwiniesz skrzydła i coś osiągniesz." },
+            { nazwa: "Odtrąceni", opis: "Żebracy i drobne złodziejaszki, czający się w zaułkach bądź przegrzebujący sterty śmieci w poszukiwaniu czegoś na sprzedaż. Nawet niewolnicy patrzą z obrzydzeniem na społecznych wyrzutków. Chociaż każdy lud ma inne podejście do ludzi z marginesu, nikt nie traktuje ich dobrze. Wrogość lub w najlepszym razie obojętność to dla ciebie chleb powszedni, niezależnie od tego, dokąd się udasz." },
+            { nazwa: "Pasterze", opis: "U granic każdej ziemi grasują wilki. Niektóre z nich są czworonożne, inne zaś chodzą na dwóch nogach. Niezależnie od tego, jaka jest ich natura, ich celem jest wykradanie zwierząt z twojego stada. Tylko ty możesz je powstrzymać. Nawet jeśli wiedziesz już inne życie i twoje pierwotne stado dawno się rozpierzchło, ta podstawowa prawda nie uległa zmianie i nieprzerwanie zachowujesz czujność." },
+            { nazwa: "Rolnicy", opis: "Dobrze pamiętasz swe najmłodsze lata spędzone wśród pól i wyniesione stamtąd nauki rodziców. Nadszedł jednak dzień, w którym trzeba było wyruszyć na szlak. Być może twoje gospodarstwo zostało zrównane z ziemią lub przyszłe plony padły ofiarą zarazy bądź po prostu szukasz innego życia. Niezależnie od tego, czy twoje wspomnienia przesycone są żalem, czy też radością, czujesz więź z ziemią i z tymi, którzy pracują w pocie czoła, aby czerpać z jej darów." },
+            { nazwa: "Rzemieślnicy", opis: "W sposobie, w jaki młot uderza w metal lub w jaki dłuto zagłębia się w drewno, jest pewna budząca zaufanie prostota. Pokładasz większą wiarę w rzeczach, jakie wychodzą spod twojej ręki, niż w ludziach, którzy będą z nich korzystać. Gdy rozbrzmiewają werble i zanosi się na wojnę, twój trzos pęcznieje, wypełniony złotem, lecz w czasie pokoju niekiedy trudno jest ci związać koniec z końcem. Może już czas spakować narzędzia i wyruszyć w poszukiwaniu nowej wojny?" },
+            { nazwa: "Wojownicy", opis: "Jedno z twoich rodziców walczyło i zginęło w bitwie. Twój dziad poległ, strzegąc murów miejskich, doświadczywszy w życiu niewiele więcej niż sporadyczne bójki w gospodach. Od zawsze jasnym było, że twoim powołaniem jest żołnierski żywot. Jedyną kwestią do ustalenia jest to, w jaki sposób chcesz na tym zarobić." },
+            { nazwa: "Zbiegli chłopi/niewolnicy", opis: "Złapano cię i zniewolono, zmuszając do ciężkiej pracy, być może w polu, a być może w najgłębszych czeluściach kopalni. Los godny pogardy. Pewnego dnia nadarzyła się okazja i udało ci się uciec. Teraz szukają cię twoi dawni panowie, a na plecach czujesz oddech pościgu." }
+        ];
+
+        const wyksztalcenie = [
+            { nazwa: "NA WŁASNYCH WARUNKACH", opis: "Zawsze wiedziałeś, czego chcesz, i sam znalazłeś sposób na zdobycie wykształcenia, gdy okazało się, że go nie otrzymasz. Z determinacją i uwagą wybrałeś odpowiednich nauczycieli, a gdy ich zabrakło, znalazłeś inne sposoby na naukę. Nawet dziś podążasz własną ścieżką do oświecenia." },
+            { nazwa: "NAUKI NA POLU BITWY", opis: "Pole bitwy nie było łatwą szkołą, a jej dziedziniec często usiany był trupami i konającymi, wypełniony zgiełkiem walki i szczękiem oręża. Z jakiegoś powodu jako dziecko trafiłeś na pole bitwy i byłeś zmuszony do walki o przetrwanie. Twoi wrogowie byli najsurowszymi nauczycielami." },
+            { nazwa: "NAUKI ZA GRANICĄ", opis: "Jako dziecko zostałeś wysłany (lub zabrany) z domu, aby pobierać nauki w innej krainie, pośród obcych. Przyzwyczaiłeś się do nowego miejsca, ucząc się nieznanych ci wcześniej obyczajów i przyswajając podstawy umiejętności, które zdawały się bezużyteczne, dopóki nie zacząłeś dostrzegać ich przydatności." },
+            { nazwa: "POD PRZYMUSEM", opis: "Niezależnie od tego, czy cię zniewolono, nauki wpajano okrucieństwem, czy też po prostu byłeś niechętny przyjmowaniu wiedzy, twoja edukacja przypominała ciężką bitwę. Ciągle stawiałeś opór, ucząc się tylko tego, co było absolutnie konieczne (a czasami nawet mniej). Inni wspominają te lata z sentymentem – ty wręcz przeciwnie." },
+            { nazwa: "SĘDZIWY MENTOR", opis: "Twoim mentorem był czcigodny, powszechnie znany i szanowany przez innych mistrz, który lata świetności miał już jednak za sobą. Gdy nadszedł czas, by wyruszyć w drogę, zebrałeś swoje rzeczy i podążyłeś ścieżką mentora, kontynuując wspaniałą i szanowaną tradycję." },
+            { nazwa: "ŚLADAMI RODZINY", opis: "Nauczyłeś się zawodu od jednego z członków rodziny: rodzica, dziadka lub babki, wuja lub ciotki, brata lub siostry. Ta osoba przykładała dużą uwagę do twojego wykształcenia, lecz przez to lekcje były dłuższe, a oczekiwania – dużo wyższe." },
+            { nazwa: "TRADYCYJNE NAUKI", opis: "Twoja edukacja była nijaka, choć może wyszło ci to na dobre. Przeszkolono cię w tajnikach rodzinnego interesu, nauki pobierałeś u życzliwego (zazwyczaj) mistrza lub spokojnego nauczyciela. Wykształcenie, jakie zdobyłeś, jest wszechstronne, choć niezbyt interesujące. Patrząc w przeszłość, jesteś wdzięczny, że tak się to potoczyło." },
+            { nazwa: "WBREW WOLI RODZICÓW", opis: "Samodzielnie zająłeś się swoim wykształceniem, ignorując życzenia rodziców. Choć starali się nadać twojej edukacji określony kierunek, uczyłeś się w tajemnicy. Być może kroczyłeś śladem jednego z rodziców, bliskiego krewnego lub jakieś ważnej dla ciebie osoby." },
+            { nazwa: "WSPANIALI NAUCZYCIELE", opis: "Podczas nauk sprzyjało ci szczęście, ponieważ pobierałeś je od prawdziwego mistrza. Uczyłeś się od najlepszych niezależnie od tego, czy siedziałeś na gołej ziemi zaraz obok swojego nauczyciela, kształciłeś się we wspaniałych wnętrzach szlacheckich posiadłości, czy też praktykowałeś w dobrze wyposażonym warsztacie." }
+        ];
+
+        const usposobienia = [
+            { nazwa: "DOCIEKLIWE", opis: "Świat jest fascynującym miejscem, wypełnionym niezliczonymi tajemnicami czekającymi na odkrycie. Zawsze dążysz do poznania nieznanego oraz tego, co przed tobą ukryto." },
+            { nazwa: "INSPIRUJĄCE", opis: "Życie nie jest proste, dlatego postanowiłeś dawać dobry przykład innym. Może nauczyłeś się tego od poprzedniego zwierzchnika lub po prostu uważasz takie podejście za właściwe." },
+            { nazwa: "MŚCIWE", opis: "Każde działanie spotka się z równie silną, ostateczną reakcją. To kara dla tych, którzy źle cię potraktowali. Niełatwo puszczasz w niepamięć zniewagi, których doświadczyłeś ty lub twoi bliscy, i odpłacasz się bez litości." },
+            { nazwa: "OSTROŻNE", opis: "Robisz, co możesz, aby uniknąć kłopotów, czy to za sprawą wrodzonego instynktu samozachowawczego, czy też na skutek niemiłych przeszłych doświadczeń." },
+            { nazwa: "PODSTĘPNE", opis: "Wiedza to potęga, a twoim zdaniem najlepiej trzymać innych w nieświadomości. Nauczyłeś się bezszelestnie poruszać, nie podnosić głosu i zachowywać swoje prawdziwe pobudki dla siebie." },
+            { nazwa: "POMOCNE", opis: "Ostatecznie możemy liczyć tylko na siebie nawzajem. Życie nauczyło cię, że najważniejsze są więzi łączące sprzymierzeńców, członków rodziny i przyjaciół, dlatego zrobisz wszystko, co w twojej mocy, aby wspierać bliskie ci osoby." },
+            { nazwa: "PRAKTYCZNE", opis: "Zachowujesz się pragmatycznie, zawsze starając się wybrać najskuteczniejsze lub najbardziej racjonalne sposoby osiągania obranych celów." },
+            { nazwa: "PRZEBIEGŁE", opis: "Zawsze znajdzie się łatwiejszy sposób, aby coś zrobić – taki, który nie wiąże się ze zbytnim ryzykiem ani wysiłkiem. Ponadto nigdy nie palisz za sobą mostów i zawsze masz zapasowy plan działania." },
+            { nazwa: "STOICKIE", opis: "W życiu można wiele wytrzymać, a każdą przeszkodę – fizyczną, umysłową, a nawet społeczną – pokonać." },
+            { nazwa: "ŚWIATŁE", opis: "Podążanie ścieżką wiedzy sprawia ci wiele radości, gdyż otwiera przed tobą liczne drzwi i pomaga w zrozumieniu otaczającego cię świata." }
+        ];
+const historieKast = {
+            "Drobna szlachta": [
+                { nazwa: "W gościnie u dostojnika", opis: "Za młodu wzbudziłeś zainteresowanie jednego z wielkich dostojników z okolicznych ziem. Jego oczekiwania wobec ciebie były co prawda zbyt wygórowane, lecz oferowane przezeń nauki nie miały sobie równych. Choć większość lekcji przebiegała w zwykły sposób, niektóre z nich były co najmniej dziwaczne. Jaką nietypową wiedzę chciała ci wpoić ta znamienita osobistość?" },
+                { nazwa: "W gościnie u rywala", opis: "Spędziłeś dzieciństwo pod dachem politycznego rywala. Nigdy niczego ci nie brakowało, lecz w powietrzu wisiało widmo wiecznego zagrożenia, które sprawiało, że trudno było ci odnaleźć spokój i cieszyć się życiem. Gdy pewnej nocy wędrowałeś po korytarzach, usłyszałeś przyciszoną rozmowę trzech wojowników na temat gospodarza, rywala twojego rodu. Czego się wówczas dowiedziałeś i co zrobiłaś z tą wiedzą?" },
+                { nazwa: "Bez nadzoru", opis: "W domu wiało nudą, a od ciebie wymagano niewiele. Mogłeś robić, co ci się żywnie podobało. Podczas gdy na innych członków rodziny nałożono jarzmo obowiązków wynikających z ich pozycji i pochodzenia, ty mogłeś swobodnie rozwijać talenty, które porządny guwerner zapewne uznałby za niewłaściwe. Czym się zajmowałeś, gdy nikt nie zwracał na ciebie uwagi?" },
+                { nazwa: "Zesłanie na prowincję", opis: "Nie myślałeś, że do tego dojdzie, lecz rodzice wreszcie stracili do ciebie cierpliwość i odesłali cię z rodowej posiadłości, w której się wychowałeś. Zostałeś wygnany z cywilizacji na nędzną prowincję i spędziłeś wiele lat w biedzie, opuszczony przez własną rodzinę. Czym zasłużyłeś sobie na takie traktowanie? Czy twoja rodzina postąpiła sprawiedliwie? Czy zadośćuczyniłeś bliskim?" },
+                { nazwa: "Skandal", opis: "Gdyby cię powstrzymano na czas, mogłoby ci się upiec i zostałbyś po prostu skazany na wygnanie. Interweniowano jednak zbyt późno. Wywołałeś skandal, wystawiając na szwank dobre imię i pozycję twojej rodziny. Potrzeba było wielu łapówek, aby puścić wszystko w niepamięć. Mimo to cała arystokracja wie, co się stało, i często obmawia cię za plecami. Czego dotyczył skandal?" },
+                { nazwa: "Krwawa waśń", opis: "Wszystko zaczęło się od ogromnej zniewagi. Była na tyle poważna, że nawet rozlew krwi nie mógł jej zadośćuczynić. Osoba, która dopuściła się tego czynu, została co prawda wygnana, lecz był to tylko jeden z afrontów i oskarżeń, jakich doświadczyłeś ty i twoja rodzina. Istniało tylko jedno wyjście z tej sytuacji: krwawa waśń. Nie ma znaczenia, czy wendetę zaczęli twoi wrogowie, czy też twoi sojusznicy. Teraz najważniejsze są tylko dwie rzeczy: z kim musisz się zmierzyć i kto wyjdzie z tego żywy?" }
+            ],
+            "Duchowieństwo": [
+                { nazwa: "Czas ucztowania i radości", opis: "Twój nowicjat przebiegł zwyczajnie, lecz miałeś przez ten czas okazję spotykać szacownych mędrców i wielkich uczonych oraz zaznać spokoju i dobrobytu. Samo przebywanie w obecności tak utalentowanych osób wiele ci dało. Jedną z najważniejszych nauk była ta, że nawet wielkie osobistości miewają chwile zwątpienia lub wstydu. Udało ci się nawet przyjść z pomocą jednemu z najbardziej utalentowanych miejscowych artystów. Jaka pomoc była potrzebna i w jaki sposób pomogłeś? Czy odwdzięczono ci się za przysługę?" },
+                { nazwa: "Pomyślne znaki", opis: "Dziwne znaki zwiastowały twoje narodziny, a gdy otrzymywałeś święcenia, układ gwiazd był niezwykle korzystny. Członkowie zakonu szepczą na twój temat, obawiając się prawdziwego znaczenia tych wszystkich znaków, które pojawiły się w chwili, gdy wkroczyłeś w ich szeregi. Od czasu do czasu poddają cię dziwnym próbom i stawiają przed tobą osobliwe zadania, poszukując odpowiedzi na tylko im znane pytania. Które z tych zadań było najdziwniejsze? Czy udało ci się je wypełnić? Czy towarzyszyły temu jakieś niezwykłe znaki?" },
+                { nazwa: "Płomień wiary", opis: "Przybyłeś do pewnego miasteczka wraz ze swoim mistrzem i dwoma innymi towarzyszami. Razem mieliście szerzyć nauki waszego boga wśród niewiernych. Miejscowi początkowo byli wobec was obojętni. Z biegiem czasu, gdy powstała niewielka kapliczka, niektóre co bardziej ciekawskie osoby stały się wyznawcami nowej wiary. Gdy okoliczna ludność zaczęła coraz częściej składać ofiary, sprawą zainteresował się miejscowy szlachcic. Zagroził, że zniszczy kapliczkę, jeśli nie dostanie swojej działki. Twój mistrz odmówił zapłaty. Konsekwencje tej decyzji były tragiczne. Co się stało z kapliczką? Jaki był los szlachcica, który zniszczył święte miejsce?" },
+                { nazwa: "Fanatyczni zwierzchnicy", opis: "Poświęciłeś się wierze ze spokojem w sercu, lecz twoi przełożeni byli pełni gniewu i wkrótce cały zakon był uzbrojony po zęby. Ulice stały się polem waszej bitwy. Wiele istnień zginęło z twojej ręki, jednak gdy tylko mogłeś, okazywałeś miłosierdzie. W głębi terytorium wrogów wiary natknąłeś się na kogoś, kogo mogłeś nawrócić. Pomogłeś tej osobie w ucieczce czy coś ci w tym przeszkodziło? Co się stało z potencjalnym nowym wyznawcą?" },
+                { nazwa: "Niepomyślne znaki", opis: "Dziwne znaki zwiastowały twoje narodziny, a zaraz po tym, jak otrzymałeś święcenia, arcykapłan zmarł we śnie bez żadnej przyczyny. Członkowie zakonu szemrają, że jesteś ostatnim żyjącym świadkiem odprawionej ceremonii, a nieszczęścia podążają za tobą. Od czasu do czasu jesteś posyłany na bardzo dalekie i z pozoru niepotrzebne, a niekiedy nawet niebezpieczne misje. Jakie było najbardziej ryzykowne zadanie, które ci zlecono? Ile osób zmarło, gdy próbowałeś je wykonać? Czy odniosłeś sukces?" },
+                { nazwa: "Wymuszona pokuta", opis: "Ktoś popełnił karygodny czyn. Nie była to twoja sprawka, lecz to właśnie ciebie oskarżono, a ktoś złożył przeciwko tobie fałszywe zeznania. Próbowałeś wszystko wyjaśnić, jednak arcykapłan nie chciał cię słuchać. Odbyłeś krótką, choć zbyt surową pokutę. O co zostałeś oskarżony? Na czym polegała pokuta? Czy wiesz, kto cię obwinił? Czy planujesz zemstę?" }
+            ],
+            "Zbiegli chłopi/niewolnicy": [
+                { nazwa: "Kompania wolnych braci", opis: "Udało ci się odzyskać wolność, być może z woli innych osób, a być może samodzielnie, lecz byłeś zupełnie sam. Razem z innymi osobami w podobnej sytuacji stworzyliście kompanię. Pomagaliście sobie nawzajem, myszkując tu i tam, pracując, a nawet kradnąc. Ukrywaliście się w ruinach, pozostając na marginesie społeczeństwa. Potem wydarzyło się coś, co rozbiło grupę. Kto zdradził waszą kompanię? Czego lub kogo szukała straż? Dlaczego dawni przyjaciele już ci nie ufają?" },
+                { nazwa: "Ukryty przed ludzkim wzrokiem", opis: "Oni nagle zmarli i zostałeś zupełnie sam. Mogłeś się udać gdziekolwiek i robić to, na co miałeś ochotę. Zabrałeś ich pieniądze i wydałeś je wszystkie, nieustannie przenosząc się z miejsca na miejsce. Potem znalazłeś idealny dom, z dala od podejrzliwych spojrzeń. Teraz zostały po nim już tylko wspomnienia wywołujące uśmiech na twojej twarzy. Gdzie znajdował się ów dom i co sprawiło, że był wyjątkowy?" },
+                { nazwa: "Jeden z wielu", opis: "Tysiące robotników pracowały w trudzie i znoju, aby urzeczywistnić wizję waszego pana. Warunki były straszne i wiele razy posmakowałeś bicza. Nagle stał się cud – dano sygnał. Bunt rozlał się po obozie i udało ci się uciec wraz z wieloma innymi robotnikami. Czy dzielnie stawiłeś czoła oprawcom, czy może raczej tchórzliwie wyślizgnąłeś się cichaczem?" },
+                { nazwa: "Pod okiem panów", opis: "Dobrze wiedzą, że uciekłeś. Wiedzą też, dokąd się udałeś. Być może czekają na właściwy moment, a być może nie jesteś wart nakładów, jakie musieliby ponieść, by cię schwytać. Wiesz jednak, że ten dziwny mieszkaniec sczerniałej wieży ma swoich szpiegów, którzy obserwują każdy twój krok. Dlaczego budzisz zainteresowanie tej osoby?" },
+                { nazwa: "Ścigany przez dawną panią", opis: "Twoja dawna pani nigdy nie zapomniała upokorzenia, jakiego doznała za sprawą twej ucieczki. Teraz gdy jej posiadłość legła w gruzach, żyje tylko dla zemsty. Kim jest i dlaczego tak bardzo cię nienawidzi?" },
+                { nazwa: "Ścigany przez prawo", opis: "Podążają twoim tropem, robią naloty na gospody i zaglądają do każdego zaułka. Być może popełniłeś przestępstwo i wcale tego nie żałujesz lub niesprawiedliwie cię dręczono. Tak czy inaczej, pozostawiasz za sobą szlak pełen udręki. Czyjego cierpienia żałujesz najbardziej i co zamierzasz zrobić, aby ulżyć doli tej osoby?" }
+            ],
+            "Wojownicy": [
+                { nazwa: "Decydujące zwycięstwo", opis: "W trakcie wojny brałeś udział w wielu bitwach, uchodząc z nich z życiem i zyskując sławę. Wtedy nadeszło ostateczne starcie. Skoczyłeś do przodu, dumny ze swojego miejsca w awangardzie. Konie kwiczały z bólu, gdy spadał na nie deszcz strzał. Pośród krwi i dymu zaściełających pole bitwy dojrzałeś swoją szansę. Szarża trwała długo, za to następująca po niej walka rozegrała się w mgnieniu oka. Gdy przekazałeś dowódcom zdobyty przez ciebie sztandar, ogłosili cię jednym z bohaterów tego pamiętnego dnia. Zajęli się tobą służący twego pana, a następnie zostałeś mu przedstawiony podczas uczty. Jakiego walecznego czynu dokonałeś? Jakie słowa usłyszałeś od swego pana?" },
+                { nazwa: "Chwalebna bitwa", opis: "Gdy rozpoczęła się bitwa, wróg miał przewagę liczebną. Główna część waszych sił wciąż miała dzień drogi przed sobą, a i tak byłaby zmęczona marszem. Zdawaliście sobie sprawę, że nie wyjdziecie z tego żywi. Wiedzieliście jednak, że musicie wytrzymać jak najdłużej, aby reszta żołnierzy miała równe szanse przeciwko wrogiej hordzie. Starcie było brutalne. Przedpole zasłały trupy koni i żołnierzy, rozrzucone pośród prowizorycznych barykad, zmieniając jedną walną bitwę w wiele drobnych, śmiertelnych potyczek. Straciliście połowę ludzi, lecz daliście z siebie wszystko i odparliście wroga. Gdy reszta waszej armii wreszcie przybyła leśnym traktem, zamiast żółtodziobów zastała weteranów. Twoją kompanię uhonorowano zadaniem pilnowania wschodniej flanki, a ci, którym udało się przeżyć, stali się prawdziwymi przyjaciółmi. W jaki sposób wyróżniłeś się wśród żołnierzy tej znakomitej kompanii?" },
+                { nazwa: "Jeźdźcy u bram", opis: "Twoim zadaniem było pilnowanie głównej bramy wiodącej do osady. Obserwowałeś każdego, kto chciał przez nią przejść. Choć kłopoty bywały rzadkością, miałeś okazję spotkać wielu niezwykłych i interesujących podróżnych. Pewnego dnia zauważyłeś trzech jeźdźców zbliżających się do bram. Zatrzymali się, splunęli na ziemię i zawrócili, podążając tą samą drogą, którą nadjechali. Czy pamiętasz jakieś szczegóły dotyczące tych obcych przybyszów? Czy dowiedziałeś się, dlaczego nie wjechali do osady?" },
+                { nazwa: "Strażnik niegościnnych murów", opis: "Twoje rodzinne strony nie były zbyt gościnnym miejscem dla obcych. Większość przybyszów witana była ostrymi grotami włóczni i kamieniami wystrzeliwanymi z proc. Wkrótce wszyscy byli ostrzeżeni i do osady przybywało niewielu podróżnych. Spędziłeś niezliczone godziny na piciu cienkusza i grze w kości o drobniaki. W końcu jednak nawet te zajęcia ci zbrzydły i musiałeś poszukać rozrywki na własną rękę. Jak udało ci się przetrwać nudę? Czym zabijałaś czas?" },
+                { nazwa: "Łupy skąpane we krwi", opis: "Gdy chwała i sława spływała na awangardę waszych sił, ty podążałeś jej śladem, wdeptując rannych w błoto i pilnując, by wróg nie próbował was okrążyć. Nadszedł wieczór, zmierzchało. Właśnie wtedy dostrzegłeś ogrom masakry. Wasza armia przetoczyła się przez siły nieprzyjaciela i wdarła w głąb wrogiego obozu. Ziemia usłana była ciałami sług i dzieci. Starając się zyskać co nieco na swoim udziale w bitwie, przeszukałeś pobliskie namioty i opuściłeś tamto miejsce ze świadomością, że wróg już nigdy nie podniesie się z tej klęski. Jakie łupy zdobyłeś i do kogo one wcześniej należały?" },
+                { nazwa: "Sromotna porażka", opis: "Siły obu armii były wyrównane, co doprowadziło do impasu w bitwie. W trzeciej godzinie starcia zaczął padać ulewny deszcz, zalewając strugami wody głównie wasze oddziały. Ziemia zmieniła się w gęste, czarne bagno, a łucznicy przeciwnika, nad którymi nie wisiały deszczowe chmury, mogli strzelać bez przeszkód. Wiatr niósł strzały wprost w szeregi waszej armii i wkrótce nie było żołnierza, któremu udałoby się uniknąć ran. Niewielu z nich resztkami sił zdołało oddalić się z pola bitwy, lecz żaden nie dotarł do domu. Jak udało ci się uciec?" }
+            ],
+            "Kupcy": [
+                { nazwa: "Niebotyczne zyski", opis: "W domu twojego dziadka świętowaniu nigdy nie było końca. Dawno temu przyznano mu prawo monopolu, zatem sprzedawał swoje towary po wysokich cenach. Konkurenci nie mieli się do kogo odwołać, gdy jego żołnierze konfiskowali towary lub nakładali na nie podatki podczas transportu do miasta. Żyłeś niczym szlachcic. Wszystko jednak ma swój kres. Gdy dziadek zmarł, prawo monopolu wróciło do księcia, który nałożył na twoje włości znacznie wyższe, rujnujące podatki. Za życia twój dziadek miał motto, którym kierował się w interesach. Jak brzmiało to motto i czy się z nim zgadzasz?" },
+                { nazwa: "Zyski z miasta", opis: "Pracując w domu swojej ciotki, miałeś okazję spotkać wiele bogatych osób, które go odwiedzały, aby dogadywać tam szczegóły swoich interesów. Byłeś zbyt młody, by ktokolwiek zwracał na ciebie większą uwagę, chyba że akurat podawałeś wino. Dzięki temu miałeś okazję usłyszeć wiele rzeczy, które nie były przeznaczone dla uszu twojej ciotki. Ta była szczodrą kobietą i zawsze cię nagradzała, gdy tylko udało się ubić jakiś intratny interes. Ile najwięcej zarobiłeś? Czy klient kiedyś się o tym dowiedział?" },
+                { nazwa: "Zyski ze szlaku", opis: "Ciągle dokądś zmierzałeś. Wyruszałeś z towarami z jednego miasta, aby sprzedać je w innym, dodatkowo zarabiając co nieco po drodze. Potem wydawałeś wszystko na tanie wino i ruszałeś dalej. Z jednej strony łatwo ci było czuć rozgoryczenie na myśl o kuzynach, którzy cieszyli się wygodami miasta, podczas gdy ty przemierzałeś niebezpieczne szlaki karawan. Z drugiej strony przeżywałeś przygody i mogłeś podziwiać wspaniałe widoki. Jaka była najbardziej zdumiewająca rzecz, którą zobaczyłeś?" },
+                { nazwa: "Jarzmo podatków", opis: "Władca ziem, z których pochodzisz, snuł dalekosiężne plany. Za ich realizację mieli zapłacić miejscowi kupcy. Nauczyłeś się wówczas, że czasem handlarz musi mieć przy sobie dwa rodzaje towaru: jeden na pokaz, a drugi, by opłacić podróż. Widziałeś także, jaki koniec czeka przemytników. Kto ucierpiał na twoich oczach z rąk żołnierzy chciwego władcy?" },
+                { nazwa: "Ciężko zdobyte zyski", opis: "Gdy byłeś bardzo młody, herszt rozbójników upatrzył sobie karawany należące do twojej rodziny. Z początku zatrudniliście najemników, lecz ci zdezerterowali i przyłączyli się do zbójców, pomagając w grabieżach. Potem król wypożyczył swoich żołnierzy, lecz opłaty za tę usługę były zbyt wygórowane. Wymyśliłeś wówczas plan, który sprawił, że połowa rodziny cię znienawidziła, a połowa pokochała. Na czym polegał ów plan i dlaczego okazał się tak skuteczny?" },
+                { nazwa: "Upadek", opis: "Rodzinny interes przynosił zyski i zapewniał godne życie. Nie byliście jednym z najpotężniejszych rodów, lecz wydawało się, że wasze powiązania i kontakty zapewnią spokojną przyszłość. Wszystko to uległo zmianie podczas pewnej uczty. Twój wuj obraził jednego z bardzo wpływowych dworzan, który w rewanżu postawił sobie za cel zniszczyć waszą rodzinę. Gdy skończył swe dzieło, dobre imię twojego rodu było już kompletnie zszargane. Król przyznał prawa do monopoli waszym rywalom, co uniemożliwiło wam wwóz towarów do miast. Do tego rozbójnicy nękali wasze karawany. Gdy spłonęła twoja rodzinna posiadłość, zostałeś bez środków do życia. Teraz stanąłeś już na nogi i w związku z tym musisz rozważyć dalsze kroki. Jaką zemstę zgotujesz dworzaninowi, o ile takową planujesz? Jak unikniesz jego gniewu?" }
+            ],
+            "Rzemieślnicy": [
+                { nazwa: "Znak sławy", opis: "Twój znak rzemieślniczy dodano do listy największych sław w twym rodzinnym mieście. Najprawdopodobniej była to decyzja polityczna, ponieważ dopiero co udało ci się ukończyć praktyki uczniowskie i uzyskać tytuł czeladnika. Byłeś bardzo naiwną osobą w chwili otrzymania tego zaszczytu, lecz miałeś czas na zastanowienie się nad tym wszystkim i podejrzewasz, kto mógł stać za tą decyzją. Kto to jest? Co kieruje tą osobą? Czy zasługujesz na to, aby należeć do tak szacownego grona?" },
+                { nazwa: "Znak prawdziwego talentu", opis: "Swój znak rzemieślniczy otrzymałaś od dziadka. Z dumą przekazywał go wszystkim swoim uczniom na dowód, że pracują zgodnie z rodzinną tradycją. Jest jednak pewien problem. Widziałeś wiele wspaniałych wzorów, projektów i dzieł, jakie wyszły spod ręki twoich krewnych, i masz wrażenie, że nie jesteś godny tego znaku. Wszystko zaczęło się przed śmiercią dziadka, kiedy skrytykował twój najnowszy wyrób. Jego szorstkie słowa wciąż dźwięczą ci w uszach. Czego dotyczyła krytyka i czy nadal używasz przyznanego ci znaku rzemieślniczego?" },
+                { nazwa: "Czas pokoju", opis: "Pobierałeś nauki w spokojnych latach między kolejnymi wojnami toczonymi przez sąsiednie mocarstwa. Choć podczas wielu godzin harówki udało ci się wyuczyć rzemiosła, wyrabianie broni nie zajmowało wysokiego miejsca na liście priorytetów. Musiałeś samodzielnie nauczyć się, jak tworzyć takie przedmioty. Pierwszy egzemplarz zrobionej przez ciebie broni białej był słabo wyważony i miał kruche ostrze, lecz był ci potrzebny, a poza tym nie uśmiechała ci się kradzież. Do czego była ci potrzebna broń i czy spełniła swoje zadanie?" },
+                { nazwa: "Czas wojny", opis: "Odbywałeś praktyki uczniowskie w czasach, gdy machiny oblężnicze miotały pociski nad bastionami twojego miasta, niszcząc mury i dachy. Kowale nieprzerwanie produkowali broń i zbroje. Bardzo często ktoś przekazywał ci pudło metalowego złomu i poganiał do roboty. W ciągu dziesięciu dni zrobiłeś więcej niż większość czeladników i mimo trudnych warunków wykułeś dobrej jakości broń. Jakie najlepsze dzieło wyszło wówczas spod twojej ręki? Co się z nim stało?" },
+                { nazwa: "Widmo zamkniętych kopalni", opis: "Ledwie udało ci się zdać egzamin uczniowski. O rudę było ciężko, a większość kopalni została już wyeksploatowana. Wraz z kilkorgiem innych uczniów wybraliście się, by znaleźć wystarczającą ilość surowca potrzebnego do pracy. Kiedy w końcu się to udało, jakaś banda lub poszukiwacze metali chcieli was okraść. Co się wówczas wydarzyło? Czy udało ci się zdobyć dość metalu, aby uzyskać tytuł czeladnika, czy też trzeba było szukać gdzie indziej?" },
+                { nazwa: "Znak hańby", opis: "Dopuściłeś się poważnej obrazy pewnego cechu działającego w twoim rodzinnym mieście. W konsekwencji znak twego rodu został wymazany z ludzkiej pamięci. Zdarto go z miejsca, w którym kiedyś widniał, a potem je zaszpachlowano i zamalowano. Ostała się garstka przedmiotów, które wyszły spod twojej ręki. Ludzie kupują coś od ciebie, jeśli mocno spuścisz z ceny. Jesteś w stanie zarobić rzemiosłem na życie tylko dlatego, że wciąż masz kilku przyjaciół, którzy cię wspierają. W jaki sposób rozgniewałeś wspomniany cech i na kogo możesz nadal liczyć?" }
+            ],
+            "Rolnicy": [
+                { nazwa: "Błogosławione zbiory", opis: "Ciepło wspominasz czasy, kiedy ciężką pracę matka ziemia nagradzała obfitością plonów, a pory roku były łaskawe. Pamiętasz więzy łączące cię z najbliższymi. Gdzie oni teraz są?" },
+                { nazwa: "Zapasy na zimę", opis: "Każdy dzień przynosił nowe wyzwanie. Dzięki temu nabrałeś hartu. Latem ziemia była twarda, a zimą zmieniała się w błoto. Mimo to, gdy trzeba było otworzyć spichrze, zawsze było w nich dość jęczmienia, aby przygotować mocny napitek, a żywności nie brakowało. Ledwo jesteś w stanie przypomnieć sobie mieszkańców swojej wioski. Gdybyś do niej powrócił, równie niewielu by cię pamiętało. Może jednak jest tam ktoś, kogo warto ponownie zobaczyć? Czy w ogóle pamiętasz imię tej osoby?" },
+                { nazwa: "Ciężkie zimy", opis: "Każdy rok był walką o przetrwanie. Lokalny władca zabierał sporo dla swoich rycerzy, niewiele pozostawiając zwykłym ludziom. Czasami miałeś coś do jedzenia, a kiedy indziej piłeś roztopiony śnieg i zasypiałeś przy wtórze wycia wilków. Nie masz pięknych wspomnień z tamtego ponurego miejsca – jedynie cierpienia zadawane rękami rycerzy przywłaszczających sobie cudze mienie. Był wśród nich jeden, który w szczególności lubował się w dręczeniu innych. Jeśli znów go spotkasz, czy będzie chciał się zemścić? Dlaczego?" },
+                { nazwa: "Niedostatek i potępienie", opis: "Głód doskwierał nawet obrońcom twojej wioski, a kiedy tak się działo, cierpieli wszyscy. Planowano napaści na inne osady, lecz ty nigdy nie zobaczyłeś nawet okrucha zdobytej w ten sposób żywności. Jedynym sposobem na przetrwanie stało się kłusownictwo, lecz zwierzyny brakowało i upolowaną zdobycz zatrzymywałeś dla siebie. W końcu jednak przyłapano cię na gorącym uczynku i gniewne spojrzenia mieszkańców wioski stały się nie do zniesienia. Czy zostałeś ukarany i czy kiedykolwiek udało ci się odkupić winy?" },
+                { nazwa: "Ani okrucha więcej", opis: "Pamiętasz śmierć tamtego wojownika. Po prostu przystanął i upadł ze szczękiem zbroi na kamienistą ziemię. Po raz piąty przybył zebrać podatki, lecz nie było już ani jedzenia, ani innych dóbr. Kiedy dowiedział się, że ani ty, ani twoi bliscy nie macie już nic, co mógłby zabrać, po prostu zatrzymał się, zupełnie jakby jego dusza poddała się i udała w inne miejsce, w którym niczego nie brak. Rzeźnik szybko zajął się koniem, a ciebie wysłano na południe, aby znaleźć kogoś, kto kupiłby miecz zmarłego wojownika. Czy udało ci się znaleźć kupca? Czy wróciłeś z zapłatą do domu?" },
+                { nazwa: "Głód", opis: "Gdy zabrakło jedzenia z ostatnich zbiorów, żywiliście się leśną zwierzyną. Potem zarżnęliście i zjedliście zwierzęta, które pracowały na waszych polach. Gdy woda stała się luksusem, niektórzy mieszkańcy wsi zaczęli łakomym wzrokiem spoglądać na miękkie ciała waszych panów i rozmyślać nad nowym rodzajem zwierzyny. Nóż zagłębił się w ciele sługi właściciela okolicznych ziem i wtedy właśnie spadł deszcz. Mogłeś tylko obserwować z przerażeniem, jak desperacja ukazuje swoje najohydniejsze oblicze. Zostałaś zmuszona zadać sobie najtrudniejsze pytanie: jak bardzo jestem głodny?" }
+            ],
+            "Pasterze": [
+                { nazwa: "Pracowity sezon", opis: "Ledwie pamiętasz, ile się napracowałeś przy owcach, lecz nigdy nie zapomnisz zgiełku, jaki temu towarzyszył. Nieustający chór pobekiwań i przekleństw, do którego dołączały czasem odgłosy rzezi. Gdy sezon się skończył, byłeś wystarczająco bogaty, aby stać cię było na życie w warunkach, jakich twoi przodkowie nigdy nie zaznali. W czym zasmakowałeś i czy nadal cię to kusi?" },
+                { nazwa: "Słodycz nocnej ciszy", opis: "Pamiętasz wzgórza, na których wypoczywałaś wśród traw i aromatycznych dzikich ziół. Dni były spokojne, a noce nieskończone. Więcej czasu spędzałaś na rozrywce niż pracy, a wspomnienia tamtych chwil wciąż są miłą pociechą, nawet w gorszych latach. Jakie jest twoje najmilsze wspomnienie z tamtych czasów?" },
+                { nazwa: "Nocne wycie", opis: "Wilki tylko czasami stanowiły zagrożenie, lecz twoja ciotka uważała inaczej. Za wszelką cenę chciała zrobić z ciebie doskonałego łowcę wilków, nawet jeśli niektóre lekcje musiała ci wpajać za pomocą trzcinki. Pomimo tej całej nauki wycie wilków usłyszałeś tylko raz. Ciotka po cichu obudziła cię i wyprawiliście się do lasu, dzierżąc ogień i stal. Kiedy nadszedł świt, twoja ciotka wyglądała na starszą o sto lat, a ty już nigdy nie przespałeś spokojnie żadnej nocy. Jakie sny wciąż cię nawiedzają?" },
+                { nazwa: "Zdziesiątkowane stado", opis: "Choroba powaliła wiele zwierząt. Przesądy trzymały się mocno, zatem jeszcze więcej zwierząt złożono w ofierze, by uratować zdrowe sztuki. Kiedy zaraza minęła, przeżyło tylko jedno na pięcioro zwierząt. Stado było skazane na zagładę. Starszy pasterz zagnał pozostałe przy życiu sztuki do miasteczka, gdzie trafiły do rzeźni, a potem podzieliliście się pieniędzmi. Następnego ranka znalazłeś go powieszonego. Wokół palców wciąż miał opleciony pukiel włosów podarowany mu przez żonę. A jeszcze poprzedniego wieczora wydawał się roztropnym człowiekiem. Jakie były ostatnie słowa, które wypowiedział w twojej obecności?" },
+                { nazwa: "Wilki wśród owiec", opis: "To naturalne, że podczas ciężkiej zimy wilki znajdą drogę do ludzi. Na początku były jak zwykle drobnym kłopotem, lecz śniegu przybywało, a wraz z nim pojawiało się coraz więcej wilczych tropów. Gdzieś w lesie wielki wilk zbierał ogromną watahę, liczniejszą niż kiedykolwiek. Leśnicy chadzali do lasu grupami, by zbierać drewno na opał. Mimo to szybko się zgubiłeś. Brnąc przez śnieg z naręczem mokrych gałęzi, zobaczyłeś to i zajrzałeś temu prosto w oczy. Te oczy prześladują cię po dziś dzień. Co zobaczyłeś? Dlaczego to coś darowało ci życie?" },
+                { nazwa: "Bandyci", opis: "Na początku było widać w oddali tylko cienkie smugi dymu. Niedługo potem do wielu uszu dotarł śmiech, jakby niesiony wiatrem. Wioskowi starcy półgłosem szeptali słowo, które wywoływało przerażenie… Bandyci! Ogrodzenie otoczono pułapkami, a każdy sprawny mieszkaniec wioski stanął na straży. Bandyci zaatakowali trzeciej nocy. Połowa stada została skradziona, a na piętnastu mieszkańców czekał stos żałobny. Wreszcie nadszedł czas, aby przemówili młodzi. Twój głos dołączył do innych. Co zrobiłaś i jaką zapłaciłaś za to cenę?" }
+            ],
+            "Odtrąceni": [
+                { nazwa: "Miłosierdzie dobrych ludzi", opis: "Choć nie jesteś najżałośniejszym żebrakiem na świecie, szczodra osoba ofiarowała ci żywność i schronienie, gdy byłeś w potrzebie. Dzięki temu przeżyłeś. Jaki zły los przypadł ci w udziale i kto był twoim dobroczyńcą?" },
+                { nazwa: "Miłosierdzie próżnych kapłanów", opis: "Aby zamanifestować swoją pobożność, pewien kapłan zaoferował ci schronienie i godzinami wygłaszał tylko dla ciebie nudne kazania. Przebywając pod jego dachem, widziałeś wiele skarbów, a resztki ze stołu, którymi cię karmiono, gdzie indziej uznano by za wykwintny posiłek. Czy zabrałeś coś z domu kapłana? Czy odkryto kradzież?" },
+                { nazwa: "Jedzenie i podłe trunki", opis: "Zgraja, z którą zamieszkiwałeś ruderę, nie miała wiele dobytku, lecz wszystkim dzieliliście się z radością. Masz z tych czasów wiele miłych, choć skromnych wspomnień. Rudera już nie istnieje. Co spotkało jej mieszkańców? Czy ktokolwiek z nich przetrwał?" },
+                { nazwa: "Ktoś z motłochu", opis: "Tam, gdzie nie docierało prawo, utarczki o żywność były codziennością. Zdrada była częścią życia, lecz nigdy nie spodziewałeś się, że posmakujesz jej z ręki towarzyszy niedoli. Kto cię zdradził? Dlaczego wciąż cię to boli?" },
+                { nazwa: "Niedotykalny", opis: "Był taki czas, gdy całkiem nieźle radziłeś sobie jak na obdartusa. Potem coś się wydarzyło. Ledwo pamiętasz, jak i dlaczego to się stało, lecz naznaczyło cię to tak mocno, jak gdyby ktoś odcisnął ci piętno na twarzy. Dlaczego żebracy plują nawet na sam widok twego cienia? Czy jest ktoś, kto cię mile wspomina?" },
+                { nazwa: "Ścigany przez prawo", opis: "Podążają twoim tropem, robią naloty na gospody i zaglądają do każdego zaułka, w którym kiedyś pomieszkiwałeś. Być może popełniłeś przestępstwo i wcale tego nie żałujesz lub niesprawiedliwie cię prześladowano. Tak czy inaczej, pozostawiasz za sobą szlak pełen udręki. Czyjego cierpienia żałujesz najbardziej i co zamierzasz zrobić, aby ulżyć doli tej osoby?" }
+            ]
+        };
+
+        const historieOgolne = ["Zdradzony przez bliskich", "Ocalały z rzezi", "Wychowanek ulicy", "Zbiegły niewolnik", "Spadkobierca upadłego rodu", "Przeklęty przez bóstwo", "Weteran krwawej wojny", "Poszukiwacz ruin", "Wygnany za herezję", "Wychowany w dziczy"];
+
+        // ==========================================
+        // FUNKCJE POMOCNICZE
+        // ==========================================
+        function losuj(lista) { return lista[Math.floor(Math.random() * lista.length)]; }
+
+        function losujSkazania(ile) {
+            const copy = [...skazania];
+            const wynik = [];
+            while (wynik.length < ile && copy.length) {
+                const idx = Math.floor(Math.random() * copy.length);
+                wynik.push(copy.splice(idx, 1)[0]);
+            }
+            return wynik;
+        }
+
+        function showPanel(panelId) {
+            const panels = ['panel-wlasny', 'panel-reczny', 'panel-losuj'];
+            panels.forEach(id => {
+                document.getElementById(id).classList.toggle('otwarta', id === panelId);
+            });
+        }
+
+        let reczneWybraneSkazania = [];
+
+        function renderSkazaniaSelect() {
+            const filter = '';
+            const select = document.getElementById('reczne-skazano-wybierz');
+            select.innerHTML = '';
+            skazania
+                .filter(s => !reczneWybraneSkazania.includes(s))
+                .filter(s => s.toLowerCase().includes(filter))
+                .forEach((skazanie, index) => {
+                    const opt = document.createElement('option');
+                    opt.value = skazanie;
+                    opt.text = skazanie;
+                    select.appendChild(opt);
+                });
+            if (!select.children.length) {
+                const opt = document.createElement('option');
+                opt.value = '';
+                opt.text = 'Brak pasujących skazań';
+                select.appendChild(opt);
+            }
+            document.getElementById('reczne-skazano-podpowiedz').textContent = reczneWybraneSkazania.length === 3 ? 'Postać ma już wybrane 3 skazania.' : 'Wybierz 3 skazania. Po dodaniu wyświetlą się tutaj.';
+            const addButton = document.querySelector('#panel-reczny button[onclick*="dodajSkazanieDoWyboru"]');
+            if (addButton) addButton.disabled = reczneWybraneSkazania.length >= 3 || !select.children.length || select.value === '';
+            aktualizujWybraneSkazania();
+        }
+
+        function filtrujSkazania() {
+            renderSkazaniaSelect();
+        }
+
+        function dodajSkazanieDoWyboru() {
+            const select = document.getElementById('reczne-skazano-wybierz');
+            const wartosc = select.value;
+            if (!wartosc || reczneWybraneSkazania.length >= 3) return;
+            reczneWybraneSkazania.push(wartosc);
+            renderSkazaniaSelect();
+        }
+
+        function aktualizujWybraneSkazania() {
+            const container = document.getElementById('reczne-skazano-wybrane');
+            container.innerHTML = '';
+            reczneWybraneSkazania.forEach((skazanie, index) => {
+                const tag = document.createElement('div');
+                tag.className = 'tag';
+                tag.innerHTML = `${skazanie} <button type="button" onclick="usunSkazanie(${index})">✕</button>`;
+                container.appendChild(tag);
+            });
+        }
+
+        function usunSkazanie(index) {
+            reczneWybraneSkazania.splice(index, 1);
+            renderSkazaniaSelect();
+        }
+
+        function hidePanel(panelId) {
+            document.getElementById(panelId).classList.remove('otwarta');
+        }
+
+        window.onload = function() {
+            // Wypełnianie selectów - panel własny
+            wypelnijSelect('wlasne-pochodzenie', pochodzenia, p => `${p.kraina} - ${p.cecha}`);
+            wypelnijSelect('wlasne-archetyp', archetypy, a => a.nazwa);
+            wypelnijSelect('wlasne-kasta', kasty, k => k.nazwa);
+            
+            // Wypełnianie selectów - panel z listy
+            wypelnijSelect('reczne-pochodzenie', pochodzenia, p => `${p.kraina} - ${p.cecha}`);
+            wypelnijSelect('reczne-archetyp', archetypy, a => a.nazwa);
+            wypelnijSelect('reczne-kasta', kasty, k => k.nazwa);
+            wypelnijSelect('reczne-wyksztalcenie', wyksztalcenie, w => w.nazwa);
+            wypelnijSelect('reczne-usposobienie', usposobienia, u => u.nazwa);
+            renderSkazaniaSelect();
+
+            // Inicjalizacja opisów
+            zaktualizujOpis('wlasne-pochodzenie', 'opis-wlasne-pochodzenie', pochodzenia);
+            zaktualizujOpis('wlasne-archetyp', 'opis-wlasne-archetyp', archetypy);
+            zaktualizujOpis('wlasne-kasta', 'opis-wlasne-kasta', kasty);
+
+            zaktualizujOpis('reczne-pochodzenie', 'opis-reczne-pochodzenie', pochodzenia);
+            zaktualizujOpis('reczne-archetyp', 'opis-reczne-archetyp', archetypy);
+            zaktualizujOpis('reczne-wyksztalcenie', 'opis-reczne-wyksztalcenie', wyksztalcenie);
+            zaktualizujOpis('reczne-usposobienie', 'opis-reczne-usposobienie', usposobienia);
+            zmianaKastyReczne(); 
+        };
+
+        function wypelnijSelect(id, lista, formatText) {
+            const select = document.getElementById(id);
+            select.innerHTML = "";
+            lista.forEach((item, index) => {
+                const opt = document.createElement("option");
+                opt.value = typeof item === 'string' ? item : index;
+                opt.text = formatText(item);
+                select.appendChild(opt);
+            });
+        }
+
+        function zaktualizujOpis(selectId, opisId, dataArray) {
+            const index = document.getElementById(selectId).value;
+            const element = dataArray[index];
+            document.getElementById(opisId).innerHTML = element.opis;
+        }
+
+        function zmianaKastyReczne() {
+            zaktualizujOpis('reczne-kasta', 'opis-reczne-kasta', kasty);
+            
+            const kasta = kasty[document.getElementById("reczne-kasta").value];
+            const historieSelect = document.getElementById("reczne-historia");
+            historieSelect.innerHTML = "";
+
+            let listaHistorii = historieKast[kasta.nazwa];
+            if (!listaHistorii) {
+                listaHistorii = historieOgolne.map(h => ({nazwa: h, opis: "Brak dodatkowego opisu dla tej historii."}));
+            }
+
+            listaHistorii.forEach((h, idx) => {
+                const opt = document.createElement("option");
+                opt.value = idx;
+                opt.text = h.nazwa;
+                historieSelect.appendChild(opt);
+            });
+            
+            aktywneHistorieRaczne = listaHistorii;
+            zaktualizujOpisHistoriiRecznej(); 
+        }
+
+        function zaktualizujOpisHistoriiRecznej() {
+            const index = document.getElementById("reczne-historia").value;
+            document.getElementById("opis-reczne-historia").innerHTML = aktywneHistorieRaczne[index].opis || "Brak opisu.";
+        }
+
+        // ==========================================
+        // LOSOWANIE KARTY (JEDNA KARTA)
+        // ==========================================
+        function generujKarte() {
+            aktualneKarty = []; 
+
+            const wynikPochodzenie = losuj(pochodzenia);
+            const wynikArchetyp = losuj(archetypy);
+            const wynikKasta = losuj(kasty);
+            
+            let wynikHistoria;
+            if (historieKast[wynikKasta.nazwa]) {
+                wynikHistoria = losuj(historieKast[wynikKasta.nazwa]);
+            } else {
+                wynikHistoria = { nazwa: losuj(historieOgolne), opis: "" };
+            }
+
+            const wynikWyksztalcenie = losuj(wyksztalcenie);
+            const wynikUsposobienie = losuj(usposobienia);
+            const wynikCechaNegatywna = losuj(cechyNegatywne);
+            const wynikSkazanoZa = losujSkazania(3);
+
+            aktualneKarty.push({
+                pochodzenie: wynikPochodzenie,
+                archetyp: wynikArchetyp,
+                kasta: wynikKasta,
+                historia: wynikHistoria,
+                wyksztalcenie: wynikWyksztalcenie,
+                usposobienie: wynikUsposobienie,
+                cechaNegatywna: wynikCechaNegatywna,
+                skazanoZa: wynikSkazanoZa.join(', ')
+            });
+
+            const wygladKarty = `
+                <div class="karta flat">
+                    <button class="btn-wybierz-karte" style="margin-bottom: 20px;" onclick="generujKarte()">Losuj</button>
+                    <p><strong>Pochodzenie:</strong> ${wynikPochodzenie.kraina} - 
+                        <span class="tooltip">${wynikPochodzenie.cecha}
+                            <span class="tooltiptext">${wynikPochodzenie.opis}</span>
+                        </span>
+                    </p>
+                    
+                    <p><strong>Archetyp:</strong> ${wynikArchetyp.nazwa}</p>
+                    <p class="opis-cechy">${wynikArchetyp.opis}</p>
+                    
+                    <p><strong>Kasta:</strong> ${wynikKasta.nazwa}</p>
+                    <p class="opis-cechy">${wynikKasta.opis}</p>
+                    
+                    <p><strong>Historia:</strong> ${wynikHistoria.nazwa}</p>
+                    ${wynikHistoria.opis ? `<p class="opis-cechy">${wynikHistoria.opis}</p>` : ''}
+
+                    <p><strong>Wykształcenie:</strong> ${wynikWyksztalcenie.nazwa}</p>
+                    <p class="opis-cechy">${wynikWyksztalcenie.opis}</p>
+                    
+                    <p><strong>Usposobienie:</strong> ${wynikUsposobienie.nazwa}</p>
+                    <p class="opis-cechy">${wynikUsposobienie.opis}</p>
+                    <p><strong>Cecha negatywna:</strong> ${wynikCechaNegatywna}</p>
+                    <p><strong>Za co skazano:</strong><br>${wynikSkazanoZa.map(s => `&ndash; ${s}`).join('<br>')}</p>
+
+                    <button class="btn-wybierz-karte" onclick="wybierzKartaLosowa(0)">Wybierz i Wyślij</button>
+                </div>
+            `;
+            
+            document.getElementById('losuj-zawartosc').innerHTML = wygladKarty;
+            document.getElementById('panel-losuj').classList.add('otwarta');
+            document.getElementById('panel-wlasny').classList.remove('otwarta');
+            document.getElementById('panel-reczny').classList.remove('otwarta');
+        }
+
+        // ==========================================
+        // GŁÓWNA FUNKCJA WYSYŁAJĄCA + ZBIERANIE DANYCH
+        // ==========================================
+
+        let wysylanaKartaIndex = null;
+
+        function wybierzKartaLosowa(indeks) {
+            wysylanaKartaIndex = indeks;
+            document.getElementById('modal-imie').value = '';
+            document.getElementById('modal-discord').value = '';
+            document.getElementById('modal-wyslij').classList.add('active');
+        }
+
+        function closeSendModal() {
+            document.getElementById('modal-wyslij').classList.remove('active');
+        }
+
+        function confirmSendCard() {
+            const imie = document.getElementById('modal-imie').value.trim();
+            const discordNick = document.getElementById('modal-discord').value.trim();
+            if (!imie) {
+                alert('Wpisz imię swojej postaci.');
+                return;
+            }
+            if (!discordNick) {
+                alert('Wpisz swój nick na Discordzie.');
+                return;
+            }
+
+            const skazanoZa = losujSkazania(3).join(', ');
+            const karta = { ...aktualneKarty[wysylanaKartaIndex], skazanoZa };
+            closeSendModal();
+            zapiszIWyslij(discordNick, imie, karta);
+        }
+
+        function wyslijZPaneluWyboru() {
+            const discordNick = document.getElementById("reczne-discord").value.trim();
+            const imie = document.getElementById("reczne-imie").value.trim();
+            const skazanoZa = reczneWybraneSkazania;
+            
+            if (!discordNick || !imie || skazanoZa.length !== 3) { alert("Wypełnij imię postaci, nick Discord i wybierz dokładnie 3 skazania!"); return; }
+
+            const k = {
+                pochodzenie: pochodzenia[document.getElementById("reczne-pochodzenie").value],
+                archetyp: archetypy[document.getElementById("reczne-archetyp").value],
+                kasta: kasty[document.getElementById("reczne-kasta").value],
+                historia: aktywneHistorieRaczne[document.getElementById("reczne-historia").value],
+                wyksztalcenie: wyksztalcenie[document.getElementById("reczne-wyksztalcenie").value],
+                usposobienie: usposobienia[document.getElementById("reczne-usposobienie").value],
+                skazanoZa: skazanoZa.join(", ")
+            };
+
+            zapiszIWyslij(discordNick, imie, k);
+        }
+
+        function wyslijWlasnaKarte() {
+            const discordNick = document.getElementById("wlasne-discord").value.trim();
+            const imie = document.getElementById("wlasne-imie").value.trim();
+            const historiaVal = document.getElementById("wlasne-historia").value.trim();
+            const wyksztalcenieVal = document.getElementById("wlasne-wyksztalcenie").value.trim();
+            const usposobienieVal = document.getElementById("wlasne-usposobienie").value.trim();
+            const skazanoZaVal = document.getElementById("wlasne-skazano").value.trim();
+            
+            if (!discordNick || !imie || !historiaVal || !wyksztalcenieVal || !usposobienieVal || !skazanoZaVal) {
+                alert("Aby wysłać własną Kartę Postaci, musisz wypełnić WSZYSTKIE pola tekstem!");
+                return; 
+            }
+
+            const k = {
+                pochodzenie: pochodzenia[document.getElementById("wlasne-pochodzenie").value],
+                archetyp: archetypy[document.getElementById("wlasne-archetyp").value],
+                kasta: kasty[document.getElementById("wlasne-kasta").value],
+                historia: { nazwa: "Własna historia gracza", opis: historiaVal },
+                wyksztalcenie: { nazwa: "Wykształcenie (własne)", opis: wyksztalcenieVal },
+                usposobienie: { nazwa: "Usposobienie (własne)", opis: usposobienieVal },
+                skazanoZa: skazanoZaVal
+            };
+
+            zapiszIWyslij(discordNick, imie, k);
+        }
+
+        async function zapiszIWyslij(discordNick, imie, k) {
+            
+            // ANTYSPAM (10 Minut)
+            const COOLDOWN_MINUTES = 10;
+            const lastSent = localStorage.getItem('lastKpSentTime');
+            
+            if (lastSent) {
+                const timePassed = Date.now() - parseInt(lastSent);
+                const timeRequired = COOLDOWN_MINUTES * 60 * 1000; 
+                
+                if (timePassed < timeRequired) {
+                    const minutesLeft = Math.ceil((timeRequired - timePassed) / 60000);
+                    alert(`System antyspamowy chroni ten serwer.\nKolejną kartę postaci możesz wysłać za ${minutesLeft} minut.`);
+                    return; 
+                }
+            }
+
+            // PLIK TXT
+            let tekst = `=== KARTA POSTACI: ${imie.toUpperCase()} ===\r\n`;
+            tekst += `Gracz (Discord): ${discordNick}\r\n\r\n`;
+            tekst += `Pochodzenie: ${k.pochodzenie.kraina} - ${k.pochodzenie.cecha}\r\n`;
+            if (k.pochodzenie.opis) tekst += `${k.pochodzenie.opis}\r\n`;
+            tekst += `\r\nArchetyp: ${k.archetyp.nazwa}\r\n`;
+            if (k.archetyp.opis) tekst += `${k.archetyp.opis}\r\n`;
+            tekst += `\r\nKasta: ${k.kasta.nazwa}\r\n`;
+            if (k.kasta.opis) tekst += `${k.kasta.opis}\r\n`;
+            tekst += `\r\nHistoria: ${k.historia.nazwa}\r\n`;
+            if (k.historia.opis) tekst += `${k.historia.opis}\r\n`;
+            tekst += `\r\nWykształcenie: ${k.wyksztalcenie.nazwa}\r\n`;
+            if (k.wyksztalcenie.opis) tekst += `${k.wyksztalcenie.opis}\r\n`;
+            tekst += `\r\nUsposobienie: ${k.usposobienie.nazwa}\r\n`;
+            if (k.usposobienie.opis) tekst += `${k.usposobienie.opis}\r\n`;
+            if (k.cechaNegatywna) tekst += `\r\nCecha negatywna: ${k.cechaNegatywna}\r\n`;
+            tekst += `\r\nZa co skazano: ${k.skazanoZa || 'Brak informacji'}\r\n`;
+            tekst += `\r\n=====================================\r\nWygenerowano w systemie Heldamar\r\n`;
+
+            try {
+                const blob = new Blob([tekst], { type: "text/plain;charset=utf-8" });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = `${imie}_KP.txt`; 
+                document.body.appendChild(link);
+                link.click(); 
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            } catch(e) { console.error("Błąd zapisu", e); }
+
+            // DISCORD
+            const discordPayload = {
+                username: "Generator Heldamar",
+                thread_name: `KP: ${imie.toUpperCase()} (${discordNick})`,
+                embeds: [{
+                    title: `📜 Nowa Karta Postaci: ${imie.toUpperCase()}`,
+                    description: `**Gracz:** ${discordNick}`,
+                    color: 13203968, 
+                    fields: [
+                        { name: "Pochodzenie", value: `**${k.pochodzenie.kraina}**\n${k.pochodzenie.cecha}` + (k.pochodzenie.opis ? `\n*${k.pochodzenie.opis}*` : ""), inline: false },
+                        { name: "Archetyp", value: `**${k.archetyp.nazwa}**` + (k.archetyp.opis ? `\n*${k.archetyp.opis}*` : ""), inline: false },
+                        { name: "Kasta", value: `**${k.kasta.nazwa}**` + (k.kasta.opis ? `\n*${k.kasta.opis}*` : ""), inline: false },
+                        { name: "Historia", value: `**${k.historia.nazwa}**` + (k.historia.opis ? `\n*${k.historia.opis}*` : ""), inline: false },
+                        { name: "Wykształcenie", value: `**${k.wyksztalcenie.nazwa}**` + (k.wyksztalcenie.opis ? `\n*${k.wyksztalcenie.opis}*` : ""), inline: false },
+                        { name: "Usposobienie", value: `**${k.usposobienie.nazwa}**` + (k.usposobienie.opis ? `\n*${k.usposobienie.opis}*` : ""), inline: false },
+                        { name: "Cecha negatywna", value: k.cechaNegatywna || "Brak", inline: false },
+                        { name: "Za co skazano", value: k.skazanoZa || "Nie podano", inline: false }
+                    ],
+                    footer: { text: "Na podstawie podręcznika Conan: Przygody w Erze Niewyśnionej" }
+                }]
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(discordPayload)
+                });
+
+                if (response.ok) {
+                    alert("Karta postaci została zapisana i wysłana na Discorda!");
+                    localStorage.setItem('lastKpSentTime', Date.now());
+                    
+                    document.getElementById("reczne-imie").value = "";
+                    document.getElementById("wlasne-imie").value = "";
+                    document.getElementById("wlasne-historia").value = "";
+                    document.getElementById("wlasne-wyksztalcenie").value = "";
+                    document.getElementById("wlasne-usposobienie").value = "";
+                    
+                    document.getElementById("panel-wlasny").classList.remove("otwarty");
+                    document.getElementById("panel-reczny").classList.remove("otwarty");
+                } else {
+                    alert("Wystąpił błąd API! Karta została pobrana na dysk, ale Discord odrzucił wiadomość.");
+                }
+            } catch (error) {
+                alert("Brak połączenia! Karta pobrana na dysk, ale nie wysłano jej na Discorda.");
+            }
+        }
+    </script>
 </body>
 </html>
