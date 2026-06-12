@@ -8,14 +8,24 @@
         .logo-heldamar { color: #c97a00; font-size: 48px; letter-spacing: 5px; margin: 40px 0 0 0; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
         h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; }
 
-        .przyciski-lewe { position: fixed; top: 460px; left: 20px; display: flex; flex-direction: column; gap: 16px; z-index: 1000; }
+        .przyciski-lewe { position: fixed; top: 360px; left: 20px; display: flex; flex-direction: column; gap: 16px; z-index: 1000; }
         .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #444; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 8px; color: white; border: none; cursor: pointer; transition: 0.2s; font-weight: bold; text-align: left; }
         .przyciski-lewe .przycisk-boczny:hover { background-color: #555; transform: scale(1.03); }
 
-        .info-lewe { position: fixed; top: 20px; left: 20px; width: 320px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 1000; }
+        .info-lewe { position: fixed; bottom: 20px; left: 20px; width: 320px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
         .info-lewe h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
         .info-lewe p { margin: 0 0 12px 0; color: #d3d3d3; line-height: 1.5; font-size: 14px; text-align: left; }
         .info-lewe .info-kategoria { margin-bottom: 18px; }
+
+        .generator-imion { position: fixed; bottom: 20px; right: 20px; width: 360px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
+        .generator-imion h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
+        .generator-imion label { display: block; margin-bottom: 8px; color: #ccc; font-weight: bold; font-size: 14px; }
+        .generator-imion select { width: 100%; background-color: #151515; color: #eaeaea; border: 1px solid #444; padding: 10px; border-radius: 6px; font-family: inherit; font-size: 14px; box-sizing: border-box; margin-bottom: 16px; }
+        .generator-imion button { width: 100%; padding: 14px 18px; border: none; border-radius: 8px; background-color: #c97a00; color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .generator-imion button:hover { background-color: #e68d00; }
+        .generator-imion .lista-imion { margin-top: 18px; color: #e0e0e0; font-size: 14px; }
+        .generator-imion .lista-imion ol { padding-left: 20px; margin: 0; }
+        .generator-imion .lista-imion li { margin-bottom: 10px; line-height: 1.5; }
         .info-lewe .info-kategoria strong { display: block; color: #e6b85a; margin-bottom: 6px; }
         .info-lewe .info-kategoria span { display: block; color: #bbb; font-size: 13px; line-height: 1.4; }
 
@@ -99,6 +109,14 @@
             <strong>Wylosuj postać</strong>
             <span>To najtrudniejsza forma KP. Gracz całkowicie podporządkowuje się woli przeznaczenia i deklaruje grę wylosowaną postacią. Taki gracz otrzymuje 5 SAP na start, a z czasem, gdy inni gracze dostają np. 1 SAP, ty dostajesz 2 punkty SAP.</span>
         </div>
+    </div>
+
+    <div class="generator-imion">
+        <h3>Generator Imion</h3>
+        <label for="generator-pochodzenie">Wybierz pochodzenie</label>
+        <select id="generator-pochodzenie"></select>
+        <button type="button" onclick="generujImiona()">Generuj 10 imion</button>
+        <div id="generator-wyniki" class="lista-imion"></div>
     </div>
 
     <div id="modal-wyslij" class="modal-overlay" onclick="if(event.target===this) closeSendModal()">
@@ -309,6 +327,72 @@
             "Słaby wzrok",
             "Lekceważący zagrożenia"
         ];
+
+        const nazwyRegionow = {
+            western: {
+                first: ["Alaric","Cassian","Lucan","Mara","Sabina","Julian","Livia","Tiber","Serena","Marius"],
+                last: ["Aquil","Nemar","Brynn","Korin","Valen","Torrin","Marin","Dorin","Levan","Hadrian"]
+            },
+            stygia: {
+                first: ["Nefert","Seth","Taha","Ramses","Zahara","Meri","Amon","Khemet","Bast","Nefru"],
+                last: ["Kemet","Khafra","Seti","Horus","Anpu","Bastet","Nefer","Ramses","Sobek","Amon" ]
+            },
+            shem: {
+                first: ["Joram","Amal","Kelad","Basim","Nair","Selim","Rashid","Yara","Tala","Nahla"],
+                last: ["Harad","Rashid","Sabir","Basim","Nabil","Zahir","Karim","Rami","Mazin","Nasir" ]
+            },
+            northern: {
+                first: ["Bjorn","Hakon","Erik","Astrid","Freya","Sven","Inga","Runa","Gunnar","Sigrid"],
+                last: ["Bjornson","Haldor","Sten","Frost","Iron","Storm","Leifson","Ulfsson","Mork","Thorin" ]
+            },
+            zingara: {
+                first: ["Mira","Dario","Luca","Elena","Rafi","Sofia","Nico","Alina","Pasco","Vera"],
+                last: ["Marin","Rosse","Valen","Canto","Delmar","Vento","Nero","Mori","Sera","Lucan" ]
+            },
+            eastern: {
+                first: ["Rajah","Kalan","Mina","Saira","Devan","Anika","Rav","Laila","Zafir","Chandra"],
+                last: ["Kesh","Khaji","Vendh","Turan","Khara","Rajit","Azar","Niraj","Chand","Salim" ]
+            },
+            default: {
+                first: ["Aran","Talia","Eldon","Mira","Soren","Lina","Doran","Kira","Hale","Nara"],
+                last: ["Rowan","Vale","Kerr","Thorn","Maris","Quinn","Graye","Fen","Alden","Reeve" ]
+            }
+        };
+
+        function pobierzZestawImion(region) {
+            const name = region.toLowerCase();
+            if (/hyperborea|nordheim|cymmeria/.test(name)) return nazwyRegionow.northern;
+            if (/stygia|khauran|zembabwei|punt|iranistan|ghulistan|darfar|turan|kush|koth|ophir/.test(name)) return nazwyRegionow.stygia;
+            if (/shem|zamora|gunderlandia|nemedia|akwilonia|brythunia|królestwa graniczne|argos|korinthia/.test(name)) return nazwyRegionow.shem;
+            if (/zingara/.test(name)) return nazwyRegionow.zingara;
+            if (/keshan|khoradża|khitaj|vendhya|hyrkania/.test(name)) return nazwyRegionow.eastern;
+            return nazwyRegionow.default;
+        }
+
+        function losujImieNazwisko(zestaw) {
+            const first = zestaw.first[Math.floor(Math.random() * zestaw.first.length)];
+            const last = zestaw.last[Math.floor(Math.random() * zestaw.last.length)];
+            return `${first} ${last}`;
+        }
+
+        function generujImiona() {
+            const index = document.getElementById('generator-pochodzenie').value;
+            const region = pochodzenia[index]?.kraina || 'nieznany region';
+            const zestaw = pobierzZestawImion(region);
+            const wygenerowane = [];
+            const seen = new Set();
+            while (wygenerowane.length < 10) {
+                const name = losujImieNazwisko(zestaw);
+                if (!seen.has(name)) {
+                    seen.add(name);
+                    wygenerowane.push(name);
+                }
+            }
+            document.getElementById('generator-wyniki').innerHTML = `
+                <div><strong>Imiona dla ${region}:</strong></div>
+                <ol>${wygenerowane.map(n => `<li>${n}</li>`).join('')}</ol>
+            `;
+        }
 
         const archetypy = [
             { nazwa: "BARBARZYŃCA", opis: "Pochodzisz z jednej z nieokiełznanych krain leżących na pograniczu cywilizacji – być może z dalekiej północy, wschodu, południa lub innych nieznanych terytoriów. Cywilizowane ludy uznają twoje obyczaje za dziwaczne, podobnie jak ty nie rozumiesz ich zwyczajów." },
@@ -529,6 +613,7 @@ const historieKast = {
             wypelnijSelect('reczne-kasta', kasty, k => k.nazwa);
             wypelnijSelect('reczne-wyksztalcenie', wyksztalcenie, w => w.nazwa);
             wypelnijSelect('reczne-usposobienie', usposobienia, u => u.nazwa);
+            wypelnijSelect('generator-pochodzenie', pochodzenia, p => p.kraina);
             renderSkazaniaSelect();
 
             // Inicjalizacja opisów
