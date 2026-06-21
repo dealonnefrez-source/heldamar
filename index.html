@@ -55,8 +55,8 @@
         .modal-actions .modal-confirm:hover { transform: translateY(-1px); box-shadow: 0 18px 36px rgba(201,122,0,0.25); }
         .modal-actions .modal-cancel { background: rgba(255,255,255,0.06); color: #eef2ff; }
         .modal-actions .modal-cancel:hover { background: rgba(255,255,255,0.1); }
-        .modal-close { position: absolute; top: 18px; right: 18px; background: none; border: none; color: #cdd3ef; font-size: 24px; cursor: pointer; transition: color 0.2s ease, transform 0.2s ease; }
-        .modal-close:hover { color: #fff; transform: scale(1.08); }
+        .modal-close { position: absolute; top: 12px; right: 12px; background: transparent; border: none; color: #cdd3ef; font-size: 24px; cursor: pointer; transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease; padding: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+        .modal-close:hover { color: #fff; background-color: rgba(201, 122, 0, 0.15); transform: scale(1.1); }
 
         .zamknij-panel { background: none; color: #aaa; border: none; font-size: 24px; position: absolute; top: 15px; right: 20px; cursor: pointer; }
         .zamknij-panel:hover { color: white; transform: scale(1.1); }
@@ -114,6 +114,13 @@
         #modal-lore-content::-webkit-scrollbar-thumb:hover { background: #444; }
         #modal-lore-content::-webkit-scrollbar-button:increment, #modal-lore-content::-webkit-scrollbar-button:decrement { background: #c97a00; border: 1px solid #a06100; display: block; height: 16px; }
         #modal-lore-content { scrollbar-color: #333 #111; scrollbar-width: thin; }
+
+        @media (max-width: 1024px) {
+            .przyciski-lewe { display: none; }
+            .info-lewe { display: none; }
+            .generator-imion { display: none; }
+            body { padding: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -161,15 +168,17 @@
             <button class="modal-close" onclick="zamknij_modal_lore()">✕</button>
             <h3>Lore</h3>
             <div id="modal-lore-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto;">
-                <p><strong>Piekące słońce pali skórę, a gorący wiatr niesie ze sobą pył i zapach śmierci.</strong> Powoli odzyskujesz świadomość. Głowa pulsuje bólem, gardło jest suche jak pustynny piasek, a każdy oddech przypomina o tym, że wciąż żyjesz. Nie ma już znaczenia, kim byłeś wcześniej. Wojownikiem, kupcem, niewolnikiem, szlachcicem, kapłanem czy zwykłym złodziejem. Twoje dawne życie skończyło się w chwili, gdy skazano cię na wygnanie. Wszystko, co posiadałeś, zostało ci odebrane. Majątek, pozycja, rodzina, przyjaciele i marzenia należą teraz do przeszłości. Bransoleta na nadgarstku, twój symbol wyroku jedynie przypomina o tym, że nie jesteś w stanie już opuścić tego miejsca.</p>
+                <p>Twoje dawne życie skończyło się w chwili, gdy skazano cię na wygnanie. Wszystko, co posiadałeś, zostało ci odebrane. Majątek, pozycja, rodzina, przyjaciele i marzenia należą teraz do przeszłości. Bransoleta na nadgarstku, twój symbol wyroku jedynie przypomina o tym, że nie jesteś w stanie już opuścić tego miejsca.</p>
 
-                <p>Niewielu pamięta, jak trafili do tej przeklętej krainy. Jeszcze mniej wie, dlaczego właśnie oni zostali wybrani. Jedno jest pewne każdy, kto budzi się na rozpalonej słońcem pustyni, nosi na swoim nadgarstku tajemniczą bransoletę. To przekleństwo i wyrok zarazem.</p>
+                <p>Zaczynasz nowe życie na ziemiach przesiąkniętych krwią ludzi takich jak ty.</p>
 
                 <p>Kraina Wygnańców rozciąga się od spieczonych pustyń na południu, przez sawanny, dżungle i bagna, aż po skute lodem góry północy. Pośród starożytnych ruin dawno zapomnianych cywilizacji, świątyń pogrzebanych przez czas i niebezpiecznych ostępów, skazańcy walczą każdego dnia o przetrwanie. Nad całą krainą rozciąga się niewidzialna magiczna bariera. Każdy, kto spróbuje ją przekroczyć, zostaje zabity przez moc ukrytą w swojej bransolecie. Ucieczka nie istnieje. Jest to więzienie bez krat.</p>
 
-                <p>Wśród licznych grup walczących o władzę i przetrwanie znajdował się również odłam niesławnej Czarnej Ręki. Nie wszyscy byli jednak zadowoleni z życia pod rozkazami dawnych kamratów. Część piratów pragnęła czegoś więcej niż ciągłych grabieży, sporów i krótkowzrocznych decyzji. Pod wodzą XYZ, jedynego z niewielu który potrafił utrzymać tą hałastrę w kupie zebrał z sobą zaufanych ludzi i odłączył się od głównych sił Czarnej Ręki. Towarzyszyła mu jego prawa ręka XYZ, którego wiedza na temat starożytnych tajemnic, alchemii i czarnoksięstwa była niezastąpiona w tej przeklętej krainie. Postanowili osiedlić się w ruinach na rzece. Opuszczone mury i pozostałości dawnych budowli dawały schronienie, a okoliczne ziemie oferowały dostęp do drewna, kamienia i zwierzyny.. Po kilku dniach wszyscy byli zgodni żeby to właśnie tutaj osiąść na stałe.Początkowo był to jedynie prowizoryczny obóz z czasem jednak przybywali nowi wygnańcy, szukający bezpieczniejszego miejsca do życia. Drewniane chaty ustąpiły miejsca solidnym budynkom z kamienia, a niewielki obóz stopniowo rozrósł się do miana małego miasteczka.</p>
+                <p>Wśród licznych grup walczących o władzę i przetrwanie znajdował się również odłam niesławnej Czarnej Ręki. Nie wszyscy byli jednak zadowoleni z życia pod rozkazami dawnych kamratów. Część piratów pragnęła czegoś więcej niż ciągłych grabieży, sporów i krótkowzrocznych decyzji. Pod wodzą zingeriańczyka Ramona, jedynego z niewielu który potrafił utrzymać tą hałastrę w kupie zebrał z sobą zaufanych ludzi i odłączył się od głównego obozu Czarnej Ręki. Towarzyszyła mu jego prawa ręka Eremon Nephru, którego wiedza na temat starożytnych tajemnic, alchemii i czarnoksięstwa była niezastąpiona w tej przeklętej krainie.</p>
 
-                <p>Od pierwszych dni istnienia osady obowiązywały jasne zasady. Ludzie, którzy podążyli za XYZ stanowili fundament całego przedsięwzięcia. To oni przelewali krew podczas budowy pierwszych umocnień, bronili obozu przed napastnikami i ryzykowali życie podczas wypraw w nieznane. Z tego powodu najwyższe stanowiska w mieście przypadły właśnie im. Najstarsi członkowie odłamu zarządzali kopalnią, handlem, strażą oraz najważniejszymi sprawami osady. Ich słowo miało znaczenie, a ich zasługi były powszechnie szanowane.</p>
+                <p>Postanowili osiedlić się w ruinach Bel'Mory, niewielkiej osady na rzece. Opuszczone mury i pozostałości dawnych budowli dawały schronienie, a okoliczne ziemie oferowały dostęp do drewna, kamienia i zwierzyny. Początkowo był to jedynie prowizoryczny obóz z czasem jednak przybywali nowi wygnańcy, szukający bezpieczniejszego miejsca do życia. Drewniane chaty ustąpiły miejsca solidnym budynkom, a niewielki obóz stopniowo rozrósł się do miana małego miasteczka.</p>
+
+                <p>Od pierwszych dni istnienia obozu obowiązywały jasne zasady. Ludzie, którzy podążyli za Ramonem stanowili fundament całego przedsięwzięcia. To oni przelewali krew podczas budowy pierwszych umocnień, bronili obozu przed napastnikami i ryzykowali życie podczas wypraw w nieznane. Z tego powodu najwyższe stanowiska w mieście przypadły właśnie im. Najstarsi członkowie odłamu zarządzali kopalnią, handlem, strażą oraz najważniejszymi sprawami osady. Ich słowo miało znaczenie, a ich zasługi były powszechnie szanowane.</p>
 
                 <p>Nie oznaczało to jednak, że nowi przybysze byli skazani na wieczne podporządkowanie.</p>
 
@@ -181,27 +190,27 @@
 
                 <p>Przełom nastąpił, gdy mieszkańcy rozpoczęli prace wydobywcze w zboczu pobliskiej góry. Początkowo celem było pozyskiwanie żelaza i innych cennych minerałów potrzebnych do rozwoju osady. Podczas drążenia kolejnych tuneli natrafiono jednak na nieznany wcześniej minerał.</p>
 
-                <p>Kryształ o głębokiej, hipnotyzującej barwie nazwano Dilonium.</p>
+                <p>Kryształ o głębokiej, hipnotyzującej barwie nazwano Setar.</p>
 
-                <p>Na pierwszy rzut oka wydawał się jedynie osobliwą błyskotką. Nie nadawał się do wykuwania broni ani pancerzy, a jego wartość użytkowa pozostawała zagadką. Dopiero XYZ dostrzegł w nim coś niezwykłego. Podczas eksperymentów odkrył, że Dilonium reaguje na energię magiczną i potrafi ją magazynować oraz wzmacniać. Wkrótce okazało się, że kryształ może służyć jako wyjątkowo skuteczny katalizator rytuałów, zaklęć i alchemicznych procesów. Dzięki niemu możliwe stało się osiąganie efektów, które wcześniej wymagały ogromnych ilości rzadkich składników lub były całkowicie nieosiągalne. Przez długi czas osada pozostawała niemal niezauważona przez świat zewnętrzny. Sytuacja zmieniła się, gdy jeden z przemytników przemierzających okolice bariery dostrzegł wzmożony ruch na terenach, które wcześniej uchodziły za opuszczone. Zaintrygowany postanowił zbadać sprawę. W trakcie wizyty zaproponowano mu niewielką ilość Dilonium w zamian za towary i informacje z odległych krain. Kryształ szybko wzbudził jego zainteresowanie.</p>
+                <p>Na pierwszy rzut oka wydawał się jedynie osobliwą błyskotką. Nie nadawał się do wykuwania broni czy narzędzi, a jego wartość użytkowa pozostawała zagadką. Dopiero po przebadaniu przez Eremona, dostrzeżono w nim coś niezwykłego. Podczas eksperymentów odkrył, że Setar reaguje na energię magiczną i potrafi ją magazynować oraz wzmacniać. Wkrótce okazało się, że kryształ może służyć jako wyjątkowo skuteczny katalizator rytuałów, zaklęć i alchemicznych procesów. Dzięki niemu możliwe stało się osiąganie efektów, które wcześniej wymagały ogromnych ilości rzadkich składników lub były całkowicie nieosiągalne. Przez długi czas osada pozostawała niemal niezauważona przez świat zewnętrzny. Sytuacja zmieniła się, gdy jeden z przemytników przemierzających okolice bariery dostrzegł wzmożony ruch na terenach, które wcześniej uchodziły za opuszczone. Zaintrygowany postanowił zbadać sprawę. W trakcie wizyty zaproponowano mu niewielką ilość Setaru w zamian za towary i informacje z odległych krain. Kryształ szybko wzbudził jego zainteresowanie.</p>
 
                 <p>Nie minęło wiele czasu, zanim powrócił.</p>
 
-                <p>Tym razem przywiózł ze sobą większy ładunek towarów, zapasy żywności, narzędzia oraz sakwy pełne monet. W zamian za kolejne partie Dilonium był skory do handlu za towary spoza bariery.</p>
+                <p>Tym razem przywiózł ze sobą większy ładunek towarów, zapasy żywności, narzędzia oraz sakwy pełne monet. W zamian za kolejne partie Setaru, był skory do wymiany towarów spoza bariery.</p>
 
-                <p>Tak rozpoczął się handel, który odmienił los osady.</p>
+                <p>Tak rozpoczął się handel, który odmienił losy osady.</p>
 
-                <p>Do miasteczka zaczęli przybywać kolejni którzy pomimo ryzyka jakie było wpłynięcie na ziemie pełne wygnańców. Najpierw z ostrożnością, z niewielkimi ładunkami i na próbę, później coraz śmielej, z większymi zapasami i towarem na wymianę. Ryzyko było wysokie, ale jeszcze wyższe były zyski. Najczęściej używaną walutą stały się turańskie monety przywożone przez handlarzy spoza Krain Wygnańców. Z czasem przyjęły się one jako podstawowy środek wymiany. Dziś osada stanowi jedno z nielicznych miejsc, gdzie wygnańcy mogą znaleźć względne bezpieczeństwo, pracę i możliwość wzbogacenia się. Jednak wraz z bogactwem pojawiają się nowe zagrożenia. Coraz więcej osób pragnie zdobyć Dilonium, poznać jego sekrety lub przejąć kontrolę nad kopalnią.</p>
+                <p>Pomimo ryzyka jakie było wpłynięcie na ziemie pełne wygnańców, do miasteczka zaczęli przybywać kolejni. Najpierw z ostrożnością, z niewielkimi ładunkami i na próbę, później coraz śmielej, z większymi zapasami i towarem na wymianę. Ryzyko było wysokie, ale jeszcze wyższe były zyski. Najczęściej używaną walutą stały się turańskie monety przywożone przez handlarzy spoza Krain Wygnańców. Z czasem przyjęły się one jako podstawowy środek wymiany. Dziś osada stanowi jedno z nielicznych miejsc, gdzie wygnańcy mogą znaleźć względne bezpieczeństwo, pracę i możliwość wzbogacenia się. Jednak wraz z bogactwem pojawiają się nowe zagrożenia. Coraz więcej osób pragnie zdobyć Setar, poznać jego sekrety lub przejąć kontrolę nad kopalnią.</p>
 
-                <p>Podczas badań XYZ wraz z grupą czarnoksiężników po kilku latach dzięki Dilonium udało się obudzić uśpiony portal będący na szczycie Wieży Nietoperza. Głos przemówił, a głos ten, choć niezrozumiały dla nikogo, odbił się echem po całej krainie. Wraz z głosem rozbłysło jasne światło, oświetlając przebudzony portal Królów Gigantów. Przejście to otworzyło drogę na obcy, dziki ląd, Wyspę Siptaha. Wielu wyruszyło tam wierząc, że odzyskają upragnioną wolność, gdyż na wyspie bransolety stają się bezużyteczne. Szybko jednak odkryli okrutny żart bogów. Choć na Siptah nie ma magicznego muru, nikt nie potrafi z niej uciec. Otaczające wyspę morze jest szalejącym, nienaturalnym żywiołem, morderczą barierą pochłaniającą każdy statek, której żaden śmiertelnik nie jest w stanie pokonać. Nie wzbraniano nikomu przechodzić na drugą stronę, jednak ostrzegano, że to miejsce jest jeszcze bardziej niebezpieczne od ziem wygnańców.</p>
+                <p>Po kilku latach badań Eremona wraz z grupą czarnoksiężników dzięki kryształowi z kopalni udało się obudzić uśpiony portal będący na szczycie Wieży Nietoperza. Niezrozumiały dla nikogo głos odbił się echem po całej krainie. Wraz z głosem rozbłysło jasne światło, oświetlając przebudzony portal Królów Gigantów. Przejście to otworzyło drogę na obcy, dziki ląd, Wyspę Siptaha. Wielu wyruszyło tam wierząc, że odzyskają upragnioną wolność, gdyż na wyspie bransolety stają się bezużyteczne. Szybko jednak odkryli okrutny żart bogów. Choć na Siptah nie ma magicznego muru, nikt nie potrafi z niej uciec. Otaczające wyspę morze jest szalejącym, nienaturalnym żywiołem, morderczą barierą pochłaniającą każdy statek, której żaden śmiertelnik nie jest w stanie pokonać. Nie wzbraniano nikomu przechodzić na drugą stronę, jednak ostrzegano, że to miejsce jest jeszcze bardziej niebezpieczne od ziem wygnańców.</p>
 
-                <p>Stoisz pod bramą XYZ. To właśnie tutaj rozpoczyna się Twoja opowieść.</p>
+                <p>Stoisz przed murami Bel'Mory, której nowe wcielenie istnieje dopiero od kilku lat w Krainie Wygnańców. To właśnie tutaj rozpoczyna się Twoja opowieść.</p>
 
                 <p>Nie jesteś bohaterem, wielkim wojownikiem ani wpływowym kupcem. Nie należysz do ludzi, którzy budowali to miasto. Nie masz ziemi, majątku ani pozycji.</p>
 
-                <p>Stoisz przed bramą rozwijającego się miasta jako kolejny wygnaniec noszący przeklętą bransoletę. Za plecami pozostawiłeś dawne życie, a przed Tobą rozciąga się świat pełen niebezpieczeństw, możliwości i tajemnic.</p>
+                <p>Jesteś tylko kolejnym wygnańcem noszącym tą przeklętą bransoletę. Za plecami pozostawiłeś dawne życie, a przed Tobą rozciąga się świat pełen niebezpieczeństw, możliwości i tajemnic.</p>
 
-                <p>To, czy staniesz się szanowanym obywatelem, bogatym handlarzem, potężnym magiem, bezwzględnym najemnikiem czy też zginiesz zapomniany gdzieś na pustkowiach, zależy wyłącznie od Ciebie.</p>
+                <p>To, czy staniesz się szanowanym mieszkańcem, bogatym handlarzem, potężnym magiem, bezwzględnym najemnikiem czy też zginiesz zapomniany gdzieś na pustkowiach, zależy tylko i wyłącznie od Ciebie.</p>
 
                 <p>W Krainach Wygnańców nikt nie rodzi się legendą.</p>
 
@@ -929,7 +938,7 @@ const historieKast = {
         }
 
         // ==========================================
-        // GŁÓWNA FUNKCJA WYSYŁAJĄCA + ZBIERANIE DANYCH
+        // GŁÓWNA FUNKCJA ZAPISUJĄCA + ZBIERANIE DANYCH
         // ==========================================
 
         function wyslijWylosowanaKarte() {
@@ -938,11 +947,11 @@ const historieKast = {
             const discordNick = document.getElementById('losuj-discord').value.trim();
 
             if (!imie || !discordNick) {
-                alert('Wypełnij pole imię postaci oraz nick Discord, aby wysłać kartę.');
+                alert('Wypełnij pole imię postaci oraz nick Discord, aby zapisać kartę.');
                 return;
             }
             if (!aktualneKarty.length) {
-                alert('Najpierw wylosuj postać, aby móc ją wysłać.');
+                alert('Najpierw wylosuj postać, aby móc ją zapisać.');
                 return;
             }
 
@@ -981,7 +990,7 @@ const historieKast = {
             const boztwoVal = document.getElementById("wlasne-boztwo").value || 'Brak';
             
             if (!discordNick || !imie || !historiaVal || !wyksztalcenieVal || !usposobienieVal || !skazanoZaVal) {
-                alert("Aby wysłać własną Kartę Postaci, musisz wypełnić WSZYSTKIE pola tekstem!");
+                alert("Aby zapisać własną Kartę Postaci, musisz wypełnić WSZYSTKIE pola tekstem!");
                 return; 
             }
 
@@ -1000,21 +1009,6 @@ const historieKast = {
         }
 
         async function zapiszIWyslij(discordNick, imie, k) {
-            
-            // ANTYSPAM (10 Minut)
-            const COOLDOWN_MINUTES = 10;
-            const lastSent = localStorage.getItem('lastKpSentTime');
-            
-            if (lastSent) {
-                const timePassed = Date.now() - parseInt(lastSent);
-                const timeRequired = COOLDOWN_MINUTES * 60 * 1000; 
-                
-                if (timePassed < timeRequired) {
-                    const minutesLeft = Math.ceil((timeRequired - timePassed) / 60000);
-                    alert(`System antyspamowy chroni ten serwer.\nKolejną kartę postaci możesz wysłać za ${minutesLeft} minut.`);
-                    return; 
-                }
-            }
 
             // PLIK TXT
             let tekst = `=== KARTA POSTACI: ${imie.toUpperCase()} ===\r\n`;
@@ -1048,58 +1042,7 @@ const historieKast = {
                 URL.revokeObjectURL(url);
             } catch(e) { console.error("Błąd zapisu", e); }
 
-            // DISCORD
-            const discordPayload = {
-                username: "Generator Heldamar",
-                thread_name: `KP: ${imie.toUpperCase()} (${discordNick})`,
-                embeds: [{
-                    title: `📜 Nowa Karta Postaci: ${imie.toUpperCase()}`,
-                    description: `**Gracz:** ${discordNick}`,
-                    color: 13203968, 
-                    fields: [
-                        { name: "Pochodzenie", value: `**${k.pochodzenie.kraina}**\n${k.pochodzenie.cecha}` + (k.pochodzenie.opis ? `\n*${k.pochodzenie.opis}*` : ""), inline: false },
-                        { name: "Archetyp", value: `**${k.archetyp.nazwa}**` + (k.archetyp.opis ? `\n*${k.archetyp.opis}*` : ""), inline: false },
-                        { name: "Kasta", value: `**${k.kasta.nazwa}**` + (k.kasta.opis ? `\n*${k.kasta.opis}*` : ""), inline: false },
-                        { name: "Historia", value: `**${k.historia.nazwa}**` + (k.historia.opis ? `\n*${k.historia.opis}*` : ""), inline: false },
-                        { name: "Wykształcenie", value: `**${k.wyksztalcenie.nazwa}**` + (k.wyksztalcenie.opis ? `\n*${k.wyksztalcenie.opis}*` : ""), inline: false },
-                        { name: "Bóstwo", value: k.boztwo || "Brak", inline: false },
-                        { name: "Usposobienie", value: `**${k.usposobienie.nazwa}**` + (k.usposobienie.opis ? `\n*${k.usposobienie.opis}*` : ""), inline: false },
-                        { name: "Cecha negatywna", value: k.cechaNegatywna || "Brak", inline: false },
-                        { name: "Za co skazano", value: k.skazanoZa || "Nie podano", inline: false }
-                    ],
-                    footer: { text: "Na podstawie podręcznika Conan: Przygody w Erze Niewyśnionej" }
-                }]
-            };
-
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(discordPayload)
-                });
-
-                if (response.ok) {
-                    alert("Karta postaci została zapisana i wysłana na Discorda!");
-                    localStorage.setItem('lastKpSentTime', Date.now());
-                    
-                    document.getElementById("reczne-imie").value = "";
-                    document.getElementById("wlasne-imie").value = "";
-                    document.getElementById("losuj-imie").value = "";
-                    document.getElementById("losuj-boztwo").value = "";
-                    document.getElementById("reczne-boztwo").value = "";
-                    document.getElementById("wlasne-boztwo").value = "";
-                    document.getElementById("losuj-discord").value = "";
-                    document.getElementById("wlasne-historia").value = "";
-                    document.getElementById("wlasne-wyksztalcenie").value = "";
-                    document.getElementById("wlasne-usposobienie").value = "";
-                    
-                    document.getElementById("panel-wlasny").classList.remove("otwarty");
-                    document.getElementById("panel-reczny").classList.remove("otwarty");                    document.getElementById("panel-losuj").classList.remove("otwarta");                } else {
-                    alert("Wystąpił błąd API! Karta została pobrana na dysk, ale Discord odrzucił wiadomość.");
-                }
-            } catch (error) {
-                alert("Brak połączenia! Karta pobrana na dysk, ale nie wysłano jej na Discorda.");
-            }
+            alert("Karta postaci została pobrana. Możliwość przesyłania kart postaci do teczki gracza jest obecnie wstrzymana. Poinformujemy, gdy proces zostanie wznowiony.");
         }
 
         // ==========================================
