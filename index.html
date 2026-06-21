@@ -10,7 +10,7 @@
         h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; }
 
         .przyciski-lewe { position: fixed; top: 105px; left: 20px; display: flex; flex-direction: column; gap: 12px; align-items: stretch; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); border: 1px solid #444; border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 14px 40px rgba(0,0,0,0.45); z-index: 1000; }
-        .przyciski-lewe::before { content: "MENU"; position: absolute; top: -12px; left: 16px; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+        .przyciski-lewe::before { content: "MENU GŁÓWNE"; position: absolute; top: -12px; left: 16px; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
         .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #3b3b3b; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 10px; color: white; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: 0.2s; font-weight: bold; text-align: center; min-width: 160px; }
         .przyciski-lewe .przycisk-boczny:hover { background-color: #575757; transform: translateY(-1px); }
         .menu-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.55), transparent); margin: 2px 0; box-shadow: 0 0 10px rgba(201,122,0,0.15); }
@@ -41,9 +41,10 @@
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(29, 29, 29, 0.82); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 2000; }
         .modal-overlay.active { display: flex; }
         .modal-card { width: min(750px, 95vw); background: rgba(48, 48, 48, 0.98); border: 1px solid rgba(27, 27, 27, 0.12); box-shadow: 0 32px 90px rgba(0,0,0,0.5); border-radius: 28px; padding: 28px 26px; position: relative; }
-        .modal-card h3 { margin-top: 0; color: #ffd88c; font-size: 1.6rem; text-align: left; letter-spacing: 0.04em; }
-        .modal-card p { margin: 10px 0 22px; color: #d1d6f7; line-height: 1.6; }
-        .modal-card ul { margin: 12px 0 0; padding-left: 22px; color: #e8ecff; line-height: 1.6; text-align: left; }
+        .modal-card h3 { margin-top: 0; margin-bottom: 20px; color: #ffd88c; font-size: 1.6rem; text-align: center; letter-spacing: 0.04em; position: relative; }
+        .modal-card h3::after { content: ""; display: block; width: 180px; max-width: 70%; height: 2px; margin: 10px auto 0; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.95), transparent); box-shadow: 0 0 10px rgba(201,122,0,0.3); border-radius: 999px; }
+        .modal-card p { margin: 10px 0 22px; color: #d3d3d3; line-height: 1.6; }
+        .modal-card ul { margin: 12px 0 0; padding-left: 22px; color: #d3d3d3; line-height: 1.6; text-align: left; }
         .modal-card li { margin-bottom: 10px; }
         .modal-card label { display: block; margin-top: 18px; margin-bottom: 8px; color: #e6e8ff; font-weight: 700; font-size: 0.95rem; }
         .modal-card input { width: 100%; background: rgba(40, 40, 40, 0.98); color: #eef2ff; border: 1px solid rgba(255,255,255,0.08); padding: 14px 16px; border-radius: 14px; font-size: 0.96rem; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
@@ -118,18 +119,17 @@
 <body>
 
     <div class="info-lewe">
-        <h3>Jak działają KP wyboru?</h3>
         <div class="info-kategoria">
             <strong>Napisz KP od zera</strong>
-            <span>Samodzielnie napisz KP jako jedyne; ta forma KP jest oceniana przez MG. Im lepsze KP, tym większa nagroda na start.</span>
+            <span>Stwórz własną kartę postaci całkowicie samodzielnie. Ta forma KP jest oceniana przez MG, a jej jakość ma bezpośredni wpływ na nagrodę startową. Im lepiej przygotowana postać, tym większe korzyści na początku gry.</span>
         </div>
         <div class="info-kategoria">
             <strong>Skomponuj KP z listy</strong>
-            <span>Jeśli nie masz pomysłu, a żadna postać z wylosowanych nie odpowiada, możesz skomponować postać po swojemu, używając gotowych wzorców.</span>
+            <span>Jeśli brakuje Ci pomysłu lub żadna z wylosowanych postaci nie odpowiada Twojej wizji, możesz stworzyć bohatera po swojemu, korzystając z przygotowanych szablonów i gotowych elementów.</span>
         </div>
         <div class="info-kategoria">
             <strong>Wylosuj postać</strong>
-            <span>To najtrudniejsza forma KP. Gracz całkowicie podporządkowuje się woli przeznaczenia i deklaruje grę wylosowaną postacią. Taki gracz otrzymuje 5 SAP na start, a z czasem, gdy inni gracze dostają np. 1 SAP, ty dostajesz 2 punkty SAP.</span>
+            <span>To najtrudniejsza forma KP. Gracz całkowicie zdaje się na los i zobowiązuje się do gry wylosowaną postacią. W zamian otrzymuje 5 SAP na start, a także zwiększone przyrosty SAP w trakcie rozgrywki. Gdy inni gracze otrzymują 1 SAP, Ty zyskujesz 2 SAP.</span>
         </div>
     </div>
 
@@ -160,7 +160,7 @@
         <div class="modal-card">
             <button class="modal-close" onclick="zamknij_modal_lore()">✕</button>
             <h3>Lore</h3>
-            <div id="modal-lore-content" style="color: #d1d6f7; line-height: 1.6; max-height: 60vh; overflow-y: auto;">
+            <div id="modal-lore-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto;">
                 <p><strong>Piekące słońce pali skórę, a gorący wiatr niesie ze sobą pył i zapach śmierci.</strong> Powoli odzyskujesz świadomość. Głowa pulsuje bólem, gardło jest suche jak pustynny piasek, a każdy oddech przypomina o tym, że wciąż żyjesz. Nie ma już znaczenia, kim byłeś wcześniej. Wojownikiem, kupcem, niewolnikiem, szlachcicem, kapłanem czy zwykłym złodziejem. Twoje dawne życie skończyło się w chwili, gdy skazano cię na wygnanie. Wszystko, co posiadałeś, zostało ci odebrane. Majątek, pozycja, rodzina, przyjaciele i marzenia należą teraz do przeszłości. Bransoleta na nadgarstku, twój symbol wyroku jedynie przypomina o tym, że nie jesteś w stanie już opuścić tego miejsca.</p>
 
                 <p>Niewielu pamięta, jak trafili do tej przeklętej krainy. Jeszcze mniej wie, dlaczego właśnie oni zostali wybrani. Jedno jest pewne każdy, kto budzi się na rozpalonej słońcem pustyni, nosi na swoim nadgarstku tajemniczą bransoletę. To przekleństwo i wyrok zarazem.</p>
@@ -214,8 +214,8 @@
         <div class="modal-card">
             <button class="modal-close" onclick="zamknij_modal_boztwa()">✕</button>
             <h3>Bóstwa</h3>
-            <p>Najczęściej spotykane bóstwa i moce czczone w Krainach Wygnańców. To tylko punkt odniesienia, jeśli chcesz wpisać własne bóstwo w KP.</p>
-            <div id="modal-boztwa-content" style="color: #d1d6f7; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
+            <p>Poniżej znajdują się najczęściej spotykane bóstwa i moce czczone w Krainach Wygnańców. Lista ta nie jest zamknięta i stanowi jedynie punkt odniesienia przy tworzeniu postaci. Jeśli Twoja koncepcja zakłada kult innego bóstwa, możesz bez przeszkód wpisać je do swojej KP.</p>
+            <div id="modal-boztwa-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
                 <ul>
                     <li><strong>Crom</strong> - ponury bóg gór i siły, czczony bez próśb i bez nadziei na odpowiedź.</li>
                     <li><strong>Mitra</strong> - bóg ładu, światła i prawych ludzi, jeden z najczęściej uznawanych w cywilizowanych krainach.</li>
@@ -229,6 +229,7 @@
                     <li><strong>Asura</strong> - bóg światła, sprawiedliwości i uporządkowanej wiary.</li>
                 </ul>
             </div>
+            <p></p>Pamiętaj, że wybór bóstwa wiąże się z określoną wiedzą o jego naturze, dogmatach i sferach wpływów. Decydując się na kult danego bóstwa, powinieneś znać przynajmniej jego podstawowe założenia oraz uwzględniać je podczas odgrywania swojej postaci.</p>
         </div>
     </div>
 
@@ -236,13 +237,38 @@
         <div class="modal-card">
             <button class="modal-close" onclick="zamknij_modal_sap()">✕</button>
             <h3>SAP</h3>
-            <p>Punkty SAP to specjalna waluta rozwoju postaci w Heldamar. Otrzymujesz je za aktywność, dobre karty postaci i wybrane formy gry, a następnie wydajesz je na rozwój swojej postaci zgodnie z zasadami serwera.</p>
+            <p><strong>SAP (System Aktywności Postaci)</strong> to mechanika nagradzająca graczy za Roleplay. Punkty SAP nie są przyznawane za samą obecność na serwerze, to wyróżnienie od Mistrzów Gry za Twój wkład w tworzenie immersyjnego świata.</p>
+
+            <p><strong>Mistrzowie Gry przyznają punkty SAP oceniając:</strong></p>
             <ul>
-                <li>Startowe SAP zależą od wybranej formy KP.</li>
-                <li>Lepsza karta postaci może dać dodatkowe SAP albo inne nagrody.</li>
-                <li>SAP służą do wzmacniania postaci i odblokowywania kolejnych możliwości w grze.</li>
-                <li>Dokładne zasady przyznawania i wydawania SAP ustala MG.</li>
+                <li>Konsekwentne prowadzenie postaci i wierność Karcie Postaci (KP).</li>
+                <li>Odgrywanie w pełni zgodne z realiami świata gry.</li>
+                <li>Ogólny poziom i jakość prowadzonych interakcji.</li>
+                <li>Aktywność fabularną, własną inicjatywę i chęć napędzania rozgrywki.</li>
+                <li>Udział w serwerowych wydarzeniach i eventach.</li>
             </ul>
+
+            <p><strong>AutoEXP: Pasywny rozwój postaci</strong><br>
+            System nagradza Cię doświadczeniem automatycznie co 10 minut. Podstawowa wartość wynosi 500 EXP, każdy posiadany punkt SAP zwiększa tę pulę o dodatkowe +100 EXP.<br>
+            <em>Przykład: Posiadając 5 SAP, co 10 minut system przyzna 1000 EXPa. (500 baza + 500 z SAP)</em></p>
+
+            <p><strong>Modyfikator czasu gry</strong><br>
+            <strong>Pierwsze 2 godziny:</strong> Postać otrzymuje pełny AutoEXP oraz wszystkie bonusy wynikające z SAP.<br>
+            <strong>Od 3. godziny:</strong> Zdobywany AutoEXP zostaje zmniejszony do 20% standardowej wartości.</p>
+
+            <p><em>Przykład: Twoja postać posiada 10 SAP, więc standardowo otrzymuje 1500 EXP co 10 minut. Jeśli jednak Twoja sesja przekroczy 2 godziny, zysk ten spadnie do 300 EXP na każdy kolejny 10-minutowy cykl.</em></p>
+
+            <p><strong>SAP a Limit Farmienia</strong><br>
+            Każdy zdobyty punkt SAP zwiększa dzienny limit doświadczenia (baza 6000 EXP) zdobywanego na potworach o +1000 EXP.</p>
+
+            <p><em>Przykład: Posiadając 4 punkty SAP, dzienny limit EXP'a za potwory wynosi 10000 EXP (6000 baza + 4000 z SAP)</em></p>
+
+            <p><strong>Ważne:</strong> AutoEXP zdobywany dzięki SAP nie wlicza się do dziennego limitu doświadczenia z farmienia. Oznacza to, że doświadczenie automatyczne jest całkowicie niezależne od tego, ile EXP-a zdobędziesz na mobach.</p>
+
+            <p><strong>SAP a alty</strong><br>
+            Postać utworzona jako alt otrzymuje na start połowę punktów SAP swojej głównej postaci, pod warunkiem że główna postać posiada więcej niż 20 punktów SAP łącznie.</p>
+
+             <p><strong>Zebrane punty SAP są widoczne w Twojej karcie postaci</strong><br>
         </div>
     </div>
 
