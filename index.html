@@ -9,10 +9,11 @@
         .logo-heldamar::after { content: ""; position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); width: 220px; height: 2px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.85), transparent); box-shadow: 0 0 16px rgba(201,122,0,0.25); }
         h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; }
 
-        .przyciski-lewe { position: fixed; top: 20px; left: 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); border: 1px solid #444; border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 14px 40px rgba(0,0,0,0.45); z-index: 1000; position: fixed; }
-        .przyciski-lewe::before { content: "KP MENU"; position: absolute; top: -12px; left: 16px; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
-        .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #3b3b3b; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 10px; color: white; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: 0.2s; font-weight: bold; text-align: center; min-width: 140px; }
+        .przyciski-lewe { position: fixed; top: 105px; left: 20px; display: flex; flex-direction: column; gap: 12px; align-items: stretch; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); border: 1px solid #444; border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 14px 40px rgba(0,0,0,0.45); z-index: 1000; }
+        .przyciski-lewe::before { content: "MENU"; position: absolute; top: -12px; left: 16px; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
+        .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #3b3b3b; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 10px; color: white; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: 0.2s; font-weight: bold; text-align: center; min-width: 160px; }
         .przyciski-lewe .przycisk-boczny:hover { background-color: #575757; transform: translateY(-1px); }
+        .menu-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.55), transparent); margin: 2px 0; box-shadow: 0 0 10px rgba(201,122,0,0.15); }
 
         .info-lewe { position: fixed; bottom: 20px; left: 20px; width: 320px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
         .info-lewe h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
@@ -39,9 +40,11 @@
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(29, 29, 29, 0.82); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 2000; }
         .modal-overlay.active { display: flex; }
-        .modal-card { width: min(500px, 95vw); background: rgba(48, 48, 48, 0.98); border: 1px solid rgba(27, 27, 27, 0.12); box-shadow: 0 32px 90px rgba(0,0,0,0.5); border-radius: 28px; padding: 28px 26px; position: relative; }
+        .modal-card { width: min(750px, 95vw); background: rgba(48, 48, 48, 0.98); border: 1px solid rgba(27, 27, 27, 0.12); box-shadow: 0 32px 90px rgba(0,0,0,0.5); border-radius: 28px; padding: 28px 26px; position: relative; }
         .modal-card h3 { margin-top: 0; color: #ffd88c; font-size: 1.6rem; text-align: left; letter-spacing: 0.04em; }
         .modal-card p { margin: 10px 0 22px; color: #d1d6f7; line-height: 1.6; }
+        .modal-card ul { margin: 12px 0 0; padding-left: 22px; color: #e8ecff; line-height: 1.6; text-align: left; }
+        .modal-card li { margin-bottom: 10px; }
         .modal-card label { display: block; margin-top: 18px; margin-bottom: 8px; color: #e6e8ff; font-weight: 700; font-size: 0.95rem; }
         .modal-card input { width: 100%; background: rgba(40, 40, 40, 0.98); color: #eef2ff; border: 1px solid rgba(255,255,255,0.08); padding: 14px 16px; border-radius: 14px; font-size: 0.96rem; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
         .modal-card input:focus { outline: none; border-color: #f2b756; box-shadow: 0 0 0 4px rgba(242,183,86,0.12); }
@@ -103,6 +106,13 @@
         .karta.flat { background: transparent; border: none; box-shadow: none; padding: 0; }
         .karta.flat p { margin: 10px 0; }
         .karta.flat .opis-cechy { margin-top: 5px !important; margin-bottom: 15px !important; padding-bottom: 10px; border-bottom: 1px dashed #444; }
+
+        #modal-lore-content::-webkit-scrollbar { width: 12px; }
+        #modal-lore-content::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+        #modal-lore-content::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; border: 2px solid #222; }
+        #modal-lore-content::-webkit-scrollbar-thumb:hover { background: #444; }
+        #modal-lore-content::-webkit-scrollbar-button:increment, #modal-lore-content::-webkit-scrollbar-button:decrement { background: #c97a00; border: 1px solid #a06100; display: block; height: 16px; }
+        #modal-lore-content { scrollbar-color: #333 #111; scrollbar-width: thin; }
     </style>
 </head>
 <body>
@@ -137,9 +147,103 @@
     </div>
 
     <div class="przyciski-lewe">
+        <button class="przycisk-boczny" onclick="otworz_modal_lore()">📖 Lore</button>
+        <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">⛪ Bóstwa</button>
+        <button class="przycisk-boczny" onclick="otworz_modal_sap()">⭐ SAP</button>
+        <div class="menu-divider" aria-hidden="true"></div>
         <button class="przycisk-boczny" onclick="showPanel('panel-wlasny')">📝 Napisz KP od zera</button>
         <button class="przycisk-boczny" onclick="showPanel('panel-reczny')">⚙️ Skomponuj KP z listy</button>
         <button class="przycisk-boczny" onclick="generujKarte()">🎲 Wylosuj postać</button>
+    </div>
+
+    <div class="modal-overlay" id="modal-lore-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="zamknij_modal_lore()">✕</button>
+            <h3>Lore</h3>
+            <div id="modal-lore-content" style="color: #d1d6f7; line-height: 1.6; max-height: 60vh; overflow-y: auto;">
+                <p><strong>Piekące słońce pali skórę, a gorący wiatr niesie ze sobą pył i zapach śmierci.</strong> Powoli odzyskujesz świadomość. Głowa pulsuje bólem, gardło jest suche jak pustynny piasek, a każdy oddech przypomina o tym, że wciąż żyjesz. Nie ma już znaczenia, kim byłeś wcześniej. Wojownikiem, kupcem, niewolnikiem, szlachcicem, kapłanem czy zwykłym złodziejem. Twoje dawne życie skończyło się w chwili, gdy skazano cię na wygnanie. Wszystko, co posiadałeś, zostało ci odebrane. Majątek, pozycja, rodzina, przyjaciele i marzenia należą teraz do przeszłości. Bransoleta na nadgarstku, twój symbol wyroku jedynie przypomina o tym, że nie jesteś w stanie już opuścić tego miejsca.</p>
+
+                <p>Niewielu pamięta, jak trafili do tej przeklętej krainy. Jeszcze mniej wie, dlaczego właśnie oni zostali wybrani. Jedno jest pewne każdy, kto budzi się na rozpalonej słońcem pustyni, nosi na swoim nadgarstku tajemniczą bransoletę. To przekleństwo i wyrok zarazem.</p>
+
+                <p>Kraina Wygnańców rozciąga się od spieczonych pustyń na południu, przez sawanny, dżungle i bagna, aż po skute lodem góry północy. Pośród starożytnych ruin dawno zapomnianych cywilizacji, świątyń pogrzebanych przez czas i niebezpiecznych ostępów, skazańcy walczą każdego dnia o przetrwanie. Nad całą krainą rozciąga się niewidzialna magiczna bariera. Każdy, kto spróbuje ją przekroczyć, zostaje zabity przez moc ukrytą w swojej bransolecie. Ucieczka nie istnieje. Jest to więzienie bez krat.</p>
+
+                <p>Wśród licznych grup walczących o władzę i przetrwanie znajdował się również odłam niesławnej Czarnej Ręki. Nie wszyscy byli jednak zadowoleni z życia pod rozkazami dawnych kamratów. Część piratów pragnęła czegoś więcej niż ciągłych grabieży, sporów i krótkowzrocznych decyzji. Pod wodzą XYZ, jedynego z niewielu który potrafił utrzymać tą hałastrę w kupie zebrał z sobą zaufanych ludzi i odłączył się od głównych sił Czarnej Ręki. Towarzyszyła mu jego prawa ręka XYZ, którego wiedza na temat starożytnych tajemnic, alchemii i czarnoksięstwa była niezastąpiona w tej przeklętej krainie. Postanowili osiedlić się w ruinach na rzece. Opuszczone mury i pozostałości dawnych budowli dawały schronienie, a okoliczne ziemie oferowały dostęp do drewna, kamienia i zwierzyny.. Po kilku dniach wszyscy byli zgodni żeby to właśnie tutaj osiąść na stałe.Początkowo był to jedynie prowizoryczny obóz z czasem jednak przybywali nowi wygnańcy, szukający bezpieczniejszego miejsca do życia. Drewniane chaty ustąpiły miejsca solidnym budynkom z kamienia, a niewielki obóz stopniowo rozrósł się do miana małego miasteczka.</p>
+
+                <p>Od pierwszych dni istnienia osady obowiązywały jasne zasady. Ludzie, którzy podążyli za XYZ stanowili fundament całego przedsięwzięcia. To oni przelewali krew podczas budowy pierwszych umocnień, bronili obozu przed napastnikami i ryzykowali życie podczas wypraw w nieznane. Z tego powodu najwyższe stanowiska w mieście przypadły właśnie im. Najstarsi członkowie odłamu zarządzali kopalnią, handlem, strażą oraz najważniejszymi sprawami osady. Ich słowo miało znaczenie, a ich zasługi były powszechnie szanowane.</p>
+
+                <p>Nie oznaczało to jednak, że nowi przybysze byli skazani na wieczne podporządkowanie.</p>
+
+                <p>Każdy wygnaniec, który trafiał do miasta, rozpoczynał swoją drogę od samego dołu społecznej drabiny. Bez majątku, wpływów i znajomości musiał sam udowodnić swoją wartość. Ci, którzy wykazywali się pracowitością, odwagą lub szczególnymi talentami, mogli liczyć na awans i zdobycie szacunku mieszkańców. Lojalność wobec osady oraz jego przywódców była nagradzana, podczas gdy zdrada spotykała się z surowymi konsekwencjami. W ten sposób przez lata ukształtował się porządek, który pozwolił osadzie przetrwać i rozkwitnąć pośród niebezpieczeństw Krain Wygnańców. Mieszkańcy miasta pochodzili z różnych zakątków świata i wyznawali wielu różnych bogów. Gdy ludzi było coraz więcej, a kultury się krzyżowały przyjęto zasadę wolności wyznania. Każdy mieszkaniec miał prawo oddawać cześć wybranemu przez siebie bóstwu oraz praktykować własne obrzędy i tradycje.</p>
+
+                <p>Wolność ta nie była jednak nieograniczona.</p>
+
+                <p>Żaden kult, kapłan ani wierny nie mógł narażać mieszkańców miasta na niebezpieczeństwo, zakłócać porządku publicznego ani wykorzystywać swojej wiary jako usprawiedliwienia dla przemocy wobec innych obywateli. Obrzędy wymagające ofiar z mieszkańców, niekontrolowanej magii, świadomego sprowadzania zagrożeń lub działań destabilizujących funkcjonowanie miasta były karane śmiercią.</p>
+
+                <p>Przełom nastąpił, gdy mieszkańcy rozpoczęli prace wydobywcze w zboczu pobliskiej góry. Początkowo celem było pozyskiwanie żelaza i innych cennych minerałów potrzebnych do rozwoju osady. Podczas drążenia kolejnych tuneli natrafiono jednak na nieznany wcześniej minerał.</p>
+
+                <p>Kryształ o głębokiej, hipnotyzującej barwie nazwano Dilonium.</p>
+
+                <p>Na pierwszy rzut oka wydawał się jedynie osobliwą błyskotką. Nie nadawał się do wykuwania broni ani pancerzy, a jego wartość użytkowa pozostawała zagadką. Dopiero XYZ dostrzegł w nim coś niezwykłego. Podczas eksperymentów odkrył, że Dilonium reaguje na energię magiczną i potrafi ją magazynować oraz wzmacniać. Wkrótce okazało się, że kryształ może służyć jako wyjątkowo skuteczny katalizator rytuałów, zaklęć i alchemicznych procesów. Dzięki niemu możliwe stało się osiąganie efektów, które wcześniej wymagały ogromnych ilości rzadkich składników lub były całkowicie nieosiągalne. Przez długi czas osada pozostawała niemal niezauważona przez świat zewnętrzny. Sytuacja zmieniła się, gdy jeden z przemytników przemierzających okolice bariery dostrzegł wzmożony ruch na terenach, które wcześniej uchodziły za opuszczone. Zaintrygowany postanowił zbadać sprawę. W trakcie wizyty zaproponowano mu niewielką ilość Dilonium w zamian za towary i informacje z odległych krain. Kryształ szybko wzbudził jego zainteresowanie.</p>
+
+                <p>Nie minęło wiele czasu, zanim powrócił.</p>
+
+                <p>Tym razem przywiózł ze sobą większy ładunek towarów, zapasy żywności, narzędzia oraz sakwy pełne monet. W zamian za kolejne partie Dilonium był skory do handlu za towary spoza bariery.</p>
+
+                <p>Tak rozpoczął się handel, który odmienił los osady.</p>
+
+                <p>Do miasteczka zaczęli przybywać kolejni którzy pomimo ryzyka jakie było wpłynięcie na ziemie pełne wygnańców. Najpierw z ostrożnością, z niewielkimi ładunkami i na próbę, później coraz śmielej, z większymi zapasami i towarem na wymianę. Ryzyko było wysokie, ale jeszcze wyższe były zyski. Najczęściej używaną walutą stały się turańskie monety przywożone przez handlarzy spoza Krain Wygnańców. Z czasem przyjęły się one jako podstawowy środek wymiany. Dziś osada stanowi jedno z nielicznych miejsc, gdzie wygnańcy mogą znaleźć względne bezpieczeństwo, pracę i możliwość wzbogacenia się. Jednak wraz z bogactwem pojawiają się nowe zagrożenia. Coraz więcej osób pragnie zdobyć Dilonium, poznać jego sekrety lub przejąć kontrolę nad kopalnią.</p>
+
+                <p>Podczas badań XYZ wraz z grupą czarnoksiężników po kilku latach dzięki Dilonium udało się obudzić uśpiony portal będący na szczycie Wieży Nietoperza. Głos przemówił, a głos ten, choć niezrozumiały dla nikogo, odbił się echem po całej krainie. Wraz z głosem rozbłysło jasne światło, oświetlając przebudzony portal Królów Gigantów. Przejście to otworzyło drogę na obcy, dziki ląd, Wyspę Siptaha. Wielu wyruszyło tam wierząc, że odzyskają upragnioną wolność, gdyż na wyspie bransolety stają się bezużyteczne. Szybko jednak odkryli okrutny żart bogów. Choć na Siptah nie ma magicznego muru, nikt nie potrafi z niej uciec. Otaczające wyspę morze jest szalejącym, nienaturalnym żywiołem, morderczą barierą pochłaniającą każdy statek, której żaden śmiertelnik nie jest w stanie pokonać. Nie wzbraniano nikomu przechodzić na drugą stronę, jednak ostrzegano, że to miejsce jest jeszcze bardziej niebezpieczne od ziem wygnańców.</p>
+
+                <p>Stoisz pod bramą XYZ. To właśnie tutaj rozpoczyna się Twoja opowieść.</p>
+
+                <p>Nie jesteś bohaterem, wielkim wojownikiem ani wpływowym kupcem. Nie należysz do ludzi, którzy budowali to miasto. Nie masz ziemi, majątku ani pozycji.</p>
+
+                <p>Stoisz przed bramą rozwijającego się miasta jako kolejny wygnaniec noszący przeklętą bransoletę. Za plecami pozostawiłeś dawne życie, a przed Tobą rozciąga się świat pełen niebezpieczeństw, możliwości i tajemnic.</p>
+
+                <p>To, czy staniesz się szanowanym obywatelem, bogatym handlarzem, potężnym magiem, bezwzględnym najemnikiem czy też zginiesz zapomniany gdzieś na pustkowiach, zależy wyłącznie od Ciebie.</p>
+
+                <p>W Krainach Wygnańców nikt nie rodzi się legendą.</p>
+
+                <p>Tutaj trzeba nią zostać.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-boztwa-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="zamknij_modal_boztwa()">✕</button>
+            <h3>Bóstwa</h3>
+            <p>Najczęściej spotykane bóstwa i moce czczone w Krainach Wygnańców. To tylko punkt odniesienia, jeśli chcesz wpisać własne bóstwo w KP.</p>
+            <div id="modal-boztwa-content" style="color: #d1d6f7; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
+                <ul>
+                    <li><strong>Crom</strong> - ponury bóg gór i siły, czczony bez próśb i bez nadziei na odpowiedź.</li>
+                    <li><strong>Mitra</strong> - bóg ładu, światła i prawych ludzi, jeden z najczęściej uznawanych w cywilizowanych krainach.</li>
+                    <li><strong>Set</strong> - wężowy bóg Stygii, patron podstępu, tajemnic i zakazanej mocy.</li>
+                    <li><strong>Yog</strong> - mroczny, pradawny byt związany z obłędem, pustką i niepokojącymi rytuałami.</li>
+                    <li><strong>Ymir</strong> - lodowy olbrzym i bóg północy, czczony w krainach zimna i śniegu.</li>
+                    <li><strong>Derketo</strong> - bogini rozkoszy, wody i zdradliwych pokus.</li>
+                    <li><strong>Jhebbal Sag</strong> - pan bestii, zwierząt i dzikiej natury.</li>
+                    <li><strong>Zath</strong> - tajemnicze bóstwo powiązane z mrokiem, skrytością i sekretami.</li>
+                    <li><strong>Ishtar</strong> - bogini wojny, zmysłowości i królewskiej potęgi.</li>
+                    <li><strong>Asura</strong> - bóg światła, sprawiedliwości i uporządkowanej wiary.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-sap-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="zamknij_modal_sap()">✕</button>
+            <h3>SAP</h3>
+            <p>Punkty SAP to specjalna waluta rozwoju postaci w Heldamar. Otrzymujesz je za aktywność, dobre karty postaci i wybrane formy gry, a następnie wydajesz je na rozwój swojej postaci zgodnie z zasadami serwera.</p>
+            <ul>
+                <li>Startowe SAP zależą od wybranej formy KP.</li>
+                <li>Lepsza karta postaci może dać dodatkowe SAP albo inne nagrody.</li>
+                <li>SAP służą do wzmacniania postaci i odblokowywania kolejnych możliwości w grze.</li>
+                <li>Dokładne zasady przyznawania i wydawania SAP ustala MG.</li>
+            </ul>
+        </div>
     </div>
 
     <h1 class="logo-heldamar">HELDAMAR</h1>
@@ -165,17 +269,7 @@
         <input type="text" id="wlasne-imie" placeholder="Wpisz imię...">
 
         <label>Bóstwo:</label>
-        <select id="wlasne-boztwo">
-            <option value="">Wybierz bóstwo</option>
-            <option value="Crom">Crom</option>
-            <option value="Mitra">Mitra</option>
-            <option value="Set">Set</option>
-            <option value="Yog">Yog</option>
-            <option value="Ymir">Ymir</option>
-            <option value="Derketo">Derketo</option>
-            <option value="Jhebbal Sag">Jhebbal Sag</option>
-            <option value="Zath">Zath</option>
-        </select>
+        <input type="text" id="wlasne-boztwo" placeholder="Wpisz bóstwo...">
 
         <label>Pochodzenie:</label>
         <select id="wlasne-pochodzenie" onchange="zaktualizujOpis('wlasne-pochodzenie', 'opis-wlasne-pochodzenie', pochodzenia)"></select>
@@ -222,17 +316,7 @@
         <input type="text" id="reczne-imie" placeholder="Wpisz imię...">
 
         <label>Bóstwo:</label>
-        <select id="reczne-boztwo">
-            <option value="">Wybierz bóstwo</option>
-            <option value="Crom">Crom</option>
-            <option value="Mitra">Mitra</option>
-            <option value="Set">Set</option>
-            <option value="Yog">Yog</option>
-            <option value="Ymir">Ymir</option>
-            <option value="Derketo">Derketo</option>
-            <option value="Jhebbal Sag">Jhebbal Sag</option>
-            <option value="Zath">Zath</option>
-        </select>
+        <input type="text" id="reczne-boztwo" placeholder="Wpisz bóstwo...">
 
         <label>Pochodzenie:</label>
         <select id="reczne-pochodzenie" onchange="zaktualizujOpis('reczne-pochodzenie', 'opis-reczne-pochodzenie', pochodzenia)"></select>
@@ -769,17 +853,7 @@ const historieKast = {
                     <label>Imię postaci:</label>
                     <input type="text" id="losuj-imie" placeholder="Wpisz imię...">
                     <label>Bóstwo:</label>
-                    <select id="losuj-boztwo">
-                        <option value="">Wybierz bóstwo</option>
-                        <option value="Crom">Crom</option>
-                        <option value="Mitra">Mitra</option>
-                        <option value="Set">Set</option>
-                        <option value="Yog">Yog</option>
-                        <option value="Ymir">Ymir</option>
-                        <option value="Derketo">Derketo</option>
-                        <option value="Jhebbal Sag">Jhebbal Sag</option>
-                        <option value="Zath">Zath</option>
-                    </select>
+                    <input type="text" id="losuj-boztwo" placeholder="Wpisz bóstwo...">
                     <p id="wybrane-boztwo" class="opis-cechy"></p>
                     <button class="btn-wybierz-karte" style="margin: 20px 0 20px;" onclick="generujKarte()">Losuj</button>
                     <p><strong>Pochodzenie:</strong> ${wynikPochodzenie.kraina} - 
@@ -1001,6 +1075,52 @@ const historieKast = {
                 alert("Brak połączenia! Karta pobrana na dysk, ale nie wysłano jej na Discorda.");
             }
         }
+
+        // ==========================================
+        // FUNKCJE DO MODALA LORE
+        // ==========================================
+        function otworz_modal_lore() {
+            document.getElementById('modal-lore-overlay').classList.add('active');
+        }
+
+        function zamknij_modal_lore() {
+            document.getElementById('modal-lore-overlay').classList.remove('active');
+        }
+
+        function otworz_modal_boztwa() {
+            document.getElementById('modal-boztwa-overlay').classList.add('active');
+        }
+
+        function zamknij_modal_boztwa() {
+            document.getElementById('modal-boztwa-overlay').classList.remove('active');
+        }
+
+        function otworz_modal_sap() {
+            document.getElementById('modal-sap-overlay').classList.add('active');
+        }
+
+        function zamknij_modal_sap() {
+            document.getElementById('modal-sap-overlay').classList.remove('active');
+        }
+
+        // Zamknięcie modala po kliknięciu na tło
+        document.addEventListener('DOMContentLoaded', function() {
+            const overlays = [
+                { element: document.getElementById('modal-lore-overlay'), close: zamknij_modal_lore },
+                { element: document.getElementById('modal-boztwa-overlay'), close: zamknij_modal_boztwa },
+                { element: document.getElementById('modal-sap-overlay'), close: zamknij_modal_sap }
+            ];
+
+            overlays.forEach(({ element, close }) => {
+                if (element) {
+                    element.addEventListener('click', function(event) {
+                        if (event.target === this) {
+                            close();
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
