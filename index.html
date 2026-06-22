@@ -108,61 +108,6 @@
         .karta.flat p { margin: 10px 0; }
         .karta.flat .opis-cechy { margin-top: 5px !important; margin-bottom: 15px !important; padding-bottom: 10px; border-bottom: 1px dashed #444; }
 
-        .mobile-toggle-active { background-color: #c97a00 !important; color: #1a1a1a !important; border-color: #c97a00 !important; }
-
-        body.force-mobile { padding: 20px 14px 24px; }
-        body.force-mobile .przyciski-lewe {
-            position: static;
-            top: auto;
-            left: auto;
-            width: min(100%, 760px);
-            margin: 0 auto 16px;
-            z-index: auto;
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px;
-            padding: 16px;
-        }
-        body.force-mobile .przyciski-lewe::before {
-            position: static;
-            transform: none;
-            justify-self: start;
-            margin-bottom: 4px;
-        }
-        body.force-mobile .menu-divider {
-            grid-column: 1 / -1;
-            margin: 4px 0;
-        }
-        body.force-mobile .przyciski-lewe .przycisk-boczny {
-            min-width: 0;
-            width: 100%;
-            padding: 12px 10px;
-            font-size: 13px;
-        }
-        body.force-mobile .info-lewe,
-        body.force-mobile .generator-imion {
-            position: static;
-            left: auto;
-            right: auto;
-            bottom: auto;
-            width: min(100%, 760px);
-            max-height: none;
-            margin: 0 auto 16px;
-            z-index: auto;
-        }
-        body.force-mobile .panel-boczny {
-            width: 100%;
-            margin: 18px auto 26px;
-            padding: 20px 16px;
-        }
-        body.force-mobile .modal-overlay { padding: 12px; }
-        body.force-mobile .modal-card {
-            width: 100%;
-            max-height: calc(100vh - 24px);
-            border-radius: 18px;
-            padding: 20px 16px;
-        }
-
         #modal-lore-content::-webkit-scrollbar { width: 12px; }
         #modal-lore-content::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
         #modal-lore-content::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; border: 2px solid #222; }
@@ -238,12 +183,6 @@
             .przyciski-lewe::before {
                 justify-self: center;
             }
-            body.force-mobile .przyciski-lewe {
-                grid-template-columns: 1fr;
-            }
-            body.force-mobile .przyciski-lewe::before {
-                justify-self: center;
-            }
             .stopka-zespolu {
                 font-size: 11px;
                 letter-spacing: 0.6px;
@@ -283,7 +222,6 @@
     </div>
 
     <div class="przyciski-lewe">
-        <button id="mobile-layout-toggle" class="przycisk-boczny" type="button" onclick="toggleMobileLayout()">📱 Tryb mobilny: OFF</button>
         <button class="przycisk-boczny" onclick="otworz_modal_lore()">📖 Lore</button>
         <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">⛪ Bóstwa</button>
         <button class="przycisk-boczny" onclick="otworz_modal_sap()">⭐ SAP</button>
@@ -582,7 +520,37 @@
             "Odmowa złożenia ofiary – Znieważenie kultu poprzez otwartą odmowę wzięcia udziału w rytuale.",
             "Zniesławienie potężnego arcykapłana – Rozsiewanie (nawet prawdziwych) plotek o korupcji w kręgach kapłańskich.",
             "Posiadanie bluźnierczych artefaktów – Handel reliktami z prastarych ruin Acheronu, których samo dotknięcie wywołuje szaleństwo.",
-            "Herezja i fałszywe proroctwa – Głoszenie nadejścia fałszywych bóstw i odciąganie wiernych od oficjalnej religii państwowej."
+            "Herezja i fałszywe proroctwa – Głoszenie nadejścia fałszywych bóstw i odciąganie wiernych od oficjalnej religii państwowej.",
+            "Płatny zabójca namiestnika – Przyjęcie sakiewki złota za ciche usunięcie urzędnika królewskiego.",
+            "Kradzież relikwii świątynnej – Wyniesienie świętego artefaktu i próba sprzedaży go na czarnym rynku.",
+            "Rozbój na trakcie kupieckim – Napadnięcie karawany i ograbienie jej pod osłoną nocy.",
+            "Podpalenie spichlerza – Spuszczenie z dymem zapasów zboża należących do lokalnego możnego.",
+            "Sabotaż miejskiej studni – Skażenie źródła wody, by wymusić ustępstwa na władzach osady.",
+            "Porwanie dla okupu – Uprowadzenie syna kupca i żądanie zapłaty w srebrze.",
+            "Przemyt broni przez granicę – Dostarczanie ostrzy i łuków buntownikom poza prawem.",
+            "Fałszywe pieczęcie urzędowe – Podrabianie dokumentów i przepustek dla zbiegów i dłużników.",
+            "Nielegalny handel niewolnikami – Kupno i sprzedaż ludzi poza kontrolą legalnych targów.",
+            "Obraza majestatu – Publiczne znieważenie władcy podczas zgromadzenia na placu.",
+            "Ucieczka z lochów – Zbiegnięcie z więzienia i zabicie strażnika podczas pościgu.",
+            "Współpraca z kultystami – Udzielanie schronienia wyznawcom zakazanych bóstw.",
+            "Kradzież wojskowego zaopatrzenia – Sprzedaż racji i uzbrojenia przeznaczonych dla garnizonu.",
+            "Wymuszenie haraczu – Pobieranie opłat ochronnych od karczmarzy i rzemieślników.",
+            "Nielegalne pojedynki na śmierć – Organizowanie krwawych walk dla zakładów i zysku.",
+            "Profanacja grobów przodków – Otwieranie kurhanów i rabunek pochowanych kosztowności.",
+            "Szantaż szlachty – Grożenie ujawnieniem kompromitujących sekretów wpływowych rodów.",
+            "Sprzedaż trujących mikstur – Rozprowadzanie trucizn pod pozorem medykamentów.",
+            "Bunt w kopalni – Podżeganie robotników do ataku na nadzorców i przejęcia szybów.",
+            "Zabójstwo podczas rytuału – Rozlew krwi w świątyni pod osłoną religijnego obrządku.",
+            "Grabież po bitwie – Okradanie rannych i poległych na polu walki mimo zakazu dowódcy.",
+            "Przekupienie straży miejskiej – Kupowanie wolności dla przestępców i fałszowanie raportów.",
+            "Przewodnictwo dla najeźdźców – Wskazanie wrogom tajnych przejść i słabych punktów murów.",
+            "Niszczenie znaków granicznych – Przesuwanie kamieni granicznych, by przejąć cudzą ziemię.",
+            "Zakazane eksperymenty alchemiczne – Tworzenie niestabilnych substancji powodujących zgony.",
+            "Podanie fałszywego świadectwa – Krzywoprzysięstwo, które doprowadziło niewinnego na szafot.",
+            "Oszustwa hazardowe – Ustawianie kości i kart, a potem okradanie przegranych do ostatniej monety.",
+            "Kradzież map wojskowych – Wyniesienie planów fortecy i próba odsprzedaży konkurentom.",
+            "Zdrada kompanii najemnej – Wydanie towarzyszy wrogowi za obietnicę amnestii.",
+            "Handel zakazanymi księgami – Rozprowadzanie tomów o czarach i rytuałach objętych klątwą."
         ];
 
         const cechyNegatywne = [
@@ -918,39 +886,7 @@ const historieKast = {
             document.getElementById(panelId).classList.remove('otwarta');
         }
 
-        function setMobileToggleLabel() {
-            const button = document.getElementById('mobile-layout-toggle');
-            if (!button) return;
-            const active = document.body.classList.contains('force-mobile');
-            button.textContent = active ? '📱 Tryb mobilny: ON' : '📱 Tryb mobilny: OFF';
-            button.classList.toggle('mobile-toggle-active', active);
-        }
-
-        function zapiszTrybMobilny(enabled) {
-            try {
-                localStorage.setItem('heldamar-force-mobile-layout', enabled ? '1' : '0');
-            } catch (error) {}
-        }
-
-        function odczytajTrybMobilny() {
-            try {
-                return localStorage.getItem('heldamar-force-mobile-layout') === '1';
-            } catch (error) {
-                return false;
-            }
-        }
-
-        function toggleMobileLayout() {
-            const enabled = !document.body.classList.contains('force-mobile');
-            document.body.classList.toggle('force-mobile', enabled);
-            zapiszTrybMobilny(enabled);
-            setMobileToggleLabel();
-        }
-
         window.onload = function() {
-            document.body.classList.toggle('force-mobile', odczytajTrybMobilny());
-            setMobileToggleLabel();
-
             // Wypełnianie selectów - panel własny
             wypelnijSelect('wlasne-pochodzenie', pochodzenia, p => `${p.kraina} - ${p.cecha}`);
             wypelnijSelect('wlasne-archetyp', archetypy, a => a.nazwa);
