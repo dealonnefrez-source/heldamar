@@ -7,7 +7,7 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; background-image: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 22%), radial-gradient(circle at bottom right, rgba(255,255,255,0.025), transparent 18%), linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.01) 100%), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: auto, auto, auto, 24px 24px, 24px 24px; background-position: center center, center center, center center, 0 0, 0 0; color: #eaeaea; text-align: center; padding: 40px; display: flex; flex-direction: column; min-height: 100vh; margin: 0; overflow-x: hidden; }
         .logo-heldamar { color: #c97a00; font-size: 48px; letter-spacing: 5px; margin: 40px 0 0 0; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); position: relative; }
         .logo-heldamar::after { content: ""; position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); width: 220px; height: 2px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.85), transparent); box-shadow: 0 0 16px rgba(201,122,0,0.25); }
-        h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; }
+        h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; font-size: 16px; font-style: italic; }
 
         .przyciski-lewe { position: fixed; top: 105px; left: 20px; display: flex; flex-direction: column; gap: 12px; align-items: stretch; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); border: 1px solid #444; border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 14px 40px rgba(0,0,0,0.45); z-index: 1000; }
         .przyciski-lewe::before { content: "MENU GŁÓWNE"; position: absolute; top: -12px; left: 16px; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -217,13 +217,19 @@
             <option value="m">Męskie</option>
             <option value="f">Żeńskie</option>
         </select>
+        <label for="generator-dlugosc">Wybierz długość imienia</label>
+        <select id="generator-dlugosc">
+            <option value="short">Krótkie</option>
+            <option value="long" selected>Długie</option>
+            <option value="very-long">Bardzo długie</option>
+        </select>
         <button type="button" onclick="generujImiona()">Generuj 10 imion</button>
         <div id="generator-wyniki" class="lista-imion"></div>
     </div>
 
     <div class="przyciski-lewe">
         <button class="przycisk-boczny" onclick="otworz_modal_lore()">📖 Lore</button>
-        <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">⛪ Bóstwa</button>
+        <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">✧ Bóstwa</button>
         <button class="przycisk-boczny" onclick="otworz_modal_sap()">⭐ SAP</button>
         <div class="menu-divider" aria-hidden="true"></div>
         <button class="przycisk-boczny" onclick="showPanel('panel-wlasny')">📝 Napisz KP od zera</button>
@@ -351,7 +357,7 @@
 
     <h1 class="logo-heldamar">HELDAMAR</h1>
     <hr class="linia-logo">
-    <h2>Wybór Przeznaczenia</h2>
+    <h2>W Krainach Wygnańców nikt nie rodzi się legendą.<br>Tutaj trzeba nią zostać.</h2>
     
     <div id="miejsce-na-karty" class="pojemnik-na-karty"></div>
 
@@ -639,15 +645,70 @@
             return { first: zestaw.first || [...(zestaw.firstMale || []), ...(zestaw.firstFemale || [])], last: zestaw.last };
         }
 
-        function losujImieNazwisko(zestaw) {
-            const first = zestaw.first[Math.floor(Math.random() * zestaw.first.length)];
-            const last = zestaw.last[Math.floor(Math.random() * zestaw.last.length)];
+        function wybierzListePoDlugosci(lista, tryb, granicaKrotkie, granicaDlugie, granicaBardzoDlugie) {
+            if (!Array.isArray(lista) || !lista.length) return [];
+
+            const unikalne = [...new Set(lista)];
+            const posortowaneRosnaco = [...unikalne].sort((a, b) => a.length - b.length || a.localeCompare(b));
+            const posortowaneMalejaco = [...posortowaneRosnaco].reverse();
+
+            if (tryb === 'short') {
+                const krotkie = unikalne.filter(item => item.length <= granicaKrotkie);
+                if (krotkie.length >= 4) return krotkie;
+                // Za mało krótkich – weź krótszą ćwiartkę puli
+                const cutoffShort = posortowaneRosnaco[Math.floor(posortowaneRosnaco.length * 0.25)]?.length || 0;
+                const cwiartkaDlugich = unikalne.filter(item => item.length <= cutoffShort);
+                return cwiartkaDlugich.length >= 4 ? cwiartkaDlugich : posortowaneRosnaco.slice(0, Math.min(10, posortowaneRosnaco.length));
+            }
+
+            if (tryb === 'very-long') {
+                // Generuj złożone imiona przez fuzję dwóch istniejących nazw –
+                // gwarantuje, że będą wyraźnie dłuższe niż "długie"
+                const pula = [];
+                const maxProb = 60;
+                for (let i = 0; i < maxProb; i++) {
+                    const a = unikalne[Math.floor(Math.random() * unikalne.length)];
+                    const b = unikalne[Math.floor(Math.random() * unikalne.length)];
+                    // Weź pełne 'a' + ostatnie 3-5 znaków 'b' (tyle, by całość >= 9 znaków)
+                    const sufixLen = Math.max(3, Math.min(5, b.length - 1));
+                    const sufix = b.slice(b.length - sufixLen);
+                    const zloz = a + sufix.toLowerCase();
+                    if (zloz.length >= 9 && !pula.includes(zloz)) {
+                        pula.push(zloz);
+                    }
+                    if (pula.length >= 20) break;
+                }
+                if (pula.length >= 3) return pula;
+                // Awaryjny fallback: najdłuższe dostępne nazwy
+                return posortowaneMalejaco.slice(0, Math.min(6, posortowaneMalejaco.length));
+            }
+
+            if (tryb === 'long') {
+                const dlugie = unikalne.filter(item => item.length >= granicaDlugie);
+                if (dlugie.length >= 4) return dlugie;
+                // Za mało długich – weź górną ćwiartkę puli (75. percentyl)
+                const cutoff = posortowaneRosnaco[Math.floor(posortowaneRosnaco.length * 0.75)]?.length || 0;
+                const cwiartkaDlugich = unikalne.filter(item => item.length >= cutoff);
+                return cwiartkaDlugich.length >= 4 ? cwiartkaDlugich : posortowaneMalejaco.slice(0, Math.min(10, posortowaneMalejaco.length));
+            }
+
+            return unikalne;
+        }
+
+        function losujImieNazwisko(zestaw, dlugosc = 'long') {
+            const firstPool = wybierzListePoDlugosci(zestaw.first, dlugosc, 4, 8, 10);
+            const first = firstPool[Math.floor(Math.random() * firstPool.length)];
+
+            const lastPool = wybierzListePoDlugosci(zestaw.last, dlugosc, 4, 8, 10);
+            const last = lastPool[Math.floor(Math.random() * lastPool.length)];
             return `${first} ${last}`;
         }
 
-        function losujUnikalneImiona(zestaw, ile) {
-            const firstCopy = [...zestaw.first];
-            const lastCopy = [...zestaw.last];
+        function losujUnikalneImiona(zestaw, ile, dlugosc = 'long') {
+            const firstPool = wybierzListePoDlugosci(zestaw.first, dlugosc, 4, 8, 10);
+            const lastPool = wybierzListePoDlugosci(zestaw.last, dlugosc, 4, 8, 10);
+            const firstCopy = [...firstPool];
+            const lastCopy = [...lastPool];
             const wynik = [];
 
             for (let i = 0; i < ile && firstCopy.length && lastCopy.length; i++) {
@@ -659,7 +720,7 @@
             }
 
             while (wynik.length < ile) {
-                const name = losujImieNazwisko(zestaw);
+                const name = losujImieNazwisko(zestaw, dlugosc);
                 if (!wynik.includes(name)) wynik.push(name);
             }
 
@@ -669,12 +730,14 @@
         function generujImiona() {
             const index = document.getElementById('generator-pochodzenie').value;
             const plec = document.getElementById('generator-plec').value;
+            const dlugosc = document.getElementById('generator-dlugosc').value;
             const region = pochodzenia[index]?.kraina || 'nieznany region';
             const zestaw = pobierzZestawImion(region, plec);
-            const wygenerowane = losujUnikalneImiona(zestaw, 10);
+            const wygenerowane = losujUnikalneImiona(zestaw, 10, dlugosc);
             const genderLabel = plec === 'f' ? 'żeńskie' : 'męskie';
+            const lengthLabel = dlugosc === 'short' ? 'krótkie' : dlugosc === 'very-long' ? 'bardzo długie' : 'długie';
             document.getElementById('generator-wyniki').innerHTML = `
-                <div><strong>${genderLabel.charAt(0).toUpperCase() + genderLabel.slice(1)} imiona dla ${region}:</strong></div>
+                <div><strong>${lengthLabel.charAt(0).toUpperCase() + lengthLabel.slice(1)} imiona ${genderLabel} dla ${region}:</strong></div>
                 <ol>${wygenerowane.map(n => `<li>${n}</li>`).join('')}</ol>
             `;
         }
