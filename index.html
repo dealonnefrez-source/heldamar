@@ -506,6 +506,19 @@
             { kraina: "Khitaj", cecha: "Prawo pięści", opis: "Cywilizowane zachowanie wciąż jest nowością w twej ojczystej krainie. Nigdy nie wiadomo, kiedy stare zwyczaje znów dadzą o sobie znać." }
         ];
 
+        const bonusyPochodzen = {
+            "Dziecię natury": "+1 Opieka nad zwierzętami, +1 Natura, +1 Sztuka Przetrwania",
+            "Prawo pięści": "+1 Atletyka, +1 Zastraszanie",
+            "Ręka na pulsie": "+1 Intuicja, +1 Śledztwo",
+            "Dziecię zimy": "+1 Sztuka Przetrwania, +1 Odporność",
+            "Miarka w oku": "+1 Intuicja, +1 Perswazja",
+            "Wyczucie fałszu": "+2 Intuicja",
+            "Morski rozbójnik": "+1 Akrobatyka, +1 Zwinne dłonie",
+            "Dziecię pustyni": "+1 Sztuka Przetrwania, +1 Odporność",
+            "W siodle urodzony": "+2 Opieka nad zwierzętami",
+            "Światowiec": "+1 Historia, +1 Religia"
+        };
+
         const skazania = [
             "Przemyt czarnego lotosu – Próba szmuglowania silnie uzależniających i trujących narkotyków ze Stygii.",
             "Morderstwo w karczemnej bójce – Rozbicie dzbana na głowie kogoś, kto okazał się mieć wysoko postawionych znajomych.",
@@ -990,6 +1003,13 @@ const historieKast = {
         function zaktualizujOpis(selectId, opisId, dataArray) {
             const index = document.getElementById(selectId).value;
             const element = dataArray[index];
+            if (dataArray === pochodzenia) {
+                const bonus = bonusyPochodzen[element.cecha];
+                const opisZBonusem = bonus ? `${element.opis}<br><strong>Bonusy:</strong> ${bonus}` : element.opis;
+                document.getElementById(opisId).innerHTML = opisZBonusem;
+                return;
+            }
+
             document.getElementById(opisId).innerHTML = element.opis;
         }
 
@@ -1067,7 +1087,7 @@ const historieKast = {
                     <button class="btn-wybierz-karte" style="margin: 20px 0 20px;" onclick="generujKarte()">Losuj</button>
                     <p><strong>Pochodzenie:</strong> ${wynikPochodzenie.kraina} - 
                         <span class="tooltip">${wynikPochodzenie.cecha}
-                            <span class="tooltiptext">${wynikPochodzenie.opis}</span>
+                            <span class="tooltiptext">${wynikPochodzenie.opis}<br><strong>Bonusy:</strong> ${bonusyPochodzen[wynikPochodzenie.cecha] || 'Brak'}</span>
                         </span>
                     </p>
                     
@@ -1190,6 +1210,7 @@ const historieKast = {
             tekst += `Gracz (Discord): ${discordNick}\r\n\r\n`;
             tekst += `Pochodzenie: ${k.pochodzenie.kraina} - ${k.pochodzenie.cecha}\r\n`;
             if (k.pochodzenie.opis) tekst += `${k.pochodzenie.opis}\r\n`;
+            if (bonusyPochodzen[k.pochodzenie.cecha]) tekst += `Bonusy pochodzenia: ${bonusyPochodzen[k.pochodzenie.cecha]}\r\n`;
             tekst += `\r\nArchetyp: ${k.archetyp.nazwa}\r\n`;
             if (k.archetyp.opis) tekst += `${k.archetyp.opis}\r\n`;
             tekst += `\r\nKasta: ${k.kasta.nazwa}\r\n`;
