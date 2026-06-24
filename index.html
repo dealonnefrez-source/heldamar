@@ -319,39 +319,62 @@
     <div class="modal-overlay" id="modal-sap-overlay">
         <div class="modal-card">
             <button class="modal-close" onclick="zamknij_modal_sap()">✕</button>
-            <h3>SAP</h3>
-            <p><strong>SAP (System Aktywności Postaci)</strong> to mechanika nagradzająca graczy za Roleplay. Punkty SAP nie są przyznawane za samą obecność na serwerze, to wyróżnienie od Mistrzów Gry za Twój wkład w tworzenie immersyjnego świata.</p>
+            <h3>System Aktywności Postaci (SAP)</h3>
 
-            <p><strong>Mistrzowie Gry przyznają punkty SAP oceniając:</strong></p>
+            <blockquote>
+                <p>SAP (System Aktywności Postaci) to mechanika nagradzająca graczy za Roleplay. Punkty SAP nie są przyznawane za samą obecność na serwerze, to wyróżnienie od Mistrzów Gry za Twój wkład w tworzenie immersyjnego świata.</p>
+            </blockquote>
+
+            <h4>Kryteria przyznawania punktów SAP</h4>
+            <p>Mistrzowie Gry oceniają aktywność graczy oraz przyznają punkty na podstawie następujących aspektów:</p>
             <ul>
-                <li>Konsekwentne prowadzenie postaci i wierność Karcie Postaci (KP).</li>
-                <li>Odgrywanie w pełni zgodne z realiami świata gry.</li>
-                <li>Ogólny poziom i jakość prowadzonych interakcji.</li>
-                <li>Aktywność fabularną, własną inicjatywę i chęć napędzania rozgrywki.</li>
-                <li>Udział w serwerowych wydarzeniach i eventach.</li>
+                <li>Konsekwentne prowadzenie postaci oraz spójność z Kartą Postaci (KP).</li>
+                <li>Odgrywanie ról w pełnej zgodzie z realiami i lore świata gry.</li>
+                <li>Ogólny poziom, głębia oraz jakość prowadzonych interakcji RP.</li>
+                <li>Aktywność fabularna, wykazywanie własnej inicjatywy i napędzanie rozgrywki.</li>
+                <li>Udział w wydarzeniach oraz eventach serwerowych.</li>
             </ul>
 
-            <p><strong>AutoEXP: Pasywny rozwój postaci</strong><br>
-            System nagradza Cię doświadczeniem automatycznie co 10 minut. Podstawowa wartość wynosi 500 EXP, każdy posiadany punkt SAP zwiększa tę pulę o dodatkowe +100 EXP.<br>
-            <em>Przykład: Posiadając 5 SAP, co 10 minut system przyzna 1000 EXPa. (500 baza + 500 z SAP)</em></p>
+            <h4><strong>AutoEXP - Pasywny rozwój postaci</strong></h4>
+            <p>Postać automatycznie otrzymuje punkty doświadczenia w cyklach co 10 minut. Wartość ta jest bezpośrednio powiązana z liczbą posiadanych punktów SAP:</p>
+            <ul>
+                <li><strong>Wartość podstawowa (baza):</strong> 500 EXP</li>
+                <li><strong>Bonus za każdy punkt SAP:</strong> +100 EXP</li>
+            </ul>
+            <blockquote>
+                <p><em>Przykład:</em> Przy posiadaniu 5 punktów SAP, postać otrzyma 1000 EXP co 10 minut (500 EXP bazy + 500 EXP z tytułu SAP).</p>
+            </blockquote>
 
-            <p><strong>Modyfikator czasu gry</strong><br>
-            <strong>Pierwsze 2 godziny:</strong> Postać otrzymuje pełny AutoEXP oraz wszystkie bonusy wynikające z SAP.<br>
-            <strong>Od 3. godziny:</strong> Zdobywany AutoEXP zostaje zmniejszony do 20% standardowej wartości.</p>
+            <h4><strong>Modyfikator czasu gry</strong></h4>
+            <p>Efektywność systemu AutoEXP zmienia się wraz z czasem trwania sesji:</p>
+            <ul>
+                <li><strong>Pierwsze 2 godziny sesji:</strong> 100% (Wartość podstawowa + pełny bonus SAP)</li>
+                <li><strong>Od 3. godziny sesji:</strong> Spadek do 20% wartości standardowej</li>
+            </ul>
+            <blockquote>
+                <p><em>Przykład:</em> Postać posiadająca 10 SAP standardowo generuje 1500 EXP co 10 minut. Po przekroczeniu 2 godzin ciągłej rozgrywki, zysk spada do 300 EXP na każdy kolejny 10-minutowy cykl.</p>
+            </blockquote>
 
-            <p><em>Przykład: Twoja postać posiada 10 SAP, więc standardowo otrzymuje 1500 EXP co 10 minut. Jeśli jednak Twoja sesja przekroczy 2 godziny, zysk ten spadnie do 300 EXP na każdy kolejny 10-minutowy cykl.</em></p>
+            <h4><strong>Wpływ SAP na limity zdobywania doświadczenia</strong></h4>
+            <p>Punkty SAP zwiększają dzienny limit punktów doświadczenia, jakie postać może zdobyć poprzez walkę z potworami:</p>
+            <ul>
+                <li><strong>Dzienny limit bazowy:</strong> 6000 EXP</li>
+                <li><strong>Bonus za każdy punkt SAP:</strong> +1000 EXP</li>
+            </ul>
+            <blockquote>
+                <p><em>Przykład:</em> Dla postaci z 4 punktami SAP dzienny limit doświadczenia z walki wynosi 10 000 EXP (6000 EXP bazy + 4000 EXP z tytułu SAP).</p>
+                <p><strong>Ważne:</strong> Doświadczenie generowane przez system AutoEXP jest całkowicie niezależne od limitu farmienia i nie uszczupla dziennej puli EXP możliwej do zdobycia na potworach.</p>
+            </blockquote>
 
-            <p><strong>SAP a Limit Farmienia</strong><br>
-            Każdy zdobyty punkt SAP zwiększa dzienny limit doświadczenia (baza 6000 EXP) zdobywanego na potworach o +1000 EXP.</p>
+            <h4>Reguły dotyczące altów</h4>
+            <p>Aktywność na postaci głównej przekłada się na łatwiejszy start dla kolejnych postaci. Nowo utworzony alt otrzymuje na start 50% wartości punktów SAP postaci głównej, pod warunkiem, że postać główna posiada łącznie więcej niż 20 punktów SAP.</p>
+            <blockquote>
+                <p><em>Przykład:</em> Jeśli główna postać posiada 30 SAP, nowo utworzony alt rozpocznie rozgrywkę z pulą 15 SAP.</p>
+            </blockquote>
 
-            <p><em>Przykład: Posiadając 4 punkty SAP, dzienny limit EXP'a za potwory wynosi 10000 EXP (6000 baza + 4000 z SAP)</em></p>
-
-            <p><strong>Ważne:</strong> AutoEXP zdobywany dzięki SAP nie wlicza się do dziennego limitu doświadczenia z farmienia. Oznacza to, że doświadczenie automatyczne jest całkowicie niezależne od tego, ile EXP-a zdobędziesz na mobach.</p>
-
-            <p><strong>SAP a alty</strong><br>
-            Postać utworzona jako alt otrzymuje na start połowę punktów SAP swojej głównej postaci, pod warunkiem że główna postać posiada więcej niż 20 punktów SAP łącznie.</p>
-
-             <p><strong>Zebrane punty SAP są widoczne w Twojej karcie postaci</strong><br>
+            <ul>
+                <li>Wszystkie przedstawione powyżej wartości mają charakter poglądowy i mogą ulec zmianie po zakończeniu fazy wstępnych testów systemu.</li>
+            </ul>
         </div>
     </div>
 
