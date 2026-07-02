@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Heldamar - Generator Kart Postaci</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; background-image: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 22%), radial-gradient(circle at bottom right, rgba(255,255,255,0.025), transparent 18%), linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.01) 100%), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: auto, auto, auto, 24px 24px, 24px 24px; background-position: center center, center center, center center, 0 0, 0 0; color: #eaeaea; text-align: center; padding: 40px; display: flex; flex-direction: column; min-height: 100vh; margin: 0; overflow-x: hidden; }
         .logo-heldamar { color: #c97a00; font-size: 48px; letter-spacing: 5px; margin: 40px 0 0 0; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); position: relative; }
@@ -215,7 +216,7 @@
 
     <div class="ogloszenie-kp" role="status" aria-live="polite">
         <strong>Ważne</strong>
-        <span>Wysyłanie KP jest obecnie wstrzymane. Poinformujemy na Discordzie, gdy będzie można wysyłać karty postaci.</span>
+        <span>Wysyłanie KP do teczki gracza jest obecnie wstrzymane. Przycisk „Wyślij”, zapisze Twoją kartę postaci na dysk.</span>
     </div>
 
     <div class="generator-imion ukryty" id="panel-generatora-imion">
@@ -449,8 +450,8 @@
                 <p>Dlatego każdy taki kontakt jest niebezpieczny nie tylko dlatego, że przywołana siła może być wroga, ale też dlatego, że sam świat i umysł człowieka nie są przystosowane do czegoś tak obcego. Świat Hyborii jest jak cienka warstwa stabilnego porządku, a Zewnętrzny Mrok to coś, co ten porządek otacza i nieustannie na niego naciska.</p>
 
                 <h4>Podsumowanie</h4>
-                <p>Na tej edycji nie mieszamy D&amp;D czy innych styli ze światem Conana. Gramy go czystego, więc odgrywanie postaci magicznej wygląda inaczej. Jeśli ktoś chciał strzelać kulami ognia, przywoływać deszcze meteorytów czy zapalać ognisko pstryknięciem palców, niech odpuści granie czarnoksiężnikiem.</p>
-                <p>Postacie czarujące będą najbardziej nadzorowane, a przesadzanie z tym, co postać może zrobić, będzie się odbijało na niej. Jeśli ktoś ma jakiekolwiek wątpliwości z tym, co może zrobić, zapraszamy na ticket po odpowiedzi.</p>
+                <p>Na tej edycji nie mieszamy D&D czy innych styli z światem conana. Gramy go czystego, więc teraz odgrywanie postaci magicznej wygląda inaczej. Jeśli ktoś chciał strzelać kulami ognia, przywoływać deszcze meteorytów czy zapalać ognisko pstryknięciem palców to się rozczaruje. Postacie czarujące będą najbardziej nadzorowane, a przesadzanie z tym co postać może zrobić będzie się odbijało na niej. Jeśli ktoś ma jakieś wątpliwości co do możliwości postaci zapraszamy na ticket po odpowiedzi. 
+ to juz tam poprawilem</p>
             </div>
         </div>
     </div>
@@ -905,7 +906,7 @@
 
             panel.classList.toggle('ukryty');
             const czyOtwarte = !panel.classList.contains('ukryty');
-            przycisk.textContent = czyOtwarte ? '🧾 Ukryj generator imion' : '🧾 Generator imion';
+            przycisk.textContent = czyOtwarte ? '🧾 Generator - ukryj' : '🧾 Generator imion';
             przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
         }
 
@@ -1363,43 +1364,127 @@ const historieKast = {
             zapiszIWyslij(discordNick, imie, k);
         }
 
-        async function zapiszIWyslij(discordNick, imie, k) {
+        function dostepnyJsPdf() {
+            return !!(window.jspdf && window.jspdf.jsPDF);
+        }
 
-            // PLIK TXT
-            let tekst = `=== KARTA POSTACI: ${imie.toUpperCase()} ===\r\n`;
-            tekst += `Gracz (Discord): ${discordNick}\r\n\r\n`;
-            tekst += `Pochodzenie: ${k.pochodzenie.kraina} - ${k.pochodzenie.cecha}\r\n`;
-            if (k.pochodzenie.opis) tekst += `${k.pochodzenie.opis}\r\n`;
-            if (bonusyPochodzen[k.pochodzenie.cecha]) tekst += `Bonusy pochodzenia: ${bonusyPochodzen[k.pochodzenie.cecha]}\r\n`;
-            tekst += `\r\nArchetyp: ${k.archetyp.nazwa}\r\n`;
-            if (k.archetyp.opis) tekst += `${k.archetyp.opis}\r\n`;
-            tekst += `\r\nKasta: ${k.kasta.nazwa}\r\n`;
-            if (k.kasta.opis) tekst += `${k.kasta.opis}\r\n`;
-            tekst += `\r\nHistoria: ${k.historia.nazwa}\r\n`;
-            if (k.historia.opis) tekst += `${k.historia.opis}\r\n`;
-            tekst += `\r\nWykształcenie: ${k.wyksztalcenie.nazwa}\r\n`;
-            if (k.wyksztalcenie.opis) tekst += `${k.wyksztalcenie.opis}\r\n`;
-            tekst += `\r\nUsposobienie: ${k.usposobienie.nazwa}\r\n`;
-            if (k.usposobienie.opis) tekst += `${k.usposobienie.opis}\r\n`;
-            tekst += `\r\nBóstwo: ${k.boztwo || 'Brak'}\r\n`;
-            tekst += `Klan: ${k.klan || 'Brak'}\r\n`;
-            if (k.cechaNegatywna) tekst += `\r\nDodatkowa poprzeczka RP: ${k.cechaNegatywna}\r\n`;
-            tekst += `\r\nZa co skazano: ${k.skazanoZa || 'Brak informacji'}\r\n`;
-            tekst += `\r\n=====================================\r\nWygenerowano w systemie Heldamar\r\n`;
+        function usunPolskieZnaki(tekst) {
+            return String(tekst)
+                .replace(/ą/g, 'a').replace(/Ą/g, 'A')
+                .replace(/ć/g, 'c').replace(/Ć/g, 'C')
+                .replace(/ę/g, 'e').replace(/Ę/g, 'E')
+                .replace(/ł/g, 'l').replace(/Ł/g, 'L')
+                .replace(/ń/g, 'n').replace(/Ń/g, 'N')
+                .replace(/ó/g, 'o').replace(/Ó/g, 'O')
+                .replace(/ś/g, 's').replace(/Ś/g, 'S')
+                .replace(/ż/g, 'z').replace(/Ż/g, 'Z')
+                .replace(/ź/g, 'z').replace(/Ź/g, 'Z');
+        }
+
+        function normalizujPdfTekst(tekst) {
+            return usunPolskieZnaki(tekst)
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function dodajLiniePdf(doc, tekst, x, y, szerokosc, kolor = [211, 211, 211], rozmiar = 11, pogrubienie = false, odstęp = 6) {
+            doc.setTextColor(...kolor);
+            doc.setFont('times', pogrubienie ? 'bold' : 'normal');
+            doc.setFontSize(rozmiar);
+            const linie = doc.splitTextToSize(normalizujPdfTekst(tekst), szerokosc);
+            doc.text(linie, x, y);
+            return y + (linie.length * odstęp);
+        }
+
+        function ustawTloPdf(doc) {
+            doc.setFillColor(26, 26, 26);
+            doc.rect(0, 0, 210, 297, 'F');
+        }
+
+        function dodajSekcjePdf(doc, naglowek, elementy, x, y, szerokosc) {
+            y = dodajLiniePdf(doc, naglowek, x, y, szerokosc, [230, 184, 90], 13, true, 7);
+            y += 1;
+
+            elementy.forEach(({ label, value, opis, wyróżniony }) => {
+                if (y > 270) {
+                    doc.addPage();
+                    ustawTloPdf(doc);
+                    y = 18;
+                }
+
+                y = dodajLiniePdf(doc, `${label}: ${value}`, x, y, szerokosc, wyróżniony ? [255, 216, 140] : [234, 234, 234], 11, true, 6);
+                if (opis) {
+                    const opisLinie = String(opis).split('\n');
+                    opisLinie.forEach(linia => {
+                        if (y > 275) {
+                            doc.addPage();
+                            ustawTloPdf(doc);
+                            y = 18;
+                        }
+                        y = dodajLiniePdf(doc, linia, x + 2, y + 1, szerokosc - 2, [211, 211, 211], 10, false, 5);
+                    });
+                }
+                y += 2;
+            });
+
+            return y;
+        }
+
+        async function zapiszIWyslij(discordNick, imie, k) {
+            const nazwaPliku = `${imie}_KP.pdf`;
 
             try {
-                const blob = new Blob([tekst], { type: "text/plain;charset=utf-8" });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement("a");
-                link.href = url;
-                link.download = `${imie}_KP.txt`; 
-                document.body.appendChild(link);
-                link.click(); 
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-            } catch(e) { console.error("Błąd zapisu", e); }
+                if (dostepnyJsPdf()) {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+                    const szerokosc = 180;
+                    let y = 18;
 
-            alert("Karta postaci została pobrana. Możliwość przesyłania kart postaci do teczki gracza jest obecnie wstrzymana. Poinformujemy, gdy proces zostanie wznowiony.");
+                    ustawTloPdf(doc);
+
+                    y = dodajLiniePdf(doc, `KARTA POSTACI: ${imie.toUpperCase()}`, 14, y, szerokosc, [201, 122, 0], 16, true, 8);
+                    y = dodajLiniePdf(doc, `Gracz (Discord): ${discordNick}`, 14, y + 2, szerokosc, [241, 231, 210], 11, false, 6);
+                    y += 4;
+
+                    y = dodajSekcjePdf(doc, 'Tożsamość i pochodzenie', [
+                        {
+                            label: 'Pochodzenie',
+                            value: `${k.pochodzenie.kraina} - ${k.pochodzenie.cecha}`,
+                            opis: [k.pochodzenie.opis, bonusyPochodzen[k.pochodzenie.cecha] ? `Bonusy pochodzenia: ${bonusyPochodzen[k.pochodzenie.cecha]}` : null].filter(Boolean).join('\n')
+                        },
+                        { label: 'Archetyp', value: k.archetyp.nazwa, opis: k.archetyp.opis },
+                        { label: 'Kasta', value: k.kasta.nazwa, opis: k.kasta.opis },
+                        { label: 'Historia', value: k.historia.nazwa, opis: k.historia.opis },
+                        { label: 'Wykształcenie', value: k.wyksztalcenie.nazwa, opis: k.wyksztalcenie.opis },
+                        { label: 'Usposobienie', value: k.usposobienie.nazwa, opis: k.usposobienie.opis }
+                    ], 14, y, szerokosc);
+
+                    y = dodajSekcjePdf(doc, 'Dodatkowe informacje', [
+                        { label: 'Bóstwo', value: k.boztwo || 'Brak' },
+                        { label: 'Klan', value: k.klan || 'Brak' },
+                        { label: 'Dodatkowa poprzeczka RP', value: k.cechaNegatywna || 'Brak' },
+                        { label: 'Za co skazano', value: k.skazanoZa || 'Brak informacji' }
+                    ], 14, y + 2, szerokosc);
+
+                    doc.setDrawColor(201, 122, 0);
+                    doc.setLineWidth(0.4);
+                    doc.line(14, 280, 196, 280);
+                    doc.setTextColor(180, 180, 180);
+                    doc.setFontSize(9);
+                    doc.setFont('times', 'italic');
+                    doc.text('Wygenerowano na heldamar.pl', 14, 286);
+
+                    doc.save(nazwaPliku);
+                } else {
+                    throw new Error('jsPDF unavailable');
+                }
+            } catch (e) {
+                console.error('Błąd generowania PDF', e);
+                alert('Nie udało się wygenerować PDF. Spróbuj odświeżyć stronę; jeśli problem będzie wracał, damy prosty fallback do TXT.');
+                return;
+            }
+
+            alert('Karta postaci została pobrana jako PDF. Możliwość przesyłania kart postaci do teczki gracza jest obecnie wstrzymana. Poinformujemy, gdy proces zostanie wznowiony.');
         }
 
         // ==========================================
