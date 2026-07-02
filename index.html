@@ -15,12 +15,12 @@
         .przyciski-lewe .przycisk-boczny:hover { background-color: #575757; transform: translateY(-1px); }
         .menu-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.55), transparent); margin: 2px 0; box-shadow: 0 0 10px rgba(201,122,0,0.15); }
 
-        .info-lewe { position: fixed; bottom: 20px; left: 20px; width: 320px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
-        .info-lewe h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
-        .info-lewe p { margin: 0 0 12px 0; color: #d3d3d3; line-height: 1.5; font-size: 14px; text-align: left; }
-        .info-lewe .info-kategoria { margin-bottom: 18px; }
 
         .generator-imion { position: fixed; bottom: 20px; right: 20px; width: 360px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
+        .generator-imion.ukryty { display: none; }
+        .ogloszenie-kp { position: fixed; top: 20px; right: 20px; width: min(420px, calc(100vw - 40px)); background: linear-gradient(180deg, rgba(36, 27, 12, 0.96), rgba(24, 18, 9, 0.95)); border: 1px solid rgba(201,122,0,0.55); border-left: 4px solid #c97a00; border-radius: 14px; padding: 14px 16px; box-shadow: 0 12px 28px rgba(0,0,0,0.45); z-index: 1100; text-align: left; }
+        .ogloszenie-kp strong { display: block; color: #ffd88c; margin-bottom: 6px; font-size: 14px; letter-spacing: 0.02em; }
+        .ogloszenie-kp span { display: block; color: #f1e7d2; line-height: 1.45; font-size: 13px; }
         .generator-imion h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
         .generator-imion label { display: block; margin-bottom: 8px; color: #ccc; font-weight: bold; font-size: 14px; }
         .generator-imion select { width: 100%; background-color: #151515; color: #eaeaea; border: 1px solid #444; padding: 10px; border-radius: 6px; font-family: inherit; font-size: 14px; box-sizing: border-box; margin-bottom: 16px; }
@@ -29,8 +29,7 @@
         .generator-imion .lista-imion { margin-top: 18px; color: #e0e0e0; font-size: 14px; }
         .generator-imion .lista-imion ol { padding-left: 20px; margin: 0; }
         .generator-imion .lista-imion li { margin-bottom: 10px; line-height: 1.5; }
-        .info-lewe .info-kategoria strong { display: block; color: #e6b85a; margin-bottom: 6px; }
-        .info-lewe .info-kategoria span { display: block; color: #bbb; font-size: 13px; line-height: 1.4; }
+        .opis-formy-kp { margin: 10px 0 18px; padding: 12px 14px; border-radius: 10px; border-left: 3px solid #c97a00; background: #1a1a1a; color: #cfcfcf; font-size: 13px; line-height: 1.5; }
 
         button.btn-glowny { padding: 15px 30px; font-size: 18px; cursor: pointer; background-color: #c97a00; color: white; border: none; border-radius: 5px; font-weight: bold; margin-bottom: 40px; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
         button.btn-glowny:hover { background-color: #e68d00; transform: scale(1.02); }
@@ -108,12 +107,27 @@
         .karta.flat p { margin: 10px 0; }
         .karta.flat .opis-cechy { margin-top: 5px !important; margin-bottom: 15px !important; padding-bottom: 10px; border-bottom: 1px dashed #444; }
 
-        #modal-lore-content::-webkit-scrollbar { width: 12px; }
-        #modal-lore-content::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
-        #modal-lore-content::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; border: 2px solid #222; }
-        #modal-lore-content::-webkit-scrollbar-thumb:hover { background: #444; }
-        #modal-lore-content::-webkit-scrollbar-button:increment, #modal-lore-content::-webkit-scrollbar-button:decrement { background: #c97a00; border: 1px solid #a06100; display: block; height: 16px; }
-        #modal-lore-content { scrollbar-color: #333 #111; scrollbar-width: thin; }
+        #modal-lore-content::-webkit-scrollbar,
+        #modal-sap-content::-webkit-scrollbar,
+        #modal-czarnoksieztwo-content::-webkit-scrollbar { width: 12px; }
+        #modal-lore-content::-webkit-scrollbar-track,
+        #modal-sap-content::-webkit-scrollbar-track,
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+        #modal-lore-content::-webkit-scrollbar-thumb,
+        #modal-sap-content::-webkit-scrollbar-thumb,
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; border: 2px solid #222; }
+        #modal-lore-content::-webkit-scrollbar-thumb:hover,
+        #modal-sap-content::-webkit-scrollbar-thumb:hover,
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-thumb:hover { background: #444; }
+        #modal-lore-content::-webkit-scrollbar-button:increment,
+        #modal-lore-content::-webkit-scrollbar-button:decrement,
+        #modal-sap-content::-webkit-scrollbar-button:increment,
+        #modal-sap-content::-webkit-scrollbar-button:decrement,
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-button:increment,
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-button:decrement { background: #c97a00; border: 1px solid #a06100; display: block; height: 16px; }
+        #modal-lore-content,
+        #modal-sap-content,
+        #modal-czarnoksieztwo-content { scrollbar-color: #333 #111; scrollbar-width: thin; }
 
         @media (max-width: 1024px) {
             body { padding: 20px 14px 24px; }
@@ -149,7 +163,6 @@
                 font-size: 13px;
             }
 
-            .info-lewe,
             .generator-imion {
                 position: static;
                 left: auto;
@@ -157,6 +170,13 @@
                 bottom: auto;
                 width: min(100%, 760px);
                 max-height: none;
+                margin: 0 auto 16px;
+                z-index: auto;
+            }
+
+            .ogloszenie-kp {
+                position: static;
+                width: min(100%, 760px);
                 margin: 0 auto 16px;
                 z-index: auto;
             }
@@ -193,22 +213,12 @@
 </head>
 <body>
 
-    <div class="info-lewe">
-        <div class="info-kategoria">
-            <strong>Napisz KP od zera</strong>
-            <span>Stwórz własną kartę postaci całkowicie samodzielnie. Ta forma KP jest oceniana przez MG, a jej jakość ma bezpośredni wpływ na nagrodę startową. Im lepiej przygotowana postać, tym większe korzyści na początku gry.</span>
-        </div>
-        <div class="info-kategoria">
-            <strong>Skomponuj KP z listy</strong>
-            <span>Jeśli brakuje Ci pomysłu lub żadna z wylosowanych postaci nie odpowiada Twojej wizji, możesz stworzyć bohatera po swojemu, korzystając z przygotowanych szablonów i gotowych elementów.</span>
-        </div>
-        <div class="info-kategoria">
-            <strong>Wylosuj postać</strong>
-            <span>To najtrudniejsza forma KP. Gracz całkowicie zdaje się na los i zobowiązuje się do gry wylosowaną postacią. W zamian otrzymuje 5 SAP na start, a także zwiększone przyrosty SAP w trakcie rozgrywki. Gdy inni gracze otrzymują 1 SAP, Ty zyskujesz 2 SAP.</span>
-        </div>
+    <div class="ogloszenie-kp" role="status" aria-live="polite">
+        <strong>Ważne</strong>
+        <span>Wysyłanie KP jest obecnie wstrzymane. Poinformujemy na Discordzie, gdy będzie można wysyłać karty postaci.</span>
     </div>
 
-    <div class="generator-imion">
+    <div class="generator-imion ukryty" id="panel-generatora-imion">
         <h3>Generator Imion</h3>
         <label for="generator-pochodzenie">Wybierz pochodzenie</label>
         <select id="generator-pochodzenie"></select>
@@ -230,7 +240,9 @@
     <div class="przyciski-lewe">
         <button class="przycisk-boczny" onclick="otworz_modal_lore()">📖 Lore</button>
         <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">✧ Bóstwa</button>
+        <button class="przycisk-boczny" onclick="otworz_modal_czarnoksieztwo()">☾ Czarnoksięstwo</button>
         <button class="przycisk-boczny" onclick="otworz_modal_sap()">⭐ SAP</button>
+        <button class="przycisk-boczny" id="btn-generator-imion" onclick="przelaczGeneratorImion()">🧾 Generator imion</button>
         <div class="menu-divider" aria-hidden="true"></div>
         <button class="przycisk-boczny" onclick="showPanel('panel-wlasny')">📝 Napisz KP od zera</button>
         <button class="przycisk-boczny" onclick="showPanel('panel-reczny')">⚙️ Skomponuj KP z listy</button>
@@ -320,6 +332,7 @@
         <div class="modal-card">
             <button class="modal-close" onclick="zamknij_modal_sap()">✕</button>
             <h3>System Aktywności Postaci (SAP)</h3>
+            <div id="modal-sap-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
 
             <blockquote>
                 <p>SAP (System Aktywności Postaci) to mechanika nagradzająca graczy za Roleplay. Punkty SAP nie są przyznawane za samą obecność na serwerze, to wyróżnienie od Mistrzów Gry za Twój wkład w tworzenie immersyjnego świata.</p>
@@ -375,6 +388,70 @@
             <ul>
                 <li>Wszystkie przedstawione powyżej wartości mają charakter poglądowy i mogą ulec zmianie po zakończeniu fazy wstępnych testów systemu.</li>
             </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-czarnoksieztwo-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="zamknij_modal_czarnoksieztwo()">✕</button>
+            <h3>Czarnoksięstwo</h3>
+            <div id="modal-czarnoksieztwo-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
+                <p>Czarnoksiężnicy Hyborii nie są typowymi magami gier RPG. Nie strzelają na życzenie błyskawicami i ognistymi pociskami z opuszków palców. Ich moc nie jest natychmiastowa, lecz cierpliwa, subtelna i przerażająca. Czarodziej nagina świat nie polotem, lecz rytuałem, wolą i szeptanymi układami z istotami Zewnętrznego Mroku, których imion lepiej nie wypowiadać pochopnie. Każde zaklęcie jest rytuałem, dziełem siły woli, poświęcenia i czasu. Wymaga rzadkich składników, niebiańskich układów i inwokacji mocy, których lepiej nie nazywać.</p>
+
+                <p>Wielkie dzieła wymagają czasu. W ogniu walki nie ma szybkich zaklęć (prócz podstawowego ataku magicznego systemu EasyD6). Czarownik musi działać z pozycji bezpieczeństwa i tajemnicy, strzeżony przez akolitów lub strażników, często ukryty za iluzjami.</p>
+
+                <p>Magia jest niebezpieczna i deprawująca: branie w niej udziału to ryzykowanie zdrowia psychicznego, duszy lub ciała. Długotrwałe jej używanie często prowadzi do szaleństwa, zmian moralnych, potwornych transformacji, a nawet czegoś gorszego. Każda moc ma swoją cenę. Najpotężniejsze rytuały czerpią z zakazanej wiedzy, krwawych ofiar, komunii z obcymi istotami i często wiążą się z największym ryzykiem dla samego czarownika.</p>
+
+                <h4>Rola w świecie</h4>
+                <p>Czarodzieje kształtują imperia i zmieniają bieg losu nie za pomocą armii, ale za pomocą wizji, klątw, plag i uwodzenia potężnych.</p>
+                <p>Są marionetkarzami, a nie wojownikami. Kiedy armie się ścierają, czarownik najprawdopodobniej znajduje się wiele kilometrów od pola bitwy, manipulując biegiem wydarzeń za pomocą zaklęcia rzuconego wiele dni temu. Zatruty sen, subtelna klątwa lub przywołany horror uwolniony pod osłoną nocy.</p>
+                <p>Większość praktykuje mroczną sztukę za pośrednictwem kapłaństwa, ukrytych kultów lub mrocznych intryg. Zawsze z cienia lub pod ochroną królów. Otwarte używanie magii budzi strach i nienawiść. W wielu krajach tytułowanie się czarownikiem oznacza szybką zemstę przesądnych mas.</p>
+                <p>Na Ziemiach Wygnańców nie brak ludzi parających się czarną magią, a więc i temat ten nie stanowi podstaw do krytyki w codziennych rozmowach. Jednakże należy pamiętać, że czarnoksiężnicy niechętnie dzielą się swoimi tajemnicami, a niepisane prawa Bel'Mory powstrzymują ich przed składaniem ofiar z mieszkańców i trenowaniem swojej sztuki na ich duszach.</p>
+
+                <h4>Praktyki</h4>
+                <p>Przykładowe domeny sztuki tajemnej:</p>
+                <ul>
+                    <li>Nekromancja</li>
+                    <li>Wróżbiarstwo</li>
+                    <li>Iluzja</li>
+                    <li>Demonologia</li>
+                </ul>
+
+                <p>Wielkie tradycje magiczne wywodzą się ze starożytnych imperiów, takich jak Acheron czy Stygia, z których każde ma swoje własne bluźniercze tomy, takie jak Księga Skelosa.</p>
+                <p>Najczęściej jednak, im głębiej zanurza się w Zewnętrzny Mrok, tym bardziej magia mutuje i rozszerza się, co skutkuje rytuałami i metodami unikalnymi dla każdego praktykującego. Nie mniej jednak należy pamiętać, że sztuki czarnoksięskie z uniwersum Conana bardzo różnią się od tych z tradycyjnych gier DnD. Będzie to wielokrotnie podkreślane podczas gry: każde zaklęcie ma swoją cenę.</p>
+                <p>Jako czarnoksiężnik (również i szaman bądź kapłan) masz wybór, by zasięgnąć mocy Zewnętrznego Mroku. Jeśli podczas walki kostkowej zrezygnujesz ze swojego podstawowego ataku na rzecz zaklęcia, musisz opisać, jak negatywnie wpłynęło to na twoją postać.</p>
+
+                <p>Kilka dobrych praktyk:</p>
+                <ul>
+                    <li>Unikaj krzykliwych ozdób, świecących oczu i wijących się mgieł otaczających twojego czarownika niczym płaszcz. Zastąp je złowieszczymi znakami, tajemniczymi słowami lub cichą inwokacją starożytnego imienia.</li>
+                    <li>Nadaj swoim rytuałom znaczenie. Opisz scenę: kadzidło wijące się w powietrzu, precyzyjne ułożenie okultystycznych składników, bluźniercze symbole rysowane krwią, krzyki ofiar przywiązanych do ołtarzy ofiarnych, śpiewy w zapomnianych językach i cienie drgające bez wiatru.</li>
+                    <li>Czary są napędzane fabułą. Ich efekty powinny służyć narracji i wzbogacać doświadczenie każdego, a nie je przytłaczać. Przy braku obecności Mistrza Gry wszystkie rytuały, które twoja postać będzie chciała przeprowadzić, muszą zostać przesłane przez ticket na discordzie.</li>
+                </ul>
+
+                <h4>Zawsze jest jakaś cena</h4>
+                <p>Czarnoksiężnik nie zrobi niczego bez oddania czegoś od siebie. Może być to natychmiast, albo może zapłacić później, jednak zapłacić musi. Magia wysysa siłę życiową, deprawuje, a jeśli zawiedzie, może łatwo obrócić się przeciwko niemu. Obcowanie z Zewnętrznym Mrokiem zawsze kończy się otwieraniem swojej podświadomości na jej wpływ.</p>
+
+                <p>Nie ma listy składników potrzebnych do tego, by rzucić zaklęcie. Zamiast tego wymagane są ofiary. Każde zaklęcie jest naruszeniem naturalnego porządku, a rzucający je zawiera pakt z nieczystymi siłami. Wymaga to pewnego rodzaju ofiary. Mogą one przyjmować formę od prostych drobnych gestów po masowe rytualne składanie ofiar.</p>
+
+                <p>Praktycznym powodem istnienia ofiar jest zjednywanie sobie przychylności mrocznych istot. Samo złożenie ofiary nie gwarantuje niczego czarującemu. Próbuje się w ten sposób przekupić moce ciemności, które same w sobie są zepsute. Te moce mogą jednak równie dobrze odrzucić taką prośbę. Dopiero po złożeniu ofiary okazuje się, czy zaklęcie zakończyło się sukcesem, czy porażką.</p>
+
+                <p>Ponieważ natura czarów skłania się ku złu, również natura ofiar ma co najmniej nieczysty, a często wręcz niegodziwy charakter.</p>
+
+                <p>Istnieją tylko dwa powody, by zgłębiać sztuki magiczne w Epoce Hyboryjskiej: wiedza i potęga. Z tych dwóch to właśnie potęga jest zdecydowanie najczęstszą motywacją. Prawdziwi poszukiwacze wiedzy należą do rzadkości, choć wielu przekonuje samych siebie, że pragną wiedzy, a nie władzy. Może to być nawet prawdą, dopóki nie padną ofiarą straszliwych, deprawujących wpływów mrocznych sił, z którymi nawiązują kontakt, a ich umysł zostaje nieodwracalnie spaczony.</p>
+
+                <p>To, co można nazwać prawdziwą magią, można zdobyć na jeden lub kilka z następujących sposobów: studiując na wpół zapomniane grimuary minionych epok, nawiązując kontakt z bogami, demonami lub innymi duchami albo ucząc się bezpośrednio od innego czarownika.</p>
+
+                <p>Wszystkie trzy metody są niebezpieczne. Pierwsza często naraża ciało na bezpośrednie niebezpieczeństwo, ponieważ grimuary, które nie znajdują się już w posiadaniu jakiegoś adepta, zazwyczaj ukryte są w nawiedzonych przez duchy grobowcach lub dżunglach przesyconych trującym lotosem. Dwie pozostałe niemal zawsze wymagają, aby czarownik podporządkował swój umysł, ciało i duszę potężniejszej istocie, od której pobiera nauki. Jednak prawdziwa wiedza daje tak wielką moc, że niemal zawsze jest warta zapłaconej ceny.</p>
+
+                <p>Zewnętrzny Mrok można rozumieć jako źródło wszystkiego, co w Conanie uznaje się za nadnaturalne: demonów, tak zwanych bogów, zakazanej wiedzy i samej magii. Kiedy czarnoksiężnik przyzywa siły, nie tyle ściąga istotę z innego miejsca, co raczej zmusza rzeczywistość do kontaktu z czymś, co normalnie nie powinno mieć z nią styczności.</p>
+
+                <p>Dlatego każdy taki kontakt jest niebezpieczny nie tylko dlatego, że przywołana siła może być wroga, ale też dlatego, że sam świat i umysł człowieka nie są przystosowane do czegoś tak obcego. Świat Hyborii jest jak cienka warstwa stabilnego porządku, a Zewnętrzny Mrok to coś, co ten porządek otacza i nieustannie na niego naciska.</p>
+
+                <h4>Podsumowanie</h4>
+                <p>Na tej edycji nie mieszamy D&amp;D czy innych styli ze światem Conana. Gramy go czystego, więc odgrywanie postaci magicznej wygląda inaczej. Jeśli ktoś chciał strzelać kulami ognia, przywoływać deszcze meteorytów czy zapalać ognisko pstryknięciem palców, niech odpuści granie czarnoksiężnikiem.</p>
+                <p>Postacie czarujące będą najbardziej nadzorowane, a przesadzanie z tym, co postać może zrobić, będzie się odbijało na niej. Jeśli ktoś ma jakiekolwiek wątpliwości z tym, co może zrobić, zapraszamy na ticket po odpowiedzi.</p>
+            </div>
         </div>
     </div>
 
@@ -387,12 +464,14 @@
     <div id="panel-losuj" class="panel-boczny">
         <button class="zamknij-panel" onclick="hidePanel('panel-losuj')">✖</button>
         <h3>Wylosowana postać</h3>
+        <div class="opis-formy-kp">To najtrudniejsza forma KP. Gracz całkowicie zdaje się na los i zobowiązuje się do gry wylosowaną postacią. W zamian otrzymuje 5 SAP na start, a także zwiększone przyrosty SAP w trakcie rozgrywki. Gdy inni gracze otrzymują 1 SAP, Ty zyskujesz 2 SAP.</div>
         <div id="losuj-zawartosc"></div>
     </div>
 
     <div id="panel-wlasny" class="panel-boczny">
         <button class="zamknij-panel" onclick="hidePanel('panel-wlasny')">✖</button>
         <h3>Napisz KP od zera</h3>
+        <div class="opis-formy-kp">Stwórz własną kartę postaci całkowicie samodzielnie. Ta forma KP jest oceniana przez MG, a jej jakość ma bezpośredni wpływ na nagrodę startową. Im lepiej przygotowana postać, tym większe korzyści na początku gry.</div>
         
         <label>Twój nick na Discordzie:</label>
         <input type="text" id="wlasne-discord" placeholder="np. MójNick#1234">
@@ -402,6 +481,9 @@
 
         <label>Bóstwo:</label>
         <input type="text" id="wlasne-boztwo" placeholder="Wpisz bóstwo...">
+
+        <label>Klan:</label>
+        <input type="text" id="wlasne-klan" placeholder="Nazwa Twojego klanu">
 
         <label>Pochodzenie:</label>
         <select id="wlasne-pochodzenie" onchange="zaktualizujOpis('wlasne-pochodzenie', 'opis-wlasne-pochodzenie', pochodzenia)"></select>
@@ -440,6 +522,7 @@
     <div id="panel-reczny" class="panel-boczny">
         <button class="zamknij-panel" onclick="hidePanel('panel-reczny')">✖</button>
         <h3>Skomponuj KP</h3>
+        <div class="opis-formy-kp">Jeśli brakuje Ci pomysłu lub żadna z wylosowanych postaci nie odpowiada Twojej wizji, możesz stworzyć bohatera po swojemu, korzystając z przygotowanych szablonów i gotowych elementów.</div>
         
         <label>Twój nick na Discordzie:</label>
         <input type="text" id="reczne-discord" placeholder="np. MójNick#1234">
@@ -449,6 +532,9 @@
 
         <label>Bóstwo:</label>
         <input type="text" id="reczne-boztwo" placeholder="Wpisz bóstwo...">
+
+        <label>Klan:</label>
+        <input type="text" id="reczne-klan" placeholder="Nazwa Twojego klanu">
 
         <label>Pochodzenie:</label>
         <select id="reczne-pochodzenie" onchange="zaktualizujOpis('reczne-pochodzenie', 'opis-reczne-pochodzenie', pochodzenia)"></select>
@@ -628,37 +714,65 @@
         ];
 
         const nazwyRegionow = {
-            western: {
-                first: ["Alaric","Cassian","Lucan","Mara","Sabina","Julian","Livia","Tiber","Serena","Marius","Celia","Faelan","Lucia","Marcell","Sylva","Toma","Vesta","Galen","Elara","Quintus","Nerina","Riona","Faustus","Delia","Orin","Camilla","Justus","Daria","Silas","Mirena","Cyrus","Talia","Varen","Luca","Faust","Anara","Joren","Lenora","Corvin","Maela","Torin"],
-                last: ["Aquil","Nemar","Brynn","Korin","Valen","Torrin","Marin","Dorin","Levan","Hadrian","Celian","Rael","Serran","Bastian","Alden","Corin","Darius","Lorin","Maelis","Varric","Feran","Garren","Lareth","Nestor","Peregrin","Rowen","Silvas","Tavian","Ulric","Vander","Wren","Aldric","Kelden","Marlo","Roan","Senna","Tarin","Brycel","Dalen"]
+            hyborian: {
+                firstMale: ["Alaric","Prospero","Publius","Cassian","Lucan","Valerius","Marius","Decimus","Hadrian","Marcellus","Gaius","Tiberon","Corvin","Faustus","Aurelius","Tullus","Varro","Asterion"],
+                firstFemale: ["Livia","Helena","Octavia","Cassia","Valeria","Aurelia","Sabina","Marcella","Tullia","Camilla","Celia","Flavia","Nerissa","Julia","Anthea","Lucilla"],
+                last: ["Aquilon","Corvin","Marcell","Valen","Cassel","Dorian","Aldric","Serran","Varinus","Tavian","Orent","Pelias","Severin","Cyran","Lorent","Boreas"]
             },
-            stygia: {
-                first: ["Nefert","Seth","Taha","Ramses","Zahara","Meri","Khemet","Bast","Nefru","Imhotep","Shari","Amen","Maat","Thara","Isis","Hapu","Namu","Senu","Pekka","Aset","Deren","Senet","Keris","Tanis","Amani","Kiya","Zena","Menka","Riya","Sethe","Ankha","Petra","Sahra","Abar","Dajia","Lemaa","Meret","Tahira","Simia","Beket"],
-                last: ["Kemet","Khafra","Seti","Horus","Anpu","Bastet","Nefer","Sobek","Menes","Imset","Horem","Khufu","Nubet","Seket","Tilak","Rahit","Saren","Mafra","Tuban","Meri","Ptolema","Safet","Barqet","Kirsh","Namis","Amunet","Djehuti","Sekhet","Tefen","Rahet","Nebet","Sahra","Isket","Anakh","Khetef","Mernet","Uarit","Senen"]
-            },
-            shem: {
-                first: ["Joram","Amal","Kelad","Basim","Nair","Selim","Rashid","Yara","Tala","Nahla","Rehan","Farid","Lamia","Samir","Anisa","Basil","Nadia","Rumi","Salim","Zara","Karim","Tahira","Nizar","Layla","Hadi","Amira","Zaleh","Rafi","Samara","Naim","Amina","Aziza","Kamal","Lina","Jasmin","Hassan","Noura","Razan","Faiz","Malik"],
-                last: ["Harad","Rashid","Sabir","Nabil","Zahir","Karim","Rami","Mazin","Nasir","Faris","Kadir","Malik","Yazid","Hafiz","Tariq","Kamir","Jahir","Azim","Sari","Nasim","Zamir","Qadir","Rashad","Khalid","Latif","Majid","Sahim","Zaman","Amjad","Fazan","Hadi","Jamil","Nadeem","Saif","Zafir","Rayan","Habib","Nayel","Javed"]
+            nemedia: {
+                firstMale: ["Amalrus","Tarascus","Fronto","Chelkus","Admes","Theteles","Lucanus","Cassian","Valerius","Crispus","Aurelian","Decimus","Corvinus","Faustus","Varinus","Pelagon"],
+                firstFemale: ["Livia","Olivia","Helena","Acantha","Charissa","Sillia","Sabina","Octavia","Celia","Daria","Marcella","Valeria","Tullia","Cassia","Thalia","Aurelia"],
+                last: ["Valen","Corvin","Marcell","Varric","Dorian","Cassel","Tavian","Serran","Aldric","Cyran","Thessan","Coralis","Nemor","Tarven","Severin","Kallos"]
             },
             northern: {
-                firstMale: ["Bjorn","Hakon","Erik","Sven","Gunnar","Eirik","Alrik","Kjell","Ragnar","Odin","Brynjar","Ivar","Leif","Torvald","Sigurd","Birger","Frode","Thorsten","Viggo","Hjalmar","Arnesson","Olafsson","Haraldson","Magnusson","Ragnarson","Anund","Hjalmerson","Thorvaldson","Njalsson","Gunnarson","Stark","Vigfus"],
-                firstFemale: ["Astrid","Freya","Inga","Runa","Sigrid","Solveig","Hedda","Thora","Lotta","Hilda","Eira","Sigrun","Helga","Yrsa","Kari","Siri","Gudrun","Ingrid","Runa","Hilda","Astrid","Leifsdottir","Eiriksdottir","Sigridsson","Estrid","Eydis"],
-                last: ["Bjornson","Haldor","Sten","Frost","Iron","Storm","Leifson","Ulfsson","Mork","Thorin","Raven","Skald","Berg","Hrafn","Valko","Njal","Gudrun","Svenn","Torg","Hjalmar","Arnesson","Eiriksdottir","Olafsson","Haraldson","Magnusson","Ragnarson","Anund","Leifsdottir","Viggo","Eydis","Hjalmerson","Thorvaldson","Njalsson","Sigridsson","Fjorn","Estrid","Gunnarson","Stark","Vigfus"]
+                firstMale: ["Conan","Conn","Bragi","Wulfgar","Hakon","Erik","Sven","Gunnar","Eirik","Kjell","Ragnar","Ivar","Leif","Torvald","Sigurd","Frode"],
+                firstFemale: ["Atali","Astrid","Freya","Inga","Runa","Sigrid","Solveig","Hedda","Thora","Eira","Sigrun","Yrsa","Kari","Gudrun","Ingrid","Brynja"],
+                last: ["Bjornson","Haldor","Sten","Frost","Storm","Leifson","Ulfsson","Mork","Skald","Hrafn","Njal","Thorsen","Haraldson","Magnusson","Ragnarson","Vigfus"]
+            },
+            stygia: {
+                firstMale: ["Thoth","Khafra","Setep","Ramtek","Imhot","Horem","Neferu","Ankhor","Menes","Sutekh","Khemet","Djehut"],
+                firstFemale: ["Nefret","Aset","Meret","Tanis","Zahra","Kiya","Nebet","Sahra","Sekhet","Iskara","Bastet","Anuket"],
+                last: ["Kemet","Khafra","Seti","Anpu","Nefer","Sobek","Imset","Horem","Khufu","Seket","Amunet","Djehuti","Rahet","Nebet","Anakh","Khetef"]
+            },
+            shem: {
+                firstMale: ["Joram","Akhirom","Naram","Basim","Selim","Beltran","Shamir","Rehan","Farid","Samir","Salim","Nizar","Hadi","Kamal","Hassan","Malik"],
+                firstFemale: ["Yara","Tala","Nahla","Lamia","Anisa","Nadia","Zara","Tahira","Layla","Amira","Amina","Aziza","Noura","Razan","Belesa","Kassia"],
+                last: ["Harad","Sabir","Nabil","Zahir","Karim","Rami","Mazin","Nasir","Faris","Kadir","Yazid","Hafiz","Tariq","Jahir","Latif","Majid"]
+            },
+            zamora: {
+                firstMale: ["Aztrias","Khuman","Yezdigar","Shadizar","Vardanes","Neruz","Talek","Rhazan","Kheled","Ormaz"],
+                firstFemale: ["Zalira","Nerissa","Yasmina","Thirza","Samara","Keziah","Lazira","Yelena","Vashara","Tamira"],
+                last: ["Shadizar","Khorin","Mazdak","Ormaz","Tazim","Varan","Kheled","Rhazan","Sarnak","Hazir"]
             },
             zingara: {
-                firstMale: ["Dario","Luca","Rafi","Nico","Pasco","Bruno","Renzo","Toma","Ciro","Marco","Jani","Rico","Vero","Enzo"],
-                firstFemale: ["Mira","Elena","Sofia","Alina","Vera","Isla","Rocio","Lea","Gina","Elisa","Maya","Lena","Nina","Carmen","Sera","Liora","Tova","Mina","Aria","Rosa","Fiora","Mira","Luna"],
-                last: ["Marin","Rosse","Valen","Canto","Delmar","Vento","Nero","Mori","Sera","Lucan","Fiore","Rocco","Luca","Amara","Seren","Rialto","Vivaan","Nerea","Gioia","Palmi","Torin","Dalle","Solin","Marro","Vento","Rossi","Cielo","Canio","Larco","Marec","Delia","Serro","Fanti","Bello","Rivello","Neri","Orino","Sarina","Zorie","Camio"]
+                firstMale: ["Dario","Luca","Nico","Pasco","Bruno","Renzo","Ciro","Marco","Rico","Enzo","Mateo","Tomas"],
+                firstFemale: ["Elena","Sofia","Alina","Vera","Rocio","Lea","Elisa","Nina","Carmen","Aria","Rosa","Luna"],
+                last: ["Marin","Rosso","Canto","Delmar","Vento","Nero","Mori","Fiore","Rocco","Rialto","Rossi","Canio","Larco","Serro","Neri","Orino"]
             },
-            eastern: {
-                firstMale: ["Rajah","Kalan","Devan","Rav","Zafir","Ishar","Kiran","Amir","Sohan","Jahan","Naveen","Sami","Ayaan","Navin","Kavi","Soren"],
-                firstFemale: ["Mina","Saira","Anika","Laila","Chandra","Priya","Nila","Leela","Rhea","Mila","Asha","Riya","Tara","Indira","Leena","Rina","Farah","Iman","Veda","Saura","Kia","Yara"],
-                last: ["Kesh","Khaji","Vendh","Turan","Khara","Rajit","Azar","Niraj","Chand","Salim","Arun","Devak","Rajan","Zanan","Amaya","Kabir","Sahir","Lian","Tarek","Bijan","Nayan","Rashid","Jafar","Amir","Selim","Zubin","Tariq","Jahan","Naresh","Rahim","Ayaan","Rajan","Dassan","Haris","Samad","Miraj","Navid","Faris","Rahul"]
+            turanian: {
+                firstMale: ["Yildiz","Altan","Temur","Arslan","Boran","Selim","Kadar","Jahan","Togrul","Khuram","Azad","Miran"],
+                firstFemale: ["Aylin","Soraya","Nadira","Tamina","Laleh","Parisa","Zarina","Yasmin","Darya","Selene","Mahira","Roksana"],
+                last: ["Turan","Khazan","Arslan","Seluk","Barak","Khorum","Sarnaz","Temir","Azgar","Miraz","Qadan","Togrul"]
+            },
+            vendhya: {
+                firstMale: ["Deviam","Rajan","Kalan","Vishan","Naveen","Sudar","Arvind","Jahanir","Kavi","Rudran"],
+                firstFemale: ["Priya","Indira","Leela","Anika","Riya","Veda","Saira","Tara","Meera","Nila"],
+                last: ["Vendhar","Rajan","Chandra","Devar","Nayak","Kalid","Suhar","Varma","Ishan","Tarek"]
+            },
+            khitai: {
+                firstMale: ["Liang","Shen","Bao","Han","Wei","Jin","Zhao","Tao","Kang","Xun"],
+                firstFemale: ["Mei","Lan","Xia","Yun","Lian","Qi","Shu","Rin","Hua","Yan"],
+                last: ["Li","Shen","Zhao","Wen","Qin","Han","Tao","Xiang","Ruo","Lin"]
+            },
+            blackKingdoms: {
+                firstMale: ["Mbanu","Kofi","Zuberi","Dakar","Nuru","Khamet","Jabari","Omari","Bakari","Temba"],
+                firstFemale: ["Zola","Ama","Nia","Sade","Kesia","Nuru","Safiya","Amara","Zuri","Imani"],
+                last: ["Kushari","Puntari","Darfar","Zemba","Keshan","Makeda","Kabara","Zuban","Nabari","Temba"]
             },
             default: {
-                firstMale: ["Aran","Eldon","Doran","Hale","Bran","Joren","Thane","Cael","Fen","Ari","Kalen","Rion","Corin","Arius","Melan","Zeph","Darien"],
-                firstFemale: ["Talia","Mira","Lina","Kira","Nara","Edda","Elia","Rhea","Nira","Syla","Lysa","Nessa","Lira","Elda","Tael","Maren","Seren","Liora","Zara","Thera","Vira","Jessa","Bryn"],
-                last: ["Rowan","Vale","Kerr","Thorn","Maris","Quinn","Graye","Fen","Alden","Reeve","Bram","Alder","Rowe","Dale","Wynn","Rook","Hale","Glen","Kade","Nyle","Ashby","Bramwell","Cairn","Dorn","Elden","Falk","Greer","Hart","Lorne","Merrin","North","Perrin","Radley","Soren","Thorne","Vale","Winthrop","Yarrow","Zeph","Darien"]
+                firstMale: ["Aran","Eldon","Doran","Bran","Joren","Thane","Cael","Kalen","Rion","Corin","Arius","Darien"],
+                firstFemale: ["Talia","Mira","Lina","Kira","Nara","Elia","Rhea","Nira","Nessa","Lira","Maren","Seren"],
+                last: ["Rowan","Vale","Kerr","Thorn","Maris","Alden","Reeve","Rowe","Wynn","Rook","Glen","Kade","Perrin","Radley","Yarrow","Darien"]
             }
         };
 
@@ -666,10 +780,16 @@
             const name = region.toLowerCase();
             let zestaw;
             if (/hyperborea|nordheim|cymmeria/.test(name)) zestaw = nazwyRegionow.northern;
-            else if (/stygia|khauran|zembabwei|punt|iranistan|ghulistan|darfar|turan|kush|koth|ophir/.test(name)) zestaw = nazwyRegionow.stygia;
-            else if (/shem|zamora|gunderlandia|nemedia|akwilonia|brythunia|królestwa graniczne|argos|korinthia/.test(name)) zestaw = nazwyRegionow.shem;
-            else if (/zingara/.test(name)) zestaw = nazwyRegionow.zingara;
-            else if (/keshan|khoradża|khitaj|vendhya|hyrkania/.test(name)) zestaw = nazwyRegionow.eastern;
+            else if (/nemedia/.test(name)) zestaw = nazwyRegionow.nemedia;
+            else if (/akwilonia|rubieże bossońskie|gunderlandia|brythunia|królestwa graniczne|ophir|koth|khauran|korinthia/.test(name)) zestaw = nazwyRegionow.hyborian;
+            else if (/stygia/.test(name)) zestaw = nazwyRegionow.stygia;
+            else if (/shem/.test(name)) zestaw = nazwyRegionow.shem;
+            else if (/zamora/.test(name)) zestaw = nazwyRegionow.zamora;
+            else if (/argos|zingara/.test(name)) zestaw = nazwyRegionow.zingara;
+            else if (/kush|punt|darfar|zembabwei|czarne królestwa|keshan/.test(name)) zestaw = nazwyRegionow.blackKingdoms;
+            else if (/turan|hyrkania|iranistan|ghulistan|khoradża/.test(name)) zestaw = nazwyRegionow.turanian;
+            else if (/vendhya/.test(name)) zestaw = nazwyRegionow.vendhya;
+            else if (/khitaj/.test(name)) zestaw = nazwyRegionow.khitai;
             else zestaw = nazwyRegionow.default;
 
             if (plec === 'f' && zestaw.firstFemale) {
@@ -776,6 +896,17 @@
                 <div><strong>${lengthLabel.charAt(0).toUpperCase() + lengthLabel.slice(1)} imiona ${genderLabel} dla ${region}:</strong></div>
                 <ol>${wygenerowane.map(n => `<li>${n}</li>`).join('')}</ol>
             `;
+        }
+
+        function przelaczGeneratorImion() {
+            const panel = document.getElementById('panel-generatora-imion');
+            const przycisk = document.getElementById('btn-generator-imion');
+            if (!panel || !przycisk) return;
+
+            panel.classList.toggle('ukryty');
+            const czyOtwarte = !panel.classList.contains('ukryty');
+            przycisk.textContent = czyOtwarte ? '🧾 Ukryj generator imion' : '🧾 Generator imion';
+            przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
         }
 
         const archetypy = [
@@ -1009,7 +1140,7 @@ const historieKast = {
             zaktualizujOpis('reczne-archetyp', 'opis-reczne-archetyp', archetypy);
             zaktualizujOpis('reczne-wyksztalcenie', 'opis-reczne-wyksztalcenie', wyksztalcenie);
             zaktualizujOpis('reczne-usposobienie', 'opis-reczne-usposobienie', usposobienia);
-            zmianaKastyReczne(); 
+            zmianaKastyReczne();
         };
 
         function wypelnijSelect(id, lista, formatText) {
@@ -1106,6 +1237,8 @@ const historieKast = {
                     <input type="text" id="losuj-imie" placeholder="Wpisz imię...">
                     <label>Bóstwo:</label>
                     <input type="text" id="losuj-boztwo" placeholder="Wpisz bóstwo...">
+                    <label>Klan:</label>
+                    <input type="text" id="losuj-klan" placeholder="Nazwa Twojego klanu">
                     <p id="wybrane-boztwo" class="opis-cechy"></p>
                     <button class="btn-wybierz-karte" style="margin: 20px 0 20px;" onclick="generujKarte()">Losuj</button>
                     <p><strong>Pochodzenie:</strong> ${wynikPochodzenie.kraina} - 
@@ -1162,6 +1295,7 @@ const historieKast = {
         function wyslijWylosowanaKarte() {
             const imie = document.getElementById('losuj-imie').value.trim();
             const boztwo = document.getElementById('losuj-boztwo').value || 'Brak';
+            const klan = document.getElementById('losuj-klan').value.trim() || 'Brak';
             const discordNick = document.getElementById('losuj-discord').value.trim();
 
             if (!imie || !discordNick) {
@@ -1173,7 +1307,7 @@ const historieKast = {
                 return;
             }
 
-            const karta = { ...aktualneKarty[0], boztwo };
+            const karta = { ...aktualneKarty[0], boztwo, klan };
             zapiszIWyslij(discordNick, imie, karta);
         }
 
@@ -1192,6 +1326,7 @@ const historieKast = {
                 wyksztalcenie: wyksztalcenie[document.getElementById("reczne-wyksztalcenie").value],
                 usposobienie: usposobienia[document.getElementById("reczne-usposobienie").value],
                 boztwo: document.getElementById("reczne-boztwo").value || 'Brak',
+                klan: document.getElementById("reczne-klan").value.trim() || 'Brak',
                 skazanoZa: skazanoZa.join(", ")
             };
 
@@ -1206,6 +1341,7 @@ const historieKast = {
             const usposobienieVal = document.getElementById("wlasne-usposobienie").value.trim();
             const skazanoZaVal = document.getElementById("wlasne-skazano").value.trim();
             const boztwoVal = document.getElementById("wlasne-boztwo").value || 'Brak';
+            const klanVal = document.getElementById("wlasne-klan").value.trim() || 'Brak';
             
             if (!discordNick || !imie || !historiaVal || !wyksztalcenieVal || !usposobienieVal || !skazanoZaVal) {
                 alert("Aby zapisać własną Kartę Postaci, musisz wypełnić WSZYSTKIE pola tekstem!");
@@ -1220,6 +1356,7 @@ const historieKast = {
                 wyksztalcenie: { nazwa: "Wykształcenie (własne)", opis: wyksztalcenieVal },
                 usposobienie: { nazwa: "Usposobienie (własne)", opis: usposobienieVal },
                 boztwo: boztwoVal,
+                klan: klanVal,
                 skazanoZa: skazanoZaVal
             };
 
@@ -1245,6 +1382,7 @@ const historieKast = {
             tekst += `\r\nUsposobienie: ${k.usposobienie.nazwa}\r\n`;
             if (k.usposobienie.opis) tekst += `${k.usposobienie.opis}\r\n`;
             tekst += `\r\nBóstwo: ${k.boztwo || 'Brak'}\r\n`;
+            tekst += `Klan: ${k.klan || 'Brak'}\r\n`;
             if (k.cechaNegatywna) tekst += `\r\nDodatkowa poprzeczka RP: ${k.cechaNegatywna}\r\n`;
             tekst += `\r\nZa co skazano: ${k.skazanoZa || 'Brak informacji'}\r\n`;
             tekst += `\r\n=====================================\r\nWygenerowano w systemie Heldamar\r\n`;
@@ -1283,6 +1421,14 @@ const historieKast = {
             document.getElementById('modal-boztwa-overlay').classList.remove('active');
         }
 
+        function otworz_modal_czarnoksieztwo() {
+            document.getElementById('modal-czarnoksieztwo-overlay').classList.add('active');
+        }
+
+        function zamknij_modal_czarnoksieztwo() {
+            document.getElementById('modal-czarnoksieztwo-overlay').classList.remove('active');
+        }
+
         function otworz_modal_sap() {
             document.getElementById('modal-sap-overlay').classList.add('active');
         }
@@ -1296,6 +1442,7 @@ const historieKast = {
             const overlays = [
                 { element: document.getElementById('modal-lore-overlay'), close: zamknij_modal_lore },
                 { element: document.getElementById('modal-boztwa-overlay'), close: zamknij_modal_boztwa },
+                { element: document.getElementById('modal-czarnoksieztwo-overlay'), close: zamknij_modal_czarnoksieztwo },
                 { element: document.getElementById('modal-sap-overlay'), close: zamknij_modal_sap }
             ];
 
