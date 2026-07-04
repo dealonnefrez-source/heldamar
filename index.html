@@ -12,8 +12,27 @@
 
         .przyciski-lewe { position: fixed; top: 105px; left: 20px; display: flex; flex-direction: column; gap: 12px; align-items: stretch; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); border: 1px solid #444; border-radius: 18px; padding: 18px 18px 14px; box-shadow: 0 14px 40px rgba(0,0,0,0.45); z-index: 1000; }
         .przyciski-lewe::before { content: "MENU GŁÓWNE"; position: absolute; top: -12px; left: 16px; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; }
-        .przyciski-lewe .przycisk-boczny { pointer-events: auto; background-color: #3b3b3b; padding: 12px 18px; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.6); border-radius: 10px; color: white; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: 0.2s; font-weight: bold; text-align: center; min-width: 160px; }
-        .przyciski-lewe .przycisk-boczny:hover { background-color: #575757; transform: translateY(-1px); }
+        .przyciski-lewe .przycisk-boczny { pointer-events: auto; position: relative; overflow: hidden; background: linear-gradient(180deg, #404040 0%, #323232 100%); padding: 12px 18px 12px 20px; font-size: 14px; letter-spacing: 0.02em; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 4px 10px rgba(0,0,0,0.6); border-radius: 10px; color: white; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; font-weight: bold; text-align: left; min-width: 160px; }
+        .przyciski-lewe .przycisk-boczny::before { content: ""; position: absolute; left: 0; top: 7px; bottom: 7px; width: 4px; border-radius: 0 999px 999px 0; background: linear-gradient(180deg, rgba(255,196,92,0.95), rgba(201,122,0,0.78)); box-shadow: 0 0 10px rgba(201,122,0,0.35); }
+        .przyciski-lewe .przycisk-boczny::after { content: ""; position: absolute; left: -18px; top: 50%; width: 86px; height: 10px; background:
+            radial-gradient(18px 9px at calc(100% - 4px) 50%, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.18) 42%, transparent 78%),
+            linear-gradient(270deg, rgba(0,0,0,0.22) 0%, rgba(8,8,8,0.12) 52%, transparent 100%);
+            opacity: 0;
+            transform: translateY(-50%) scaleX(0.8);
+            transform-origin: left center;
+            filter: blur(3px);
+            pointer-events: none;
+            transition: opacity 0.24s ease, transform 0.24s ease;
+            z-index: -1;
+        }
+        .przyciski-lewe .przycisk-boczny:hover { background: linear-gradient(180deg, #4c4c4c 0%, #383838 100%); transform: translateY(-1px); border-color: rgba(201,122,0,0.35); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 6px 14px rgba(0,0,0,0.65), 0 14px 20px -10px rgba(201,122,0,0.95), 0 0 12px rgba(201,122,0,0.35); }
+        .przyciski-lewe .przycisk-boczny:hover::after { opacity: 0.65; transform: translateY(-50%) scaleX(1); }
+        .przyciski-lewe .przycisk-boczny:focus-visible { outline: none; border-color: rgba(255,196,92,0.75); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 3px rgba(201,122,0,0.18), 0 8px 16px rgba(0,0,0,0.55); }
+        .menu-systemy-kontener { position: relative; display: flex; flex-direction: column; }
+        .przyciski-lewe .przycisk-boczny.wariant-submenu { background: linear-gradient(180deg, #343434 0%, #2a2a2a 100%); min-width: 170px; font-size: 13px; text-align: left; }
+        .przyciski-lewe .przycisk-boczny.wariant-submenu:hover { background: linear-gradient(180deg, #454545 0%, #313131 100%); }
+        .menu-systemy { display: none; position: absolute; left: calc(100% + 12px); top: 0; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; border: 1px solid #444; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); box-shadow: 0 14px 32px rgba(0,0,0,0.45); z-index: 1200; }
+        .menu-systemy.otwarte { display: flex; }
         .menu-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.55), transparent); margin: 2px 0; box-shadow: 0 0 10px rgba(201,122,0,0.15); }
 
 
@@ -44,6 +63,7 @@
         .modal-card h3 { margin-top: 0; margin-bottom: 20px; color: #ffd88c; font-size: 1.6rem; text-align: center; letter-spacing: 0.04em; position: relative; }
         .modal-card h3::after { content: ""; display: block; width: 180px; max-width: 70%; height: 2px; margin: 10px auto 0; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.95), transparent); box-shadow: 0 0 10px rgba(201,122,0,0.3); border-radius: 999px; }
         .modal-card p { margin: 10px 0 22px; color: #d3d3d3; line-height: 1.6; }
+        .modal-card h4 { margin: 24px 0 10px; color: #f0d8a8; font-size: 1.05rem; letter-spacing: 0.01em; }
         .modal-card ul { margin: 12px 0 0; padding-left: 22px; color: #d3d3d3; line-height: 1.6; text-align: left; }
         .modal-card li { margin-bottom: 10px; }
         .modal-card label { display: block; margin-top: 18px; margin-bottom: 8px; color: #e6e8ff; font-weight: 700; font-size: 0.95rem; }
@@ -55,8 +75,10 @@
         .modal-actions .modal-confirm:hover { transform: translateY(-1px); box-shadow: 0 18px 36px rgba(201,122,0,0.25); }
         .modal-actions .modal-cancel { background: rgba(255,255,255,0.06); color: #eef2ff; }
         .modal-actions .modal-cancel:hover { background: rgba(255,255,255,0.1); }
-        .modal-close { position: absolute; top: 12px; right: 12px; background: transparent; border: none; color: #cdd3ef; font-size: 24px; cursor: pointer; transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease; padding: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 6px; }
-        .modal-close:hover { color: #fff; background-color: rgba(201, 122, 0, 0.15); transform: scale(1.1); }
+        .modal-close { position: absolute; top: 8px; right: 8px; background: transparent; border: none; color: #cdd3ef; font-size: 0; cursor: pointer; transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease; padding: 0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 10px; z-index: 5; }
+        .modal-close::before { content: "\00D7"; font-size: 30px; line-height: 1; color: currentColor; transform: translateY(-1px); }
+        .modal-close:hover { color: #fff; background-color: rgba(201, 122, 0, 0.15); box-shadow: 0 8px 18px rgba(201, 122, 0, 0.22); }
+        .modal-close:focus-visible { outline: 2px solid rgba(201,122,0,0.9); outline-offset: 2px; }
 
         .zamknij-panel { background: none; color: #aaa; border: none; font-size: 24px; position: absolute; top: 15px; right: 20px; cursor: pointer; }
         .zamknij-panel:hover { color: white; transform: scale(1.1); }
@@ -163,6 +185,21 @@
                 padding: 12px 10px;
                 font-size: 13px;
             }
+            .menu-systemy-kontener { display: block; }
+            .menu-systemy {
+                position: static;
+                left: auto;
+                top: auto;
+                margin-top: 8px;
+                padding: 0;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                box-shadow: none;
+            }
+            .przyciski-lewe .przycisk-boczny.wariant-submenu {
+                min-width: 0;
+            }
 
             .generator-imion {
                 position: static;
@@ -239,15 +276,21 @@
     </div>
 
     <div class="przyciski-lewe">
-        <button class="przycisk-boczny" onclick="otworz_modal_lore()">📖 Lore</button>
-        <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">✧ Bóstwa</button>
-        <button class="przycisk-boczny" onclick="otworz_modal_czarnoksieztwo()">☾ Czarnoksięstwo</button>
-        <button class="przycisk-boczny" onclick="otworz_modal_sap()">⭐ SAP</button>
-        <button class="przycisk-boczny" id="btn-generator-imion" onclick="przelaczGeneratorImion()">🧾 Generator imion</button>
+        <button class="przycisk-boczny" onclick="otworz_modal_lore()">Lore</button>
+        <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">Bóstwa</button>
+        <button class="przycisk-boczny" onclick="otworz_modal_czarnoksieztwo()">Czarnoksięstwo</button>
+        <div class="menu-systemy-kontener">
+            <button class="przycisk-boczny" id="btn-menu-systemy" onclick="przelaczMenuSystemy()" aria-expanded="false">Systemy</button>
+            <div class="menu-systemy" id="menu-systemy">
+                <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_sap()">SAP</button>
+                <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_zguba()">Zguba</button>
+            </div>
+        </div>
+        <button class="przycisk-boczny" id="btn-generator-imion" onclick="przelaczGeneratorImion()">Generator imion</button>
         <div class="menu-divider" aria-hidden="true"></div>
-        <button class="przycisk-boczny" onclick="showPanel('panel-wlasny')">📝 Napisz KP od zera</button>
-        <button class="przycisk-boczny" onclick="showPanel('panel-reczny')">⚙️ Skomponuj KP z listy</button>
-        <button class="przycisk-boczny" onclick="generujKarte()">🎲 Wylosuj postać</button>
+        <button class="przycisk-boczny" onclick="showPanel('panel-wlasny')">Napisz KP od zera</button>
+        <button class="przycisk-boczny" onclick="showPanel('panel-reczny')">Skomponuj KP z listy</button>
+        <button class="przycisk-boczny" onclick="generujKarte()">Wylosuj postać</button>
     </div>
 
     <div class="modal-overlay" id="modal-lore-overlay">
@@ -398,13 +441,15 @@
             <button class="modal-close" onclick="zamknij_modal_czarnoksieztwo()">✕</button>
             <h3>Czarnoksięstwo</h3>
             <div id="modal-czarnoksieztwo-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
-                <p>Czarnoksiężnicy Hyborii nie są typowymi magami gier RPG. Nie strzelają na życzenie błyskawicami i ognistymi pociskami z opuszków palców. Ich moc nie jest natychmiastowa, lecz cierpliwa, subtelna i przerażająca. Czarodziej nagina świat nie polotem, lecz rytuałem, wolą i szeptanymi układami z istotami Zewnętrznego Mroku, których imion lepiej nie wypowiadać pochopnie. Każde zaklęcie jest rytuałem, dziełem siły woli, poświęcenia i czasu. Wymaga rzadkich składników, niebiańskich układów i inwokacji mocy, których lepiej nie nazywać.</p>
+                <p>1. Czarnoksiężnicy Hyborii nie są typowymi magami gier RPG. Nie strzelają na życzenie błyskawicami i ognistymi pociskami z opuszków palców. Ich moc nie jest natychmiastowa, lecz cierpliwa, subtelna i przerażająca. Czarodziej nagina świat nie polotem, lecz rytuałem, wolą i szeptanymi układami z istotami Zewnętrznego Mroku, których imion lepiej nie wypowiadać pochopnie. Każde zaklęcie jest rytuałem, dziełem siły woli, poświęcenia i czasu. Wymaga rzadkich składników, niebiańskich układów i inwokacji mocy, których lepiej nie nazywać.</p>
 
-                <p>Wielkie dzieła wymagają czasu. W ogniu walki nie ma szybkich zaklęć (prócz podstawowego ataku magicznego systemu EasyD6). Czarownik musi działać z pozycji bezpieczeństwa i tajemnicy, strzeżony przez akolitów lub strażników, często ukryty za iluzjami.</p>
+                <p>Wielkie dzieła wymagają czasu. W ogniu walki nie ma „szybkich zaklęć” (prócz podstawowego ataku magicznego systemu EasyD6). Czarownik musi działać z pozycji bezpieczeństwa i tajemnicy, strzeżony przez akolitów lub strażników, często ukryty za iluzjami.</p>
 
-                <p>Magia jest niebezpieczna i deprawująca: branie w niej udziału to ryzykowanie zdrowia psychicznego, duszy lub ciała. Długotrwałe jej używanie często prowadzi do szaleństwa, zmian moralnych, potwornych transformacji, a nawet czegoś gorszego. Każda moc ma swoją cenę. Najpotężniejsze rytuały czerpią z zakazanej wiedzy, krwawych ofiar, komunii z obcymi istotami i często wiążą się z największym ryzykiem dla samego czarownika.</p>
+                <p>Magia jest niebezpieczna i deprawująca: branie w niej udziału to ryzykowanie zdrowia psychicznego, duszy lub ciała. Długotrwałe jej używanie często prowadzi do szaleństwa, zmian moralnych, potwornych transformacji, a nawet czegoś gorszego.</p>
 
-                <h4>Rola w świecie</h4>
+                <p>Każda moc ma swoją cenę. Najpotężniejsze rytuały czerpią z zakazanej wiedzy, krwawych ofiar, komunii z obcymi istotami i często wiążą się z największym ryzykiem dla samego czarownika.</p>
+
+                <h4>2. Rola w świecie</h4>
                 <p>Czarodzieje kształtują imperia i zmieniają bieg losu nie za pomocą armii, ale za pomocą wizji, klątw, plag i uwodzenia potężnych.</p>
                 <p>Są marionetkarzami, a nie wojownikami. Kiedy armie się ścierają, czarownik najprawdopodobniej znajduje się wiele kilometrów od pola bitwy, manipulując biegiem wydarzeń za pomocą zaklęcia rzuconego wiele dni temu. Zatruty sen, subtelna klątwa lub przywołany horror uwolniony pod osłoną nocy.</p>
                 <p>Większość praktykuje mroczną sztukę za pośrednictwem kapłaństwa, ukrytych kultów lub mrocznych intryg. Zawsze z cienia lub pod ochroną królów. Otwarte używanie magii budzi strach i nienawiść. W wielu krajach tytułowanie się czarownikiem oznacza szybką zemstę przesądnych mas.</p>
@@ -419,18 +464,9 @@
                     <li>Demonologia</li>
                 </ul>
 
-                <p>Wielkie tradycje magiczne wywodzą się ze starożytnych imperiów, takich jak Acheron czy Stygia, z których każde ma swoje własne bluźniercze tomy, takie jak Księga Skelosa.</p>
-                <p>Najczęściej jednak, im głębiej zanurza się w Zewnętrzny Mrok, tym bardziej magia mutuje i rozszerza się, co skutkuje rytuałami i metodami unikalnymi dla każdego praktykującego. Nie mniej jednak należy pamiętać, że sztuki czarnoksięskie z uniwersum Conana bardzo różnią się od tych z tradycyjnych gier DnD. Będzie to wielokrotnie podkreślane podczas gry: każde zaklęcie ma swoją cenę.</p>
-                <p>Jako czarnoksiężnik (również i szaman bądź kapłan) masz wybór, by zasięgnąć mocy Zewnętrznego Mroku. Jeśli podczas walki kostkowej zrezygnujesz ze swojego podstawowego ataku na rzecz zaklęcia, musisz opisać, jak negatywnie wpłynęło to na twoją postać.</p>
+                <p>Wielkie tradycje magiczne wywodzą się ze starożytnych imperiów, takich jak Acheron, czy Stygia, z których każde ma swoje własne bluźniercze tomy, takie jak Księga Skelosa. Najczęściej jednak, im głębiej zanurza się w Zewnętrzny Mrok, tym bardziej magia mutuje i rozszerza się, co skutkuje rytuałami i metodami unikalnymi dla każdego praktykującego. Nie mniej jednak należy pamiętać, że sztuki czarnoksięskie z uniwersum Conana bardzo różnią się od tych, z tradycyjnych gier DnD. Będzie to wielokrotnie podkreślane podczas gry - każde zaklęcie ma swoją cenę. Jako czarnoksiężnik (również i szaman bądź kapłan) masz wybór by zasięgnąć mocy Zewnętrznego Mroku. Jeśli podczas walki kostkowej, zrezygnujesz ze swojego podstawowego ataku na rzecz zaklęcia, musisz opisać jak negatywnie wpłynęło to na twoją postać.</p>
 
-                <p>Kilka dobrych praktyk:</p>
-                <ul>
-                    <li>Unikaj krzykliwych ozdób, świecących oczu i wijących się mgieł otaczających twojego czarownika niczym płaszcz. Zastąp je złowieszczymi znakami, tajemniczymi słowami lub cichą inwokacją starożytnego imienia.</li>
-                    <li>Nadaj swoim rytuałom znaczenie. Opisz scenę: kadzidło wijące się w powietrzu, precyzyjne ułożenie okultystycznych składników, bluźniercze symbole rysowane krwią, krzyki ofiar przywiązanych do ołtarzy ofiarnych, śpiewy w zapomnianych językach i cienie drgające bez wiatru.</li>
-                    <li>Czary są napędzane fabułą. Ich efekty powinny służyć narracji i wzbogacać doświadczenie każdego, a nie je przytłaczać. Przy braku obecności Mistrza Gry wszystkie rytuały, które twoja postać będzie chciała przeprowadzić, muszą zostać przesłane przez ticket na discordzie.</li>
-                </ul>
-
-                <h4>Zawsze jest jakaś cena</h4>
+                <h4>3. Zawsze jest jakaś cena</h4>
                 <p>Czarnoksiężnik nie zrobi niczego bez oddania czegoś od siebie. Może być to natychmiast, albo może zapłacić później, jednak zapłacić musi. Magia wysysa siłę życiową, deprawuje, a jeśli zawiedzie, może łatwo obrócić się przeciwko niemu. Obcowanie z Zewnętrznym Mrokiem zawsze kończy się otwieraniem swojej podświadomości na jej wpływ.</p>
 
                 <p>Nie ma listy składników potrzebnych do tego, by rzucić zaklęcie. Zamiast tego wymagane są ofiary. Każde zaklęcie jest naruszeniem naturalnego porządku, a rzucający je zawiera pakt z nieczystymi siłami. Wymaga to pewnego rodzaju ofiary. Mogą one przyjmować formę od prostych drobnych gestów po masowe rytualne składanie ofiar.</p>
@@ -439,18 +475,66 @@
 
                 <p>Ponieważ natura czarów skłania się ku złu, również natura ofiar ma co najmniej nieczysty, a często wręcz niegodziwy charakter.</p>
 
-                <p>Istnieją tylko dwa powody, by zgłębiać sztuki magiczne w Epoce Hyboryjskiej: wiedza i potęga. Z tych dwóch to właśnie potęga jest zdecydowanie najczęstszą motywacją. Prawdziwi poszukiwacze wiedzy należą do rzadkości, choć wielu przekonuje samych siebie, że pragną wiedzy, a nie władzy. Może to być nawet prawdą, dopóki nie padną ofiarą straszliwych, deprawujących wpływów mrocznych sił, z którymi nawiązują kontakt, a ich umysł zostaje nieodwracalnie spaczony.</p>
+                <h4>4. Wiedza i potęga</h4>
+                <p>Istnieją tylko dwa powody, by zgłębiać sztuki magiczne w Epoce Hyboryjskiej - wiedza i potęga. Z tych dwóch to właśnie potęga jest zdecydowanie najczęstszą motywacją. Prawdziwi poszukiwacze wiedzy należą do rzadkości, choć wielu przekonuje samych siebie, że pragną wiedzy, a nie władzy. Może to być nawet prawdą - dopóki nie padną ofiarą straszliwych, deprawujących wpływów mrocznych sił, z którymi nawiązują kontakt, a ich umysł zostaje nieodwracalnie spaczony.</p>
 
-                <p>To, co można nazwać prawdziwą magią, można zdobyć na jeden lub kilka z następujących sposobów: studiując na wpół zapomniane grimuary minionych epok, nawiązując kontakt z bogami, demonami lub innymi duchami albo ucząc się bezpośrednio od innego czarownika.</p>
+                <p>To, co można nazwać „prawdziwą” magią, można zdobyć na jeden lub kilka z następujących sposobów: studiując na wpół zapomniane grimuary minionych epok, nawiązując kontakt z bogami, demonami lub innymi duchami albo ucząc się bezpośrednio od innego czarownika. Wszystkie trzy metody są niebezpieczne. Pierwsza często naraża ciało na bezpośrednie niebezpieczeństwo, ponieważ grimuary, które nie znajdują się już w posiadaniu jakiegoś adepta, zazwyczaj ukryte są w nawiedzonych przez duchy grobowcach lub dżunglach przesyconych trującym lotosem. Dwie pozostałe niemal zawsze wymagają, aby czarownik podporządkował swój umysł, ciało i duszę potężniejszej istocie, od której pobiera nauki. Jednak prawdziwa wiedza daje tak wielką moc, że niemal zawsze jest warta zapłaconej ceny.</p>
 
-                <p>Wszystkie trzy metody są niebezpieczne. Pierwsza często naraża ciało na bezpośrednie niebezpieczeństwo, ponieważ grimuary, które nie znajdują się już w posiadaniu jakiegoś adepta, zazwyczaj ukryte są w nawiedzonych przez duchy grobowcach lub dżunglach przesyconych trującym lotosem. Dwie pozostałe niemal zawsze wymagają, aby czarownik podporządkował swój umysł, ciało i duszę potężniejszej istocie, od której pobiera nauki. Jednak prawdziwa wiedza daje tak wielką moc, że niemal zawsze jest warta zapłaconej ceny.</p>
+                <p>Zewnętrzny Mrok można rozumieć jako źródło wszystkiego, co w Conanie uznaje się za nadnaturalne: demonów, tak zwanych bogów, zakazanej wiedzy i samej magii. Kiedy czarnoksiężnik przyzywa siły, nie tyle „ściąga istotę z innego miejsca”, co raczej zmusza rzeczywistość do kontaktu z czymś, co normalnie nie powinno mieć z nią styczności. Dlatego każdy taki kontakt jest niebezpieczny nie tylko dlatego, że przywołana siła może być wroga, ale też dlatego, że sam świat i umysł człowieka nie są przystosowane do czegoś tak obcego. Świat Hyborii jest jak cienka warstwa stabilnego porządku, a Zewnętrzny Mrok to coś, co ten porządek otacza i nieustannie na niego naciska.</p>
 
-                <p>Zewnętrzny Mrok można rozumieć jako źródło wszystkiego, co w Conanie uznaje się za nadnaturalne: demonów, tak zwanych bogów, zakazanej wiedzy i samej magii. Kiedy czarnoksiężnik przyzywa siły, nie tyle ściąga istotę z innego miejsca, co raczej zmusza rzeczywistość do kontaktu z czymś, co normalnie nie powinno mieć z nią styczności.</p>
+                <h4>5. Więcej o Zewnętrznym Mroku</h4>
+                <p>Zewnętrzny Mrok to bezkresna otchłań istniejąca poza granicami świata. Nie jest krainą, do której można dotrzeć, ani miejscem zaznaczonym na jakiejkolwiek mapie. To przestrzeń znajdująca się poza znaną rzeczywistością, zamieszkana przez istoty starsze od ludzkiej pamięci i całkowicie obce wszelkim prawom natury. Świat oddziela od tej otchłani tajemniczy pas światła, który stanowi barierę dla niezliczonych bytów czających się w ciemności. Większość z nich nigdy nie przekracza tej granicy, lecz zdarzają się wyjątki. Potężne rytuały lub wykorzystanie starożytnych artefaktów mogą osłabić tę barierę i umożliwić istotom z Zewnętrznego Mroku wkroczenie do świata śmiertelników.</p>
 
-                <p>Dlatego każdy taki kontakt jest niebezpieczny nie tylko dlatego, że przywołana siła może być wroga, ale też dlatego, że sam świat i umysł człowieka nie są przystosowane do czegoś tak obcego. Świat Hyborii jest jak cienka warstwa stabilnego porządku, a Zewnętrzny Mrok to coś, co ten porządek otacza i nieustannie na niego naciska.</p>
+                <p>Byty zamieszkujące Zewnętrzny Mrok nie są demonami ani bogami w ludzkim rozumieniu tych pojęć. Są istotami znacznie starszymi od znanych cywilizacji, a ich natura pozostaje całkowicie obca i niezrozumiała. Kiedy przedostaną się do świata materialnego, muszą przybrać cielesną postać. Wówczas można je zranić, a nawet zniszczyć, choć ich prawdziwa istota pozostaje ukryta w głębinach otchłani. To właśnie z Zewnętrznego Mroku czarnoksiężnicy czerpią swoją największą moc. Najpotężniejsze zaklęcia, rytuały i tajemnice nie pochodzą od bogów ani duchów, lecz są wykradane lub otrzymywane od bytów zamieszkujących tę kosmiczną ciemność. Każde takie wezwanie wiąże się jednak z ogromnym ryzykiem. Im większej mocy pragnie czarnoksiężnik, tym większą uwagę zwracają na niego istoty z otchłani, a cena za ich dary bywa znacznie wyższa, niż początkowo się wydaje. Dla większości mieszkańców świata Zewnętrzny Mrok pozostaje jedynie legendą lub tematem zakazanych ksiąg. Nieliczni wierzą, że naprawdę istnieje, a jeszcze mniej zdaje sobie sprawę, że najwięksi czarnoksiężnicy od wieków zwracają ku niemu swoje rytuały w poszukiwaniu wiedzy i potęgi. Zewnętrzny Mrok nie jest miejscem przeznaczonym do odkrycia ani zbadania. Stanowi źródło niewyobrażalnej mocy oraz kosmicznej grozy, przypominając, że poza granicami świata istnieją siły starsze od bogów czczonych przez ludzi i całkowicie obojętne wobec losu śmiertelników.</p>
 
-                <h4>Podsumowanie</h4>
-                <p>Na tej edycji nie mieszamy D&D czy innych styli z światem conana. Gramy go czystego, więc teraz odgrywanie postaci magicznej wygląda inaczej. Jeśli ktoś chciał strzelać kulami ognia, przywoływać deszcze meteorytów czy zapalać ognisko pstryknięciem palców to się rozczaruje. Postacie czarujące będą najbardziej nadzorowane, a przesadzanie z tym co postać może zrobić będzie się odbijało na niej. Jeśli ktoś ma jakieś wątpliwości co do możliwości postaci zapraszamy na ticket po odpowiedzi. </p>
+                <h4>Uproszczając:</h4>
+                <p>Najłatwiej porównać Zewnętrzny Mrok do mitologii Lovecrafta, bo w obu przypadkach chodzi o nieskończoną, obcą przestrzeń poza znanym światem, zamieszkaną przez byty starsze od ludzkości, które nie podlegają ludzkiej logice ani naturze. Kontakt z nimi wiąże się z ryzykiem obłędu, skażenia lub katastrofy, a sama rzeczywistość jest jedynie cienką warstwą oddzielającą ludzi od tej kosmicznej otchłani.</p>
+
+                <h4>Podsumowanie:</h4>
+                <p>Na tej edycji nie mieszamy D&D czy innych styli z światem conana. Gramy go czystego, więc teraz odgrywanie postaci magicznej wygląda inaczej. Jeśli ktoś chciał strzelać kulami ognia, przywoływać deszcze meteorytów czy zapalać ognisko pstryknięciem palców to się rozczaruje. Postacie czarujące będą najbardziej nadzorowane, a przesadzanie z tym co postać może zrobić będzie się odbijało na niej. Jeśli ktoś ma jakieś wątpliwości co do możliwości postaci zapraszamy na ticket po odpowiedzi.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-zguba-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="zamknij_modal_zguba()">✕</button>
+            <h3>System Zguby</h3>
+            <div id="modal-zguba-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
+                <p><strong>System Zguby</strong> to mechanika mrocznej korupcji, skazy lub klątwy, która bezpośrednio wpływa na postać gracza, odzwierciedlając jej kontakt z zakazaną magią, demonicznymi istotami lub przeklętymi miejscami. Punkty te są widoczne w Karcie Postaci.</p>
+
+                <h4>Skąd bierze się Zguba?</h4>
+                <p>Zguba to nienaturalne piętno, które osadza się na ciele i umyśle. Postać otrzymuje je poprzez:</p>
+                <ul>
+                    <li><strong>Wydarzenia fabularne (Mistrz Gry)</strong> - niespodziewane zetknięcie z koszmarem, przeklętymi artefaktami lub czymś, co ma swoje korzenie w Zewnętrznym Mroku podczas przygód RP.</li>
+                    <li><strong>Eksplorację spaczonych miejsc</strong> - automatycznie po wkroczeniu w przeklęte ruiny, takie jak Bezimienne Miasto czy lochy, albo podczas przeprawy przez Wieżę Nietoperzy na wyspę Siptah. System posiada 30-minutowy czas odnowienia, by uniknąć lawinowego kumulowania się punktów.</li>
+                    <li><strong>Mroczne rytuały</strong> - aktywne sięganie po zakazaną wiedzę. Każda próba naginania rzeczywistości, składanie krwawych ofiar, inkantacje czy otwieranie umysłu na podszepty Zewnętrznego Mroku wiążą się z nieuniknioną ceną, zostawiając na rzucającym trwały ślad.</li>
+                </ul>
+
+                <h4>Jak działają punkty Zguby?</h4>
+                <h4>Etap: Bezpieczeństwo (0 - 3 pkt Zguby)</h4>
+                <p>Efekt: Całkowity brak kar mechanicznych.</p>
+                <p>RP: Gracz może bezpiecznie wejść w kontakt z mrokiem czy rytuałem, nie ryzykując natychmiastowego osłabienia postaci.</p>
+
+                <h4>Etap: Gorączka Zguby (4 - 6 pkt Zguby)</h4>
+                <p>RP: Twoje ciało reaguje chorobliwą, zimną gorączką na narastającą obecność Zewnętrznego Mroku. Jesteś już w 25% trwale skażony, a tego piętna nie da się usunąć zwykłymi sposobami. Krew pulsuje wolniej, a wyraźny spadek witalności i zadyszka wymuszają na tobie znacznie większą ostrożność w walce i podczas wędrówki.</p>
+
+                <h4>Etap: Zaawansowana Skaza (7 - 10 pkt Zguby)</h4>
+                <p>RP: Zewnętrzny Mrok pochłonął cię w 50%, a skaza stała się wyniszczającą chorobą duszy i ciała. Zguba to teraz przytłaczający ciężar, którego wielu nie jest w stanie unieść. Twoja skóra staje się niezdrowo wrażliwa na uderzenia, witalność drastycznie spada, a mięśnie odmawiają posłuszeństwa, przez co każdy nagły ruch przypomina brodzenie w smole.</p>
+
+                <h4>Etap: Zatracenie (11 pkt Zguby)</h4>
+                <p>RP: Przekroczyłeś granicę, zza której nie ma łatwego powrotu. Kiedy Zguba osiąga apogeum, twój umysł i ciało doznają potężnego wstrząsu. Pozornie odzyskujesz siły, a uciążliwe objawy gorączki i skazy nagle ustępują, licznik punktów Zguby resetuje się do zera, rozpoczynając cały cykl od nowa. Cena tego fałszywego „oczyszczenia” jest jednak potworna.</p>
+                <p>W zamian postać otrzymuje 1 punkt <strong>Zatracenia</strong>, głęboką, niemal nieuleczalną ranę na duszy. Kiedy postać zbierze łącznie 3 punkty Zatracenia, jej umysł ostatecznie pęka i umiera ona bezpowrotnie, pogrążona w całkowitym szaleństwie Zewnętrznego Mroku (CK).</p>
+
+                <h4>Jak oczyścić się ze Zguby?</h4>
+                <p>Aby zmyć z siebie to powierzchowne skażenie, musisz odszukać kapłana w Bel'Morze. Posiada on w swoich zapasach <strong>Liście Białego Lotosu</strong>, jednak samo ich żucie to zaledwie połowa rytuału oczyszczenia. Po ich zażyciu musisz udać się do specjalnej kadzielnicy w Bel'Morze - dopiero jej dym i płomienie bezpowrotnie pochłoną ulatujące z ciebie skażenie Zguby. Sama roślina jest niezwykle rzadka, choć wędrowcy szepczą, że przy odrobinie szczęścia można na nią natrafić dziko rosnącą wysoko, na niedostępnych, ośnieżonych szczytach gór.</p>
+
+                <h4>Jak uciec przed Zatraceniem?</h4>
+                <p>Gdy umysł zaczyna pochłaniać pustka, zwykłe zioła nie wystarczą. Wspomniany kapłan w Bel'Morze może zaoferować zdesperowanym <strong>Fiolkę ekstraktu z Białego Lotosu</strong>. Samo jej wypicie to za mało. Po zażyciu tej potężnej i brutalnej mikstury organizm zacznie odrzucać mrok, a ty musisz natychmiast stanąć przed świętą kadzielnicą w Bel'Morze. To ona ostatecznie pochłonie uwolnione z ciebie zepsucie, wyrywając duszę ze szponów głębokiego Zatracenia i na nowo kotwicząc ją w materialnym świecie. Ekstrakt ten jest niezwykle cenny, dlatego przy odrobinie szczęścia wędrowcy mogą odnaleźć zapieczętowane fiolki również w ukrytych Skrzyniach Skarbów.</p>
+
+                <h4>Ważne</h4>
+                <p>Mimo że efekt wizualnie wykorzystuje mechanikę Spaczenia (Corruption) z Conan Exiles, nie jest to zwykłe spaczenie i stanowi element autorskiego systemu Zguby. Wszelkie standardowe metody usuwania spaczenia, takie jak tancerki, mikstury czy inne mechaniki gry, nie mają zastosowania, nawet jeśli gra technicznie pozwala na jego zredukowanie.</p>
+                <p>Stopień Zguby jest rozliczany wyłącznie według zasad systemu serwera i może zostać zmniejszony jedynie w sposób przewidziany przez administrację oraz mechaniki fabularne.</p>
             </div>
         </div>
     </div>
@@ -511,9 +595,9 @@
 
         <div class="sekcja-nagrod">
             <b>Nagrody za jakość karty (ocenia MG):</b>
-            • Poziom 1 (Dobra karta): 5 pkt SAP<br>
-            • Poziom 2 (Wspaniała karta): 5 pkt SAP + 2 Mapy Skarbów<br>
-            • Poziom 3 (Mistrzowska karta): 10 pkt SAP + 3 Mapy Skarbów
+            • Poziom 1 (Dobra karta): 3 pkt SAP<br>
+            • Poziom 2 (Wspaniała karta): 5 pkt SAP + 1 Mapy Skarbów<br>
+            • Poziom 3 (Mistrzowska karta): 10 pkt SAP + 2 Mapy Skarbów
         </div>
 
         <button class="btn-wyslij" onclick="wyslijWlasnaKarte()">Zapisz i Wyślij na Discord</button>
@@ -907,6 +991,17 @@
             const czyOtwarte = !panel.classList.contains('ukryty');
             przycisk.textContent = czyOtwarte ? '🧾 Generator - ukryj' : '🧾 Generator imion';
             przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
+        }
+
+        function przelaczMenuSystemy() {
+            const menu = document.getElementById('menu-systemy');
+            const przycisk = document.getElementById('btn-menu-systemy');
+            if (!menu || !przycisk) return;
+
+            menu.classList.toggle('otwarte');
+            const czyOtwarte = menu.classList.contains('otwarte');
+            przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
+            przycisk.textContent = czyOtwarte ? 'Systemy ▲' : 'Systemy';
         }
 
         const archetypy = [
@@ -1521,13 +1616,22 @@ const historieKast = {
             document.getElementById('modal-sap-overlay').classList.remove('active');
         }
 
+        function otworz_modal_zguba() {
+            document.getElementById('modal-zguba-overlay').classList.add('active');
+        }
+
+        function zamknij_modal_zguba() {
+            document.getElementById('modal-zguba-overlay').classList.remove('active');
+        }
+
         // Zamknięcie modala po kliknięciu na tło
         document.addEventListener('DOMContentLoaded', function() {
             const overlays = [
                 { element: document.getElementById('modal-lore-overlay'), close: zamknij_modal_lore },
                 { element: document.getElementById('modal-boztwa-overlay'), close: zamknij_modal_boztwa },
                 { element: document.getElementById('modal-czarnoksieztwo-overlay'), close: zamknij_modal_czarnoksieztwo },
-                { element: document.getElementById('modal-sap-overlay'), close: zamknij_modal_sap }
+                { element: document.getElementById('modal-sap-overlay'), close: zamknij_modal_sap },
+                { element: document.getElementById('modal-zguba-overlay'), close: zamknij_modal_zguba }
             ];
 
             overlays.forEach(({ element, close }) => {
