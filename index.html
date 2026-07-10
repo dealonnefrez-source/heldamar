@@ -5,8 +5,9 @@
     <title>Heldamar - Generator Kart Postaci</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; background-image: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 22%), radial-gradient(circle at bottom right, rgba(255,255,255,0.025), transparent 18%), linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.01) 100%), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: auto, auto, auto, 24px 24px, 24px 24px; background-position: center center, center center, center center, 0 0, 0 0; color: #eaeaea; text-align: center; padding: 40px; display: flex; flex-direction: column; min-height: 100vh; margin: 0; overflow-x: hidden; }
-        .logo-heldamar { color: #c97a00; font-size: 48px; letter-spacing: 5px; margin: 40px 0 0 0; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); position: relative; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1a1a1a; background-image: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 22%), radial-gradient(circle at bottom right, rgba(255,255,255,0.025), transparent 18%), linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.01) 100%), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01) 1px, transparent 1px); background-size: auto, auto, auto, 24px 24px, 24px 24px; background-position: center center, center center, center center, 0 0, 0 0; color: #eaeaea; text-align: center; padding: 40px; display: flex; flex-direction: column; min-height: 100vh; margin: 0; overflow-x: hidden; position: relative; isolation: isolate; }
+        body::before { content: ""; position: fixed; inset: 0; background: url('logo.png') center center / min(72vw, 900px) no-repeat; opacity: 0.04; pointer-events: none; z-index: -1; filter: grayscale(100%) brightness(1.1); }
+        .logo-heldamar { margin: 34px auto 0; position: relative; display: block; width: min(460px, 76vw); aspect-ratio: 46 / 12; background: url('heldamar.png') center center / contain no-repeat; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.55)); user-select: none; -webkit-user-select: none; -webkit-user-drag: none; }
         .logo-heldamar::after { content: ""; position: absolute; left: 50%; bottom: -16px; transform: translateX(-50%); width: 220px; height: 2px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.85), transparent); box-shadow: 0 0 16px rgba(201,122,0,0.25); }
         h2 { margin-top: 10px; margin-bottom: 30px; color: #aaa; font-weight: normal; font-size: 16px; font-style: italic; }
 
@@ -29,11 +30,18 @@
         .przyciski-lewe .przycisk-boczny:hover::after { opacity: 0.65; transform: translateY(-50%) scaleX(1); }
         .przyciski-lewe .przycisk-boczny:focus-visible { outline: none; border-color: rgba(255,196,92,0.75); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 0 0 3px rgba(201,122,0,0.18), 0 8px 16px rgba(0,0,0,0.55); }
         .menu-systemy-kontener { position: relative; display: flex; flex-direction: column; }
-        .przyciski-lewe .przycisk-boczny.wariant-submenu { background: linear-gradient(180deg, #343434 0%, #2a2a2a 100%); min-width: 170px; font-size: 13px; text-align: left; }
-        .przyciski-lewe .przycisk-boczny.wariant-submenu:hover { background: linear-gradient(180deg, #454545 0%, #313131 100%); }
+        .przyciski-lewe .przycisk-boczny.wariant-submenu { background: linear-gradient(180deg, #262626 0%, #1b1b1b 100%); min-width: 170px; font-size: 13px; text-align: left; border: 1px solid rgba(255,255,255,0.03); box-shadow: inset 0 2px 6px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.03), 0 2px 4px rgba(0,0,0,0.28); color: #e6e6e6; }
+        .przyciski-lewe .przycisk-boczny.wariant-submenu:hover { background: linear-gradient(180deg, #2f2f2f 0%, #212121 100%); border-color: rgba(201,122,0,0.22); box-shadow: inset 0 2px 7px rgba(0,0,0,0.78), inset 0 1px 0 rgba(255,255,255,0.05), 0 6px 14px rgba(0,0,0,0.42), 0 0 10px rgba(201,122,0,0.18); }
         .menu-systemy { display: none; position: absolute; left: calc(100% + 12px); top: 0; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; border: 1px solid #444; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); box-shadow: 0 14px 32px rgba(0,0,0,0.45); z-index: 1200; }
         .menu-systemy.otwarte { display: flex; }
+        .menu-swiat-kontener { position: relative; display: flex; flex-direction: column; }
+        .menu-swiat { display: none; position: absolute; left: calc(100% + 12px); top: 0; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; border: 1px solid #444; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); box-shadow: 0 14px 32px rgba(0,0,0,0.45); z-index: 1200; }
+        .menu-swiat.otwarte { display: flex; }
+        .menu-profesje-kontener, .menu-pomniejsze-kontener { position: relative; display: flex; flex-direction: column; }
+        .menu-profesje, .menu-pomniejsze { display: none; position: static; left: auto; top: auto; margin-top: 6px; flex-direction: column; gap: 6px; padding: 6px 0 0 14px; border-radius: 0; border: none; background: transparent; box-shadow: none; z-index: 1300; }
+        .menu-profesje.otwarte, .menu-pomniejsze.otwarte { display: flex; }
         .menu-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.55), transparent); margin: 2px 0; box-shadow: 0 0 10px rgba(201,122,0,0.15); }
+        .menu-postaci-etykieta { align-self: flex-start; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin: 2px 0 0; }
 
 
         .generator-imion { position: fixed; bottom: 20px; right: 20px; width: 360px; max-height: calc(100vh - 40px); overflow-y: auto; background-color: rgba(18,18,18,0.96); border: 1px solid #444; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); z-index: 900; }
@@ -41,6 +49,16 @@
         .ogloszenie-kp { position: fixed; top: 20px; right: 20px; width: min(420px, calc(100vw - 40px)); background: linear-gradient(180deg, rgba(36, 27, 12, 0.96), rgba(24, 18, 9, 0.95)); border: 1px solid rgba(201,122,0,0.55); border-left: 4px solid #c97a00; border-radius: 14px; padding: 14px 16px; box-shadow: 0 12px 28px rgba(0,0,0,0.45); z-index: 1100; text-align: left; }
         .ogloszenie-kp strong { display: block; color: #ffd88c; margin-bottom: 6px; font-size: 14px; letter-spacing: 0.02em; }
         .ogloszenie-kp span { display: block; color: #f1e7d2; line-height: 1.45; font-size: 13px; }
+        .panel-audio { position: fixed; top: 20px; left: 20px; width: min(340px, calc(100vw - 40px)); background: transparent; border: none; border-radius: 0; padding: 0; box-shadow: none; z-index: 1100; text-align: left; backdrop-filter: none; }
+        .panel-audio .audio-controls { display: flex; align-items: center; gap: 10px; opacity: 0.5; transition: opacity 0.2s ease; }
+        .panel-audio:hover .audio-controls,
+        .panel-audio:focus-within .audio-controls { opacity: 0.82; }
+        .panel-audio button { background: rgba(255,255,255,0.03); color: rgba(244,244,244,0.72); border: none; border-radius: 8px; padding: 7px 10px; font-size: 12px; cursor: pointer; }
+        .panel-audio button:hover { background: rgba(255,255,255,0.09); color: rgba(244,244,244,0.9); }
+        .panel-audio .audio-main-btn { background: linear-gradient(180deg, rgba(34,34,34,0.72), rgba(22,22,22,0.7)); color: rgba(230,230,230,0.78); white-space: nowrap; }
+        .panel-audio .audio-main-btn:hover { background: linear-gradient(180deg, rgba(48,48,48,0.84), rgba(28,28,28,0.82)); color: rgba(230,230,230,0.92); }
+        .panel-audio .audio-main-btn[aria-pressed="true"] { background: linear-gradient(180deg, rgba(201,122,0,0.28), rgba(201,122,0,0.18)); color: rgba(255,224,166,0.95); }
+        .panel-audio input[type="range"] { width: 50%; max-width: 150px; accent-color: #c97a00; opacity: 0.62; margin: 0; }
         .generator-imion h3 { margin-top: 0; margin-bottom: 16px; color: #c97a00; font-size: 20px; text-align: left; }
         .generator-imion label { display: block; margin-bottom: 8px; color: #ccc; font-weight: bold; font-size: 14px; }
         .generator-imion select { width: 100%; background-color: #151515; color: #eaeaea; border: 1px solid #444; padding: 10px; border-radius: 6px; font-family: inherit; font-size: 14px; box-sizing: border-box; margin-bottom: 16px; }
@@ -57,9 +75,9 @@
         .panel-boczny { display: none; position: relative; width: min(92vw, 760px); margin: 30px auto 40px; background-color: #222; box-shadow: 0 0 30px rgba(0,0,0,0.9); overflow-y: auto; padding: 30px; box-sizing: border-box; text-align: left; border-radius: 16px; }
         .panel-boczny.otwarta { display: block; }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(29, 29, 29, 0.82); display: none; align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto; z-index: 2000; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(29, 29, 29, 0.82); display: none; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; z-index: 2000; }
         .modal-overlay.active { display: flex; }
-        .modal-card { width: min(750px, 95vw); max-height: calc(100vh - 40px); margin: auto 0; background: rgba(48, 48, 48, 0.98); border: 1px solid rgba(27, 27, 27, 0.12); box-shadow: 0 32px 90px rgba(0,0,0,0.5); border-radius: 28px; padding: 28px 26px; position: relative; overflow-y: auto; }
+        .modal-card { width: min(920px, 95vw); max-height: calc(100vh - 40px); margin: auto 0; background: rgba(48, 48, 48, 0.98); border: 1px solid rgba(27, 27, 27, 0.12); box-shadow: 0 32px 90px rgba(0,0,0,0.5); border-radius: 24px; padding: 28px 26px; position: relative; overflow-y: auto; }
         .modal-card h3 { margin-top: 0; margin-bottom: 20px; color: #ffd88c; font-size: 1.6rem; text-align: center; letter-spacing: 0.04em; position: relative; }
         .modal-card h3::after { content: ""; display: block; width: 180px; max-width: 70%; height: 2px; margin: 10px auto 0; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.95), transparent); box-shadow: 0 0 10px rgba(201,122,0,0.3); border-radius: 999px; }
         .modal-card p { margin: 10px 0 22px; color: #d3d3d3; line-height: 1.6; }
@@ -69,6 +87,9 @@
         .modal-card label { display: block; margin-top: 18px; margin-bottom: 8px; color: #e6e8ff; font-weight: 700; font-size: 0.95rem; }
         .modal-card input { width: 100%; background: rgba(40, 40, 40, 0.98); color: #eef2ff; border: 1px solid rgba(255,255,255,0.08); padding: 14px 16px; border-radius: 14px; font-size: 0.96rem; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
         .modal-card input:focus { outline: none; border-color: #f2b756; box-shadow: 0 0 0 4px rgba(242,183,86,0.12); }
+        #modal-lore-content { text-align: left; padding: 6px 4px 0; border-top: 1px solid rgba(201,122,0,0.14); }
+        #modal-lore-content p { margin: 0 0 14px; }
+        #modal-lore-content p:last-child { margin-bottom: 0; }
         .modal-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; justify-content: flex-end; }
         .modal-actions button { min-width: 140px; padding: 14px 18px; border-radius: 18px; border: none; font-weight: 700; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .modal-actions .modal-confirm { background: linear-gradient(135deg, #e2aa3b 0%, #c97a00 100%); color: #11131b; }
@@ -131,30 +152,72 @@
         .karta.flat .opis-cechy { margin-top: 5px !important; margin-bottom: 15px !important; padding-bottom: 10px; border-bottom: 1px dashed #444; }
 
         #modal-lore-content::-webkit-scrollbar,
+        #modal-boztwa-content::-webkit-scrollbar,
         #modal-sap-content::-webkit-scrollbar,
-        #modal-czarnoksieztwo-content::-webkit-scrollbar { width: 12px; }
+        #modal-czarnoksieztwo-content::-webkit-scrollbar,
+        #modal-zguba-content::-webkit-scrollbar,
+        #modal-profesja-content::-webkit-scrollbar,
+        .generator-imion::-webkit-scrollbar,
+        .panel-boczny::-webkit-scrollbar,
+        .modal-card::-webkit-scrollbar { width: 12px; }
         #modal-lore-content::-webkit-scrollbar-track,
+        #modal-boztwa-content::-webkit-scrollbar-track,
         #modal-sap-content::-webkit-scrollbar-track,
-        #modal-czarnoksieztwo-content::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-track,
+        #modal-zguba-content::-webkit-scrollbar-track,
+        #modal-profesja-content::-webkit-scrollbar-track,
+        .generator-imion::-webkit-scrollbar-track,
+        .panel-boczny::-webkit-scrollbar-track,
+        .modal-card::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
         #modal-lore-content::-webkit-scrollbar-thumb,
+        #modal-boztwa-content::-webkit-scrollbar-thumb,
         #modal-sap-content::-webkit-scrollbar-thumb,
-        #modal-czarnoksieztwo-content::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; border: 2px solid #222; }
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-thumb,
+        #modal-zguba-content::-webkit-scrollbar-thumb,
+        #modal-profesja-content::-webkit-scrollbar-thumb,
+        .generator-imion::-webkit-scrollbar-thumb,
+        .panel-boczny::-webkit-scrollbar-thumb,
+        .modal-card::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; border: 2px solid #222; }
         #modal-lore-content::-webkit-scrollbar-thumb:hover,
+        #modal-boztwa-content::-webkit-scrollbar-thumb:hover,
         #modal-sap-content::-webkit-scrollbar-thumb:hover,
-        #modal-czarnoksieztwo-content::-webkit-scrollbar-thumb:hover { background: #444; }
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-thumb:hover,
+        #modal-zguba-content::-webkit-scrollbar-thumb:hover,
+        #modal-profesja-content::-webkit-scrollbar-thumb:hover,
+        .generator-imion::-webkit-scrollbar-thumb:hover,
+        .panel-boczny::-webkit-scrollbar-thumb:hover,
+        .modal-card::-webkit-scrollbar-thumb:hover { background: #444; }
         #modal-lore-content::-webkit-scrollbar-button:increment,
         #modal-lore-content::-webkit-scrollbar-button:decrement,
+        #modal-boztwa-content::-webkit-scrollbar-button:increment,
+        #modal-boztwa-content::-webkit-scrollbar-button:decrement,
         #modal-sap-content::-webkit-scrollbar-button:increment,
         #modal-sap-content::-webkit-scrollbar-button:decrement,
         #modal-czarnoksieztwo-content::-webkit-scrollbar-button:increment,
-        #modal-czarnoksieztwo-content::-webkit-scrollbar-button:decrement { background: #c97a00; border: 1px solid #a06100; display: block; height: 16px; }
+        #modal-czarnoksieztwo-content::-webkit-scrollbar-button:decrement,
+        #modal-zguba-content::-webkit-scrollbar-button:increment,
+        #modal-zguba-content::-webkit-scrollbar-button:decrement,
+        #modal-profesja-content::-webkit-scrollbar-button:increment,
+        #modal-profesja-content::-webkit-scrollbar-button:decrement,
+        .generator-imion::-webkit-scrollbar-button:increment,
+        .generator-imion::-webkit-scrollbar-button:decrement,
+        .panel-boczny::-webkit-scrollbar-button:increment,
+        .panel-boczny::-webkit-scrollbar-button:decrement,
+        .modal-card::-webkit-scrollbar-button:increment,
+        .modal-card::-webkit-scrollbar-button:decrement { background: #c97a00; border: 1px solid #a06100; display: block; height: 16px; }
         #modal-lore-content,
+        #modal-boztwa-content,
         #modal-sap-content,
-        #modal-czarnoksieztwo-content { scrollbar-color: #333 #111; scrollbar-width: thin; }
+        #modal-czarnoksieztwo-content,
+        #modal-zguba-content,
+        #modal-profesja-content,
+        .generator-imion,
+        .panel-boczny,
+        .modal-card { scrollbar-color: #333 #111; scrollbar-width: thin; }
 
         @media (max-width: 1024px) {
             body { padding: 20px 14px 24px; }
-            .logo-heldamar { font-size: 36px; letter-spacing: 3px; margin-top: 22px; }
+            .logo-heldamar { margin-top: 22px; width: min(360px, 82vw); }
             h2 { margin-bottom: 22px; }
 
             .przyciski-lewe {
@@ -179,6 +242,11 @@
                 grid-column: 1 / -1;
                 margin: 4px 0;
             }
+            .menu-postaci-etykieta {
+                grid-column: 1 / -1;
+                justify-self: start;
+                margin: 4px 0 0;
+            }
             .przyciski-lewe .przycisk-boczny {
                 min-width: 0;
                 width: 100%;
@@ -187,6 +255,30 @@
             }
             .menu-systemy-kontener { display: block; }
             .menu-systemy {
+                position: static;
+                left: auto;
+                top: auto;
+                margin-top: 8px;
+                padding: 0;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                box-shadow: none;
+            }
+            .menu-swiat-kontener { display: block; }
+            .menu-swiat {
+                position: static;
+                left: auto;
+                top: auto;
+                margin-top: 8px;
+                padding: 0;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                box-shadow: none;
+            }
+            .menu-profesje,
+            .menu-pomniejsze {
                 position: static;
                 left: auto;
                 top: auto;
@@ -219,6 +311,13 @@
                 z-index: auto;
             }
 
+            .panel-audio {
+                position: static;
+                width: min(100%, 760px);
+                margin: 0 auto 16px;
+                z-index: auto;
+            }
+
             .panel-boczny {
                 width: 100%;
                 margin: 18px auto 26px;
@@ -227,7 +326,7 @@
 
             .modal-overlay { padding: 12px; }
             .modal-card {
-                width: 100%;
+                width: min(100%, 920px);
                 max-height: calc(100vh - 24px);
                 border-radius: 18px;
                 padding: 20px 16px;
@@ -239,6 +338,9 @@
                 grid-template-columns: 1fr;
             }
             .przyciski-lewe::before {
+                justify-self: center;
+            }
+            .menu-postaci-etykieta {
                 justify-self: center;
             }
             .stopka-zespolu {
@@ -254,6 +356,19 @@
     <div class="ogloszenie-kp" role="status" aria-live="polite">
         <strong>Ważne</strong>
         <span>Wysyłanie KP do teczki gracza jest obecnie wstrzymane. Przycisk „Wyślij”, zapisze Twoją kartę postaci na dysk.</span>
+    </div>
+
+    <audio id="muzyka-tla" src="music.mp3" loop preload="auto"></audio>
+    <div class="panel-audio" id="panel-audio">
+        <div class="audio-controls">
+            <button type="button" class="audio-main-btn" id="audio-play-btn" onclick="toggleAudioPlayback()" aria-label="Włącz muzykę">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M14 3.23v17.54c0 .41-.47.65-.8.4L7.83 17H4c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1h3.83l5.37-4.17c.33-.25.8-.01.8.4Z"></path>
+                    <path fill="currentColor" d="M16.5 12c0-1.77-.77-3.36-2-4.46v8.91c1.23-1.09 2-2.69 2-4.45Z"></path>
+                </svg>
+            </button>
+            <input type="range" id="audio-volume" min="0" max="100" value="10" oninput="ustawGlosnosc(this.value)">
+        </div>
     </div>
 
     <div class="generator-imion ukryty" id="panel-generatora-imion">
@@ -277,20 +392,47 @@
 
     <div class="przyciski-lewe">
         <button class="przycisk-boczny" onclick="otworz_modal_lore()">Lore</button>
-        <button class="przycisk-boczny" onclick="otworz_modal_boztwa()">Bóstwa</button>
-        <button class="przycisk-boczny" onclick="otworz_modal_czarnoksieztwo()">Czarnoksięstwo</button>
+        <div class="menu-swiat-kontener">
+            <button class="przycisk-boczny" id="btn-menu-swiat" onclick="przelaczMenuSwiat()" aria-expanded="false">Świat</button>
+            <div class="menu-swiat" id="menu-swiat">
+                <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_boztwa()">Bóstwa</button>
+                <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_czarnoksieztwo()">Czarnoksięstwo</button>
+                <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_rytual()">Rytuały</button>
+            </div>
+        </div>
         <div class="menu-systemy-kontener">
             <button class="przycisk-boczny" id="btn-menu-systemy" onclick="przelaczMenuSystemy()" aria-expanded="false">Systemy</button>
             <div class="menu-systemy" id="menu-systemy">
                 <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_sap()">SAP</button>
                 <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_zguba()">Zguba</button>
+                <div class="menu-profesje-kontener">
+                    <button class="przycisk-boczny wariant-submenu" id="btn-menu-profesje" onclick="przelaczMenuProfesje()" aria-expanded="false">Profesje</button>
+                    <div class="menu-profesje" id="menu-profesje">
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_profesje_info()">Informacje Ogólne</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_gornictwo()">Górnictwo</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_jubilerstwo()">Jubilerstwo</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_hutnictwo()">Hutnictwo</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_zielarstwo()">Zielarz - Zbiory</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_profesja('Zielarz - Stół Zielarza', 'W budowie.')">Zielarz - Wytwarzanie</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_wedkarstwo()">Rybołóstwo</button>
+                    </div>
+                </div>
+                <div class="menu-pomniejsze-kontener">
+                    <button class="przycisk-boczny wariant-submenu" id="btn-menu-pomniejsze" onclick="przelaczMenuPomniejsze()" aria-expanded="false">Pomniejsze</button>
+                    <div class="menu-pomniejsze" id="menu-pomniejsze">
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_mapa_skarbow()">Mapa Skarbów</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_profesja('Obozowisko', 'W budowie.')">Obozowisko</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <button class="przycisk-boczny" id="btn-generator-imion" onclick="przelaczGeneratorImion()">Generator imion</button>
         <div class="menu-divider" aria-hidden="true"></div>
+        <div class="menu-postaci-etykieta" aria-hidden="true">Menu Postaci</div>
         <button class="przycisk-boczny" onclick="showPanel('panel-wlasny')">Napisz KP od zera</button>
         <button class="przycisk-boczny" onclick="showPanel('panel-reczny')">Skomponuj KP z listy</button>
         <button class="przycisk-boczny" onclick="generujKarte()">Wylosuj postać</button>
+        <div class="menu-divider" aria-hidden="true"></div>
+        <button class="przycisk-boczny" id="btn-generator-imion" onclick="przelaczGeneratorImion()">Generator imion</button>
     </div>
 
     <div class="modal-overlay" id="modal-lore-overlay">
@@ -441,7 +583,8 @@
             <button class="modal-close" onclick="zamknij_modal_czarnoksieztwo()">✕</button>
             <h3>Czarnoksięstwo</h3>
             <div id="modal-czarnoksieztwo-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
-                <p>1. Czarnoksiężnicy Hyborii nie są typowymi magami gier RPG. Nie strzelają na życzenie błyskawicami i ognistymi pociskami z opuszków palców. Ich moc nie jest natychmiastowa, lecz cierpliwa, subtelna i przerażająca. Czarodziej nagina świat nie polotem, lecz rytuałem, wolą i szeptanymi układami z istotami Zewnętrznego Mroku, których imion lepiej nie wypowiadać pochopnie. Każde zaklęcie jest rytuałem, dziełem siły woli, poświęcenia i czasu. Wymaga rzadkich składników, niebiańskich układów i inwokacji mocy, których lepiej nie nazywać.</p>
+                <h4>1. Czarnoksiężnicy Hyborii</h4>
+                <p>Nie są typowymi magami gier RPG. Nie strzelają na życzenie błyskawicami i ognistymi pociskami z opuszków palców. Ich moc nie jest natychmiastowa, lecz cierpliwa, subtelna i przerażająca. Czarodziej nagina świat nie polotem, lecz rytuałem, wolą i szeptanymi układami z istotami Zewnętrznego Mroku, których imion lepiej nie wypowiadać pochopnie. Każde zaklęcie jest rytuałem, dziełem siły woli, poświęcenia i czasu. Wymaga rzadkich składników, niebiańskich układów i inwokacji mocy, których lepiej nie nazywać.</p>
 
                 <p>Wielkie dzieła wymagają czasu. W ogniu walki nie ma „szybkich zaklęć” (prócz podstawowego ataku magicznego systemu EasyD6). Czarownik musi działać z pozycji bezpieczeństwa i tajemnicy, strzeżony przez akolitów lub strażników, często ukryty za iluzjami.</p>
 
@@ -539,7 +682,17 @@
         </div>
     </div>
 
-    <h1 class="logo-heldamar">HELDAMAR</h1>
+    <div class="modal-overlay" id="modal-profesja-overlay">
+        <div class="modal-card">
+            <button class="modal-close" onclick="zamknij_modal_profesja()">✕</button>
+            <h3 id="modal-profesja-tytul">Profesja</h3>
+            <div id="modal-profesja-content" style="color: #d3d3d3; line-height: 1.6; max-height: 60vh; overflow-y: auto; text-align: left;">
+                <p>Przykładowy tekst profesji.</p>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="logo-heldamar" aria-label="Heldamar"></h1>
     <hr class="linia-logo">
     <h2>W Krainach Wygnańców nikt nie rodzi się legendą.<br>Tutaj trzeba nią zostać.</h2>
     
@@ -657,7 +810,7 @@
 
     <div class="stopka-zespolu">
         Stworzone przez zespół Heldamar<br>
-        Na podstawie podręcznika Conan: Przygody w Erze Niewyśnionej
+        Kreator postaci na podstawie podręcznika Conan: Przygody w Erze Niewyśnionej
     </div>
 
     <script>
@@ -993,15 +1146,110 @@
             przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
         }
 
+        function przelaczMenuSwiat() {
+            const menu = document.getElementById('menu-swiat');
+            const przycisk = document.getElementById('btn-menu-swiat');
+            const menuSystemy = document.getElementById('menu-systemy');
+            const przyciskSystemy = document.getElementById('btn-menu-systemy');
+            const menuProfesje = document.getElementById('menu-profesje');
+            const przyciskProfesje = document.getElementById('btn-menu-profesje');
+            if (!menu || !przycisk) return;
+
+            const maBycOtwarte = !menu.classList.contains('otwarte');
+
+            if (maBycOtwarte) {
+                if (menuSystemy && przyciskSystemy) {
+                    menuSystemy.classList.remove('otwarte');
+                    przyciskSystemy.setAttribute('aria-expanded', 'false');
+                    przyciskSystemy.textContent = 'Systemy';
+                }
+                if (menuProfesje && przyciskProfesje) {
+                    menuProfesje.classList.remove('otwarte');
+                    przyciskProfesje.setAttribute('aria-expanded', 'false');
+                    przyciskProfesje.textContent = 'Profesje';
+                }
+            }
+
+            menu.classList.toggle('otwarte');
+            const czyOtwarte = menu.classList.contains('otwarte');
+            przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
+            przycisk.textContent = czyOtwarte ? 'Świat ▲' : 'Świat';
+        }
+
         function przelaczMenuSystemy() {
             const menu = document.getElementById('menu-systemy');
             const przycisk = document.getElementById('btn-menu-systemy');
+            const menuProfesje = document.getElementById('menu-profesje');
+            const przyciskProfesje = document.getElementById('btn-menu-profesje');
+            const menuPomniejsze = document.getElementById('menu-pomniejsze');
+            const przyciskPomniejsze = document.getElementById('btn-menu-pomniejsze');
+            const menuSwiat = document.getElementById('menu-swiat');
+            const przyciskSwiat = document.getElementById('btn-menu-swiat');
             if (!menu || !przycisk) return;
+
+            const maBycOtwarte = !menu.classList.contains('otwarte');
+
+            if (maBycOtwarte && menuSwiat && przyciskSwiat) {
+                menuSwiat.classList.remove('otwarte');
+                przyciskSwiat.setAttribute('aria-expanded', 'false');
+                przyciskSwiat.textContent = 'Świat';
+            }
 
             menu.classList.toggle('otwarte');
             const czyOtwarte = menu.classList.contains('otwarte');
             przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
             przycisk.textContent = czyOtwarte ? 'Systemy ▲' : 'Systemy';
+
+            if (!czyOtwarte) {
+                if (menuProfesje && przyciskProfesje) {
+                    menuProfesje.classList.remove('otwarte');
+                    przyciskProfesje.setAttribute('aria-expanded', 'false');
+                    przyciskProfesje.textContent = 'Profesje';
+                }
+                if (menuPomniejsze && przyciskPomniejsze) {
+                    menuPomniejsze.classList.remove('otwarte');
+                    przyciskPomniejsze.setAttribute('aria-expanded', 'false');
+                    przyciskPomniejsze.textContent = 'Pomniejsze';
+                }
+            }
+        }
+
+        function przelaczMenuProfesje() {
+            const menu = document.getElementById('menu-profesje');
+            const przycisk = document.getElementById('btn-menu-profesje');
+            const menuPomniejsze = document.getElementById('menu-pomniejsze');
+            const przyciskPomniejsze = document.getElementById('btn-menu-pomniejsze');
+            if (!menu || !przycisk) return;
+
+            if (!menu.classList.contains('otwarte') && menuPomniejsze && przyciskPomniejsze) {
+                menuPomniejsze.classList.remove('otwarte');
+                przyciskPomniejsze.setAttribute('aria-expanded', 'false');
+                przyciskPomniejsze.textContent = 'Pomniejsze';
+            }
+
+            menu.classList.toggle('otwarte');
+            const czyOtwarte = menu.classList.contains('otwarte');
+            przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
+            przycisk.textContent = czyOtwarte ? 'Profesje ▲' : 'Profesje';
+        }
+
+        function przelaczMenuPomniejsze() {
+            const menu = document.getElementById('menu-pomniejsze');
+            const przycisk = document.getElementById('btn-menu-pomniejsze');
+            const menuProfesje = document.getElementById('menu-profesje');
+            const przyciskProfesje = document.getElementById('btn-menu-profesje');
+            if (!menu || !przycisk) return;
+
+            if (!menu.classList.contains('otwarte') && menuProfesje && przyciskProfesje) {
+                menuProfesje.classList.remove('otwarte');
+                przyciskProfesje.setAttribute('aria-expanded', 'false');
+                przyciskProfesje.textContent = 'Profesje';
+            }
+
+            menu.classList.toggle('otwarte');
+            const czyOtwarte = menu.classList.contains('otwarte');
+            przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
+            przycisk.textContent = czyOtwarte ? 'Pomniejsze ▲' : 'Pomniejsze';
         }
 
         const archetypy = [
@@ -1013,7 +1261,7 @@
             { nazwa: "NAJEMNIK", opis: "Być może wcielono cię do lokalnej straży za młodu lub w dojrzałym wieku bądź sam zgłosiłeś się do służby wojskowej. Tak czy inaczej, stałeś się najemnikiem, opłacanym żołnierzem, lojalnym jedynie wobec tych, którzy są wystarczająco zamożni. Podróżujesz przez królestwa hyboryjskie w poszukiwaniu zajęcia, nierzadko walcząc przeciwko swoim wcześniejszym pracodawcom." },
             { nazwa: "PIRAT", opis: "Byłeś kiedyś żeglarzem, kupcem, może nawet służyłeś w marynarce wojennej jednej z morskich potęg, lecz ostatecznie wstąpiłeś na ścieżkę piractwa. Co prawda na wodzie czujesz się swobodniej niż na lądzie, lecz jesteś skłonny szukać szczęścia wszędzie tam, gdzie poprowadzi cię los." },
             { nazwa: "RYCERZ", opis: "Możesz być pasowanym na rycerza szlachcicem pochodzącym z jednego z cywilizowanych królestw hyboryjskich (na przykład Akwilonii, Nemedii, Zingary, Brythunii) lub z innej krainy. Niezależnie od tego, czy w działaniu kierujesz się kodeksem rycerskim, czy też jesteś po prostu dobrze wyszkolonym i wyposażonym wojownikiem, walczysz głównie za siebie i za sprawy, które uznajesz za ważne." },
-            { nazwa: "SZAMAN / WIEDŹMA", opis: "Zawarłeś pakt z siłami nie z tego świata, poszukując zakazanej, budzącej przestrach wiedzy. Dzięki tym śmiałym czynom zyskałeś moc i przenikliwość przekraczające zdolności zwykłych śmiertelników. Mimo że nie parasz się czarnoksięstwem, dobrze zgłębiłeś wiedzę tajemną, a także sekrety świata przyrody. Od ciebie zależy, czy używasz swoich umiejętności, aby nieść pomoc innym, czy w celu zaspokojenia własnych pragnień." },
+            { nazwa: "SZAMAN / WIEDŹMA", opis: "Zakazana wiedza jest źródłem potęgi, lecz także największym przekleństwem. Ci, którzy poświęcają życie zgłębianiu tajemnic magii, dawnych kultów i istot spoza świata śmiertelników, zdobywają moc zdolną naginać rzeczywistość do własnej woli. Każdy rytuał i każdy odkryty sekret pozostawiają jednak trwałe piętno, prowadząc coraz głębiej ku zatraceniu. W świecie Hyborii niewielu posiada odwagę lub szaleństwo, by podążać drogą czarnoksięstwa, a ty jesteś jednym z nich." },
             { nazwa: "UCZONY", opis: "Historia i najstarsze nawet pokłady ludzkiej mądrości nie mają przed tobą tajemnic. Zgłębiłeś je, nawet nie ruszając się z fotela, spędzając niezliczone godziny na studiowaniu opasłych tomów wypełnionych wiedzą. Być może najbardziej interesuje cię jeden określony obszar nauki lub też specjalizujesz się w wielu różnych dziedzinach. Pomimo swego upodobania do studiów akademickich wyruszyłeś w świat, aby osobiście zdobyć nowe doświadczenia." }
         ];
 
@@ -1211,6 +1459,71 @@ const historieKast = {
             document.getElementById(panelId).classList.remove('otwarta');
         }
 
+        function aktualizujAudioUI() {
+            const audio = document.getElementById('muzyka-tla');
+            const playButton = document.getElementById('audio-play-btn');
+            if (!audio || !playButton) return;
+
+            const isActive = !audio.paused && !audio.muted && audio.volume > 0;
+            playButton.innerHTML = isActive
+                ? '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M14 3.23v17.54c0 .41-.47.65-.8.4L7.83 17H4c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1h3.83l5.37-4.17c.33-.25.8-.01.8.4Z"></path><path fill="currentColor" d="M16.5 12c0-1.77-.77-3.36-2-4.46v8.91c1.23-1.09 2-2.69 2-4.45Z"></path><path fill="currentColor" d="M16.67 3.52a1 1 0 0 1 1.41-.1A11 11 0 0 1 22 12a11 11 0 0 1-3.92 8.58 1 1 0 1 1-1.31-1.52A9 9 0 0 0 20 12a9 9 0 0 0-3.33-7 1 1 0 0 1-.1-1.48Z"></path></svg>'
+                : '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M14 3.23v17.54c0 .41-.47.65-.8.4L7.83 17H4c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1h3.83l5.37-4.17c.33-.25.8-.01.8.4Z"></path><path fill="currentColor" d="M17.71 9.29a1 1 0 0 1 0 1.42L16.41 12l1.3 1.29a1 1 0 0 1-1.42 1.42L15 13.41l-1.29 1.3a1 1 0 0 1-1.42-1.42l1.3-1.29-1.3-1.29a1 1 0 0 1 1.42-1.42L15 10.59l1.29-1.3a1 1 0 0 1 1.42 0Z"></path></svg>';
+            playButton.setAttribute('aria-pressed', audio.paused ? 'false' : 'true');
+            playButton.setAttribute('aria-label', isActive ? 'Wyłącz muzykę' : 'Włącz muzykę');
+            playButton.title = isActive ? 'Wyłącz muzykę' : 'Włącz muzykę';
+        }
+
+        function ustawGlosnosc(value) {
+            const audio = document.getElementById('muzyka-tla');
+            const volumeLabel = document.getElementById('audio-volume-value');
+            if (!audio) return;
+
+            const numeric = Math.max(0, Math.min(100, Number(value)));
+            audio.volume = numeric / 100;
+            if (numeric > 0 && audio.muted) {
+                audio.muted = false;
+            }
+            if (numeric === 0) {
+                audio.muted = true;
+            }
+
+            if (volumeLabel) {
+                volumeLabel.textContent = `${numeric}%`;
+            }
+            aktualizujAudioUI();
+        }
+
+        function toggleAudioPlayback() {
+            const audio = document.getElementById('muzyka-tla');
+            if (!audio) return;
+
+            if (audio.paused) {
+                audio.play().then(() => {
+                    if (audio.volume > 0) {
+                        audio.muted = false;
+                    }
+                    aktualizujAudioUI();
+                }).catch(() => {
+                    aktualizujAudioUI();
+                });
+                return;
+            }
+
+            audio.pause();
+            aktualizujAudioUI();
+        }
+
+        function initAudioPanel() {
+            const audio = document.getElementById('muzyka-tla');
+            const slider = document.getElementById('audio-volume');
+            if (!audio || !slider) return;
+
+            ustawGlosnosc(slider.value);
+            audio.pause();
+            audio.muted = true;
+            aktualizujAudioUI();
+        }
+
         window.onload = function() {
             // Wypełnianie selectów - panel własny
             wypelnijSelect('wlasne-pochodzenie', pochodzenia, p => `${p.kraina} - ${p.cecha}`);
@@ -1236,6 +1549,7 @@ const historieKast = {
             zaktualizujOpis('reczne-wyksztalcenie', 'opis-reczne-wyksztalcenie', wyksztalcenie);
             zaktualizujOpis('reczne-usposobienie', 'opis-reczne-usposobienie', usposobienia);
             zmianaKastyReczne();
+            initAudioPanel();
         };
 
         function wypelnijSelect(id, lista, formatText) {
@@ -1624,6 +1938,301 @@ const historieKast = {
             document.getElementById('modal-zguba-overlay').classList.remove('active');
         }
 
+        function otworz_modal_profesja(nazwa, opis) {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = nazwa;
+            content.innerHTML = `<p>${opis}</p>`;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_rytual() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'Rytuał';
+            content.innerHTML = `
+                <p>Rytuał to unikalna mechanika fabularna dostępna wyłącznie dla postaci posiadających archetyp <strong>Kapłana</strong> lub <strong>Szamana/Wiedźmy</strong>. Umożliwia ona podejmowanie działań związanych z wiarą, magią lub siłami nadprzyrodzonymi, które wymagają ingerencji Mistrza Gry.</p>
+
+                <p>Aby rozpocząć rytuał, otwórz <strong>Kartę Postaci</strong> przy pomocy klawisza <strong>K</strong>, a następnie kliknij przycisk <strong>Rytuał</strong>.</p>
+                <p>Wyświetli się okno, w którym trzeba wpisać treść rytuału. Należy to wpisać będąc w pełni In Character, tak jakbyście normalnie odgrywali to w grze. Wymagane jest do tego kadzidło, które tworzy profesja Zielarza. Po kliknięciu przycisku potwierdź, dotrze do nas wiadomość na odpowiedni kanał Discorda.</p>
+
+                <p><strong>WYSŁANIE RYTUAŁU AUTOMATYCZNIE NAKŁADA DWA PUNKTY ZGUBY!</strong></p>
+                <p>Każda próba nawiązania kontaktu z bóstwem, duchem, demonem lub inną nadnaturalną istotą rozpoczyna się od przebicia przez mroczną energię bransolety spoczywającej na nadgarstku wygnańca, która szepcze słodkie słówka kusząc obietnicami z Zewnętrznego Mroku. To one odgradzają mieszkańców Ziem Wygnańców od sił spoza ich więzienia, tłumiąc modlitwy, zakłócając rytuały i osłabiając więź z istotami z innych światów.</p>
+
+                <h4>Przykłady do czego można wykorzystać rytuał</h4>
+                <ul>
+                    <li><strong>Przepowiednia:</strong> Postać próbuje odczytać wolę sił wyższych poprzez medytację, modlitwę, runy, kości, karty lub inne narzędzia wróżebne. Otrzymana wizja nie musi być jednoznaczna - często ma formę symboli, zagadek lub fragmentarycznych obrazów wymagających interpretacji.</li>
+                    <li><strong>Klątwa:</strong> Postać przeprowadza mroczny rytuał mający sprowadzić nieszczęście na wybraną osobę, przedmiot lub miejsce. Obrzęd może wymagać zdobycia przedmiotu należącego do ofiary, kropli krwi, włosów lub innego elementu z nią związanego. Ostateczna siła oraz skuteczność klątwy zależy od decyzji Mistrza Gry.</li>
+                </ul>
+
+                <p>Po otrzymaniu zgłoszenia Mistrz Gry zapozna się z treścią i skontaktuje się z Tobą. W zależności od rodzaju rytuału możesz od razu otrzymać jego rezultat lub zostać poproszony o dodatkowe informacje, dokładniejszy opis planowanego obrzędu albo odegranie określonych działań fabularnych.</p>
+                <p>Należy pamiętać, że odpowiedź <strong>nie jest</strong> natychmiastowa i należy uzbroić się w cierpliwość. Rytuał mający złą formę, próbujący osiągnąć coś niemożliwego bądź proszący o jakąś drobnostkę może obrócić się przeciwko jego wykonawcy, gdyż wszystko zależy od sił wyższych.</p>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_mapa_skarbow() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'Mapa Skarbów w Butelce';
+            content.innerHTML = `
+                <blockquote>
+                    <p>Mechanika pozwala na poszukiwanie zakopanych skarbów na terenie Ziem Wygnańców.</p>
+                </blockquote>
+
+                <h4>Pozyskiwanie tajemniczych butelek</h4>
+                <ul>
+                    <li>Jedynym sposobem na ich zdobycie jest wędkarstwo.</li>
+                </ul>
+
+                <h4>Wskazówki i rymowanki</h4>
+                <ul>
+                    <li>Istnieje 20% szansy na to, że wewnątrz wyłowionej butelki znajduje się Mapa Skarbów, z zachowaną zagadką lub rymowanką. A te mają zaprowadzić Cię na miejsce zakopanego skarbu.</li>
+                </ul>
+
+                <h4>Lokalizowanie i wykopywanie skarbu</h4>
+                <p>Proces odnajdywania nagrody wymaga odpowiedniego przygotowania oraz uważnego czytania wskazówek:</p>
+                <ul>
+                    <li><strong>Weryfikacja miejsca:</strong> Gdy gracz posiada odpowiednią notatkę w plecaku i zbliży się do docelowej lokalizacji, na ekranie pojawi się powiadomienie potwierdzające, że jest na dobrym tropie.</li>
+                    <li><strong>Wymagania sprzętowe:</strong> Aby wydobyć skarb z ziemi, gracz musi wejść w odpowiednią strefę, trzymając w dłoniach wyposażoną łopatę.</li>
+                    <li><strong>Wydobycie:</strong> Spełnienie powyższych warunków aktywuje animację kopania, po której zostanie wykopana skrzynia ze skarbem.</li>
+                </ul>
+
+                <h4>Ograniczenia czasowe</h4>
+                <ul>
+                    <li>Od momentu wykopania i pojawienia się skrzyni, gracz ma dokładnie 2 minuty na zebranie znajdujących się w niej łupów. Po upływie tego czasu skrzynia całkowicie znika ze świata.</li>
+                    <li>Mechanika ta stanowi zabezpieczenie na wypadek, gdyby inny gracz dysponujący tą samą wskazówką znajdował się w pobliżu.</li>
+                </ul>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_profesje_info() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'System Profesji - Informacje Ogólne';
+            content.innerHTML = `
+                <p><strong>System Profesji — Informacje Ogólne</strong></p>
+                <blockquote>
+                    <p>Profesje w obecnej formie stanowią zupełnie nowe podejście do tematu prac na serwerze. Zaprojektowaliśmy je tak, aby wspierały rozgrywkę i interakcje między graczami.</p>
+                </blockquote>
+
+                <h4>Dostępność i rozwój</h4>
+                <ul>
+                    <li>System jest obecnie weryfikowany w praktyce. Jeśli nowa mechanika się sprawdzi i będzie dostarczać pozytywnych wrażeń z gry, planujemy jej ciągły rozwój oraz wprowadzanie kolejnych specjalizacji w przyszłości.</li>
+                </ul>
+
+                <h4>Roleplay</h4>
+                <p>Stacjonarny charakter prac (konieczność stania w miejscu podczas wydobycia, połowu czy zbiorów) jest zabiegiem celowym:</p>
+                <ul>
+                    <li>Zastosowaliśmy mechanikę sesji, aby dać graczom przestrzeń na swobodne odgrywanie postaci.</li>
+                    <li>Trwające w tle cykle to idealny moment na prowadzenie rozmów, nawiązywanie relacji i wspólne budowanie wątków fabularnych z innymi osobami znajdującymi się w pobliżu.</li>
+                </ul>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_wedkarstwo() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'System Wędkarstwa';
+            content.innerHTML = `
+                <blockquote>
+                    <p>Wędkarstwo to mechanika, która nie tylko urozmaica odgrywanie postaci nad wodą, ale również stanowi realne źródło dochodu w grze.</p>
+                </blockquote>
+
+                <h4>Mechanika i cykle połowu</h4>
+                <p>Proces łowienia ryb opiera się na automatycznych cyklach oraz mechanice weryfikacji szans:</p>
+                <ul>
+                    <li><strong>Strefa i wyposażenie:</strong> Wędkowanie rozpoczyna się samoistnie po wejściu w wyznaczoną strefę łowiska. System automatycznie weryfikuje, czy postać trzyma w dłoniach wędkę oraz czy posiada w plecaku przynętę (robaki).</li>
+                    <li><strong>Interwały:</strong> Cały proces podzielony jest na mniejsze, 60-sekundowe etapy.</li>
+                    <li><strong>Weryfikacja sukcesu:</strong> Po upływie każdego 60-sekundowego cyklu, system automatycznie wykonuje w tle rzut kośćmi. Wynik rzutu decyduje o tym, czy w danej minucie na haczyk trafiła zdobycz.</li>
+                    <li><strong>Wpływ profesji:</strong> Szansa na udany połów rośnie proporcjonalnie do rangi profesji postaci. Im wyższy poziom doświadczenia w fachu wędkarskim, tym większe prawdopodobieństwo sukcesu podczas rzutu kośćmi w każdym z cykli.</li>
+                </ul>
+
+                <h4>Ekonomia i zastosowanie</h4>
+                <ul>
+                    <li><strong>Handel w Bel'Morze:</strong> Złowione ryby pełnią głównie funkcję towaru handlowego. Aby spieniężyć swój połów, w Bel'Morze znajdziesz rybaka, który chętnie odkupi od Ciebie ryby.</li>
+                    <li><strong>Unikalne znaleziska:</strong> Mechanika wędkowania jest bezpośrednio powiązana z systemem Mapa Skarbów w Butelce. Podczas każdego udanego cyklu połowu istnieje niewielka szansa na wyciągnięcie z wody butelki z potencjalną wskazówką do skarbu.</li>
+                </ul>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_gornictwo() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'System Górnictwa';
+            content.innerHTML = `
+                <blockquote>
+                    <p>Górnictwo to mechanika pozyskiwania zasobów, dostępna wyłącznie w kopalniach Bel'Mory, stanowiąca doskonałe źródło dochodu dla wytrwałych.</p>
+                </blockquote>
+
+                <h4>Wymagania i przebieg wydobycia</h4>
+                <p>Proces pracy w kopalni opiera się na cyklach, wymagających jednak odpowiedniego przygotowania:</p>
+                <ul>
+                    <li><strong>Lokalizacja i sprzęt:</strong> Górnictwo jest możliwe tylko i wyłącznie na terenie kopalni w Bel'Morze. Aby rozpocząć pracę, postać musi posiadać w dłoniach wyposażony kilof.</li>
+                    <li><strong>Czas trwania sesji:</strong> Pełna sesja wydobywcza trwa 10 minut.</li>
+                    <li><strong>Interwały:</strong> Proces podzielony jest na mniejsze, 60-sekundowe etapy. Po zamknięciu każdego cyklu system generuje łup, którym zazwyczaj jest kamień lub żelazo.</li>
+                </ul>
+
+                <h4>Znaleziska</h4>
+                <p>Kopalnia skrywa bogactwa, które napędzają miejską gospodarkę:</p>
+                <ul>
+                    <li><strong>Cenne minerały:</strong> Podczas każdego cyklu wydobycia istnieje szansa na trafienie żyły z rzadszymi minerałami. Wydobyte w ten sposób surowce (takie jak kwarc, rubin czy ametyst) można z zyskiem sprzedać kupcom w mieście.</li>
+                    <li><strong>Unikalny kruszec:</strong> Istnieje bardzo mała szansa na wydobycie Setar'u. Jest to niezwykle pożądany materiał, który miasto z chęcią odkupuje za znacznie większe pieniądze.</li>
+                </ul>
+
+                <h4>Rozwój umiejętności</h4>
+                <p>Zdobywanie doświadczenia w fachu górniczym zależy od trudności prowadzonych prac:</p>
+                <ul>
+                    <li><strong>Progres profesji:</strong> Rozwój umiejętności następuje wyłącznie poprzez pozyskiwanie rzadszych i bardziej wartościowych kruszców.</li>
+                    <li><strong>Wydobycie skały:</strong> Kopanie zwykłej, pospolitej skały (kamienia) nie stanowi dla postaci wyzwania i nie przyczynia się do wzrostu poziomu profesji górniczej.</li>
+                </ul>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_zielarstwo() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'System Zielarstwa - Zbiory';
+            content.innerHTML = `
+                <blockquote>
+                    <p>Zielarstwo to sztuka pozyskiwania rzadkich roślin, wymagająca cierpliwości oraz odpowiedniego podejścia do natury. Profesja ta łączy w sobie zarówno wiedzę o zbiorach, jak i zaawansowane wytwórstwo przy stołach zielarskich.</p>
+                </blockquote>
+
+                <h4>Wymagania i przebieg zbiorów</h4>
+                <p>Pozyskiwanie flory opiera się na bezpośredniej pracy na wyznaczonych stanowiskach roślinnych:</p>
+                <ul>
+                    <li><strong>Interakcja z grządką:</strong> Zbiory nie odbywają się już z pojedynczego krzaka. Zamiast tego gracz wchodzi w interakcję z większą grządką, na której obrasta roślinność.</li>
+                    <li><strong>Wybór surowca:</strong> Po rozpoczęciu interakcji otwiera się dedykowane menu, z którego należy wyselekcjonować konkretne ziele, które zamierzasz zebrać (np. Trującą Bellę lub Oparnicę Moczarną). Wybór zamyka okno i automatycznie inicjuje proces zbiorów.</li>
+                    <li><strong>Strefa pracy:</strong> Proces pozyskiwania wymaga obecności przy grządce. Rośliny posiadają wokół siebie niewielką strefę. Jeśli postać ją opuści przed zakończeniem prac, zbiór zostanie przerwany i całą czynność będzie trzeba rozpocząć od nowa.</li>
+                </ul>
+
+                <h4>Rezultaty i symbioza profesji</h4>
+                <p>Zbiory w terenie nagradzają cierpliwość i aktywnie wspierają inne profesje:</p>
+                <ul>
+                    <li><strong>Gwarantowany sukces:</strong> O ile gracz nie opuści strefy roboczej, proces zbiorów zawsze kończy się sukcesem, dostarczając pełnowartościowy surowiec. System "zniszczonego ziela" został usunięty.</li>
+                    <li><strong>Dodatkowe znaleziska:</strong> Oprócz ziół, każdy udany zbiór dostarcza również robaki. Stanowią one niezbędną przynętę w systemie wędkarstwa, co wymusza naturalną współpracę między profesjami.</li>
+                </ul>
+
+                <h4>Rozwój umiejętności</h4>
+                <p>Z uwagi na gwarantowany sukces przy zbiorach oraz fakt, że główny ciężar rzemiosła opiera się również na wytwarzaniu mikstur, progresja przebiega w zbalansowany sposób:</p>
+                <ul>
+                    <li><strong>Szansa na progres:</strong> Samo pozyskiwanie ziół z grządki posiada 20% szansy na dodanie punktu doświadczenia do profesji zielarza. Resztę doświadczenia mistrzowie zielarstwa mogą zdobywać pracując bezpośrednio przy stole zielarskim.</li>
+                </ul>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_jubilerstwo() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'System Jubilerstwa';
+            content.innerHTML = `
+                <blockquote>
+                    <p>Jubilerstwo to rzemiosło wymagające niezwykłej precyzji i cierpliwości, pozwalające wydobyć prawdziwe piękno oraz wartość z surowych minerałów pozyskanych z skał kopalni w Bel'Morze.</p>
+                </blockquote>
+
+                <h4>Wymagania i miejsce pracy</h4>
+                <p>Obróbka kamieni szlachetnych wymaga odpowiednich narzędzi i nie może odbywać się w warunkach polowych:</p>
+                <ul>
+                    <li><strong>Warsztat w mieście:</strong> W mieście funkcjonuje sklep jubilera, który udostępnia swoje profesjonalne stanowisko rzemieślnicze. Każdy gracz może z niego skorzystać, aby poddać obróbce swoje znaleziska.</li>
+                    <li><strong>Wymagane surowce:</strong> Do pracy niezbędne są nieoszlifowane minerały (np. kwarc, rubin, ametyst), które mają szansę wypaść jako rzadszy łup podczas wydobycia w kopalniach <em>(System Górnictwa)</em>.</li>
+                </ul>
+
+                <h4>Proces szlifowania i zysk</h4>
+                <p>Na obecnym etapie profesja skupia się na podstawowej, ale bardzo zyskownej obróbce:</p>
+                <ul>
+                    <li><strong>Szlifowanie kamieni:</strong> Interakcja ze stanowiskiem pozwala na rozpoczęcie procesu szlifowania, który przekształca matową, surową bryłę w pełnowartościowy klejnot.</li>
+                    <li><strong>Wzrost wartości:</strong> Oszlifowane minerały stają się pożądanym towarem na rynku. Ich cena po obróbce znacznie przewyższa wartość surowych odpowiedników, stanowiąc doskonałe przedłużenie zarobków z Górnictwa.</li>
+                </ul>
+
+                <h4>Rozwój profesji</h4>
+                <p>Podobnie jak w innych dziedzinach rzemiosła, praktyka czyni mistrza:</p>
+                <ul>
+                    <li><strong>Wzrost umiejętności:</strong> Każde udane oszlifowanie kamienia nagradza postać punktami Jubilerstwa.</li>
+                    <li><strong>Pewna ręka:</strong> Wraz z rosnącym poziomem profesji zwiększa się precyzja postaci, co bezpośrednio przekłada się na wyższą szansę na pomyślne zakończenie szlifowania bez uszkodzenia cennego materiału.</li>
+                </ul>
+
+                <blockquote>
+                    <p>Na start system oferuje wyłącznie mechanikę szlifowania nieoszlifowanych minerałów pochodzących z kopalni. W późniejszym etapie, system zostanie rozwinięty o tworzenie gotowej biżuterii.</p>
+                </blockquote>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_hutnictwo() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'System Hutnictwa';
+            content.innerHTML = `
+                <blockquote>
+                    <p>Hutnictwo pozwala na uszlachetnianie pospolitych metali, co dla wykwalifikowanych rzemieślników stanowi niezwykle lukratywne źródło dochodu.</p>
+                </blockquote>
+
+                <h4>Wymagania i przebieg pracy</h4>
+                <p>Proces hutniczy różni się od pozostałych prac i opiera się na przebywaniu w wyznaczonym obszarze:</p>
+                <ul>
+                    <li><strong>Strefa pracy:</strong> Hutnictwo nie wymaga manualnej interakcji z obiektami czy UI. Wystarczy, że postać wejdzie w odpowiednią strefę przy piecach hutniczych.</li>
+                    <li><strong>Wymagane materiały:</strong> Miejsce pracy weryfikuje, czy postać posiada przy sobie sztabki żelaza. Jeśli warunek jest spełniony, praca rozpoczyna się samoczynnie.</li>
+                    <li><strong>Czas trwania cyklu:</strong> Każdy etap obróbki metalu trwa dokładnie 60 sekund. Po jego zakończeniu system weryfikuje wynik pracy.</li>
+                </ul>
+
+                <h4>Rezultaty i zysk</h4>
+                <p>Praca hutnika to ryzyko i inwestycja surowca w celu uzyskania znacznie cenniejszego materiału:</p>
+                <ul>
+                    <li><strong>Koszty produkcji:</strong> Każdy zakończony cykl (niezależnie od rezultatu) bezpowrotnie pochłania sztabkę żelaza z ekwipunku postaci.</li>
+                    <li><strong>Uszlachetniony stop:</strong> Pomyślne zakończenie cyklu skutkuje stworzeniem <strong>Sztabki Żelaza z domieszką Setaru</strong>, cennego i trudnego w obróbce materiału.</li>
+                    <li><strong>Gospodarka Bel'Mory:</strong> Miasto z ogromną chęcią skupuje udane stopy. Utworzona sztabka osiąga na rynku zdecydowanie wyższą cenę niż jej bazowy odpowiednik.</li>
+                </ul>
+
+                <h4>Rozwój profesji</h4>
+                <p>Doświadczenie w hutnictwie bezpośrednio przekłada się na efektywność i redukcję strat materiałowych:</p>
+                <ul>
+                    <li><strong>Wzrost umiejętności:</strong> Każde udane stworzenie Sztabki Żelaza z domieszką Setaru nagradza postać punktami <strong>Hutnictwa</strong>.</li>
+                    <li><strong>Większa szansa na sukces:</strong> Wraz z gromadzeniem punktów profesji, zauważalnie rośnie procentowa szansa na pomyślne zakończenie cyklu, minimalizując ryzyko zmarnowania zwykłego żelaza.</li>
+                </ul>
+
+                <blockquote>
+                    <p>Na start systemu do obróbki wykorzystywane będą wyłącznie sztabki żelaza. Jeśli mechanika sprawdzi się w praktyce i pojawi się zapotrzebowanie, system zostanie rozwinięty o dodatkowe funkcje.</p>
+                </blockquote>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function zamknij_modal_profesja() {
+            document.getElementById('modal-profesja-overlay').classList.remove('active');
+        }
+
         // Zamknięcie modala po kliknięciu na tło
         document.addEventListener('DOMContentLoaded', function() {
             const overlays = [
@@ -1631,7 +2240,8 @@ const historieKast = {
                 { element: document.getElementById('modal-boztwa-overlay'), close: zamknij_modal_boztwa },
                 { element: document.getElementById('modal-czarnoksieztwo-overlay'), close: zamknij_modal_czarnoksieztwo },
                 { element: document.getElementById('modal-sap-overlay'), close: zamknij_modal_sap },
-                { element: document.getElementById('modal-zguba-overlay'), close: zamknij_modal_zguba }
+                { element: document.getElementById('modal-zguba-overlay'), close: zamknij_modal_zguba },
+                { element: document.getElementById('modal-profesja-overlay'), close: zamknij_modal_profesja }
             ];
 
             overlays.forEach(({ element, close }) => {
@@ -1643,6 +2253,16 @@ const historieKast = {
                     });
                 }
             });
+
+            const logo = document.querySelector('.logo-heldamar');
+            if (logo) {
+                logo.addEventListener('contextmenu', function(event) {
+                    event.preventDefault();
+                });
+                logo.addEventListener('dragstart', function(event) {
+                    event.preventDefault();
+                });
+            }
         });
     </script>
 </body>
