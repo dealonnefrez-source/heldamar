@@ -423,6 +423,7 @@
                     <button class="przycisk-boczny wariant-submenu" id="btn-menu-pomniejsze" onclick="przelaczMenuPomniejsze()" aria-expanded="false">Pomniejsze</button>
                     <div class="menu-pomniejsze" id="menu-pomniejsze">
                         <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_mapa_skarbow()">Mapa Skarbów</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_acheronskie_obeliski()">System Acherońskich Obelisków</button>
                         <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_profesja('Obozowisko', 'W budowie.')">Obozowisko</button>
                     </div>
                 </div>
@@ -2014,6 +2015,51 @@ const historieKast = {
                     <li>Od momentu wykopania i pojawienia się skrzyni, gracz ma dokładnie 2 minuty na zebranie znajdujących się w niej łupów. Po upływie tego czasu skrzynia całkowicie znika ze świata.</li>
                     <li>Mechanika ta stanowi zabezpieczenie na wypadek, gdyby inny gracz dysponujący tą samą wskazówką znajdował się w pobliżu.</li>
                 </ul>
+            `;
+            overlay.classList.add('active');
+        }
+
+        function otworz_modal_acheronskie_obeliski() {
+            const overlay = document.getElementById('modal-profesja-overlay');
+            const tytul = document.getElementById('modal-profesja-tytul');
+            const content = document.getElementById('modal-profesja-content');
+            if (!overlay || !tytul || !content) return;
+
+            tytul.textContent = 'System Acherońskich Obelisków';
+            content.innerHTML = `
+                <blockquote>
+                    <p>Rozsiane po świecie starożytne, acherońskie obeliski kryją w sobie zapomnianą wiedzę dawnego imperium. Wykorzystując bransoletę wygnańca, wędrowcy mogą zespoić się z ich energią.</p>
+                </blockquote>
+
+                <h4>Zespolenie i wzmocnienia</h4>
+                <blockquote>
+                    <p>Interakcja z tymi monumentami pozwala uwolnić energię, która w nich drzemie.</p>
+                </blockquote>
+                <ul>
+                    <li><strong>Proces zespolenia:</strong> Mechanika opiera się na bezpośrednim zespoleniu własnej bransolety z wybranym obeliskiem odnalezionym podczas eksploracji.</li>
+                    <li><strong>Permanentny efekt:</strong> Pomyślne powiązanie z monumentem nakłada na postać <strong>stały, permanentny efekt</strong> (jeden buff oraz jeden debuff).</li>
+                    <li><strong>Różnorodność:</strong> Każdy z obelisków skrywa inną energię i przyznaje inne wzmocnienie. Dokładne informacje o działaniu danego obelisku poznacie z opisu, który pojawi się w grze bezpośrednio po interakcji z nim.</li>
+                </ul>
+
+                <h4>Ograniczenia i czas odnowienia</h4>
+                <blockquote>
+                    <p>Magia ta wymaga czasu na regenerację i nie można z niej korzystać bez umiaru.</p>
+                </blockquote>
+                <ul>
+                    <li><strong>Cykl zespolenia:</strong> Powiązania z obeliskiem można dokonać wyłącznie raz na 3 dni.</li>
+                    <li><strong>Zmiana lub odnowienie:</strong> Gdy upłyną pełne 3 dni, ograniczenie znika. Otrzymujecie wtedy możliwość zespolenia się z zupełnie nowym monumentem. Jeśli chcecie zostać przy aktualnym, nic nie musicie robić, jego moc trwa nieprzerwanie.</li>
+                </ul>
+
+                <h4>Oczyszczenie bransolety</h4>
+                <ul>
+                    <li><strong>Zdejmowanie efektów:</strong> W świecie ukryty jest jeden, specyficzny obelisk. Jego zadaniem jest całkowite ściągnięcie i zneutralizowanie mocy obelisków, jeśli uznacie, że dany efekt nie jest Wam już potrzebny lub nie pasuje do Waszej postaci.</li>
+                    <li><strong>Utrzymanie blokady czasowej:</strong> Należy pamiętać, że oczyszczenie bransolety nie pozwala na oszukanie czasu. Skorzystanie z obelisku zdejmującego buffy nie resetuje licznika, zespolenie z nowym obeliskiem nadal będzie możliwe dopiero po upływie pełnych 3 dni od ostatniej interakcji.</li>
+                </ul>
+
+                <blockquote>
+                    <p><em>Tysiące lat temu, będąc u szczytu potęgi, Imperium Acheronu nieustannie poszukiwało sposobów na naginanie ludzkiego ciała do swoich mrocznych celów. Obsydianowe obeliski to starożytne kondensatory, rozstawione w miejscach, które niegdyś uważano za przecinanie się .... <strong>Notatki tutaj są zamazane</strong></em></p>
+                    <p><em>Acherońscy czarnoksiężnicy używali ich do ... <strong>Tutaj również, tekst jest nieczytelny</strong>. Wiedza o tym, jak budować te struktury, przepadła wraz z upadkiem imperium, ale same obeliski, wykonane z czarnego, nasyconego magią szkliwa wulkanicznego, przetrwały próbę czasu.</em></p>
+                </blockquote>
             `;
             overlay.classList.add('active');
         }
