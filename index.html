@@ -39,9 +39,9 @@
         .menu-swiat-kontener { position: relative; display: flex; flex-direction: column; }
         .menu-swiat { display: none; position: absolute; left: calc(100% + 12px); top: 0; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; border: 1px solid #444; background: linear-gradient(180deg, rgba(28,28,28,0.98), rgba(18,18,18,0.96)); box-shadow: 0 14px 32px rgba(0,0,0,0.45); z-index: 1200; }
         .menu-swiat.otwarte { display: flex; }
-        .menu-profesje-kontener, .menu-pomniejsze-kontener { position: relative; display: flex; flex-direction: column; }
-        .menu-profesje, .menu-pomniejsze { display: none; position: static; left: auto; top: auto; margin-top: 6px; flex-direction: column; gap: 6px; padding: 6px 0 0 14px; border-radius: 0; border: none; background: transparent; box-shadow: none; z-index: 1300; }
-        .menu-profesje.otwarte, .menu-pomniejsze.otwarte { display: flex; }
+        .menu-profesje-kontener, .menu-pomniejsze-kontener, .menu-fabularne-kontener { position: relative; display: flex; flex-direction: column; }
+        .menu-profesje, .menu-pomniejsze, .menu-fabularne { display: none; position: static; left: auto; top: auto; margin-top: 6px; flex-direction: column; gap: 6px; padding: 6px 0 0 14px; border-radius: 0; border: none; background: transparent; box-shadow: none; z-index: 1300; }
+        .menu-profesje.otwarte, .menu-pomniejsze.otwarte, .menu-fabularne.otwarte { display: flex; }
         .menu-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,122,0,0.55), transparent); margin: 2px 0; box-shadow: 0 0 10px rgba(201,122,0,0.15); }
         .menu-postaci-etykieta { align-self: flex-start; background: #111; color: #c97a00; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(201,122,0,0.3); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin: 2px 0 0; }
 
@@ -280,7 +280,8 @@
                 box-shadow: none;
             }
             .menu-profesje,
-            .menu-pomniejsze {
+            .menu-pomniejsze,
+            .menu-fabularne {
                 position: static;
                 left: auto;
                 top: auto;
@@ -407,6 +408,13 @@
             <div class="menu-systemy" id="menu-systemy">
                 <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_sap()">SAP</button>
                 <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_zguba()">Zguba</button>
+                <div class="menu-fabularne-kontener">
+                    <button class="przycisk-boczny wariant-submenu" id="btn-menu-fabularne" onclick="przelaczMenuFabularne()" aria-expanded="false">Fabularne</button>
+                    <div class="menu-fabularne" id="menu-fabularne">
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_profesja('Rzuty Fabularne', 'W budowie.')">Rzuty Fabularne</button>
+                        <button class="przycisk-boczny wariant-submenu" onclick="otworz_modal_profesja('Urazy', 'W budowie.')">Urazy</button>
+                    </div>
+                </div>
                 <div class="menu-profesje-kontener">
                     <button class="przycisk-boczny wariant-submenu" id="btn-menu-profesje" onclick="przelaczMenuProfesje()" aria-expanded="false">Profesje</button>
                     <div class="menu-profesje" id="menu-profesje">
@@ -856,16 +864,29 @@
         ];
 
         const bonusyPochodzen = {
-            "Dziecię natury": "+1 Opieka nad zwierzętami, +1 Natura, +1 Sztuka Przetrwania",
-            "Prawo pięści": "+1 Atletyka, +1 Zastraszanie",
-            "Ręka na pulsie": "+1 Intuicja, +1 Śledztwo",
+            "Dziecię natury": "+1 Opieka nad zwierzętami, +1 Natura",
+            "Prawo pięści": "+1 Sprawność Fizyczna, +1 Zastraszanie",
+            "Ręka na pulsie": "+1 Opanowanie, +1 Intuicja",
             "Dziecię zimy": "+1 Sztuka Przetrwania, +1 Odporność",
-            "Miarka w oku": "+1 Intuicja, +1 Perswazja",
+            "Miarka w oku": "+1 Perswazja, +1 Rzemiosło",
             "Wyczucie fałszu": "+2 Intuicja",
             "Morski rozbójnik": "+1 Akrobatyka, +1 Zwinne dłonie",
             "Dziecię pustyni": "+1 Sztuka Przetrwania, +1 Odporność",
             "W siodle urodzony": "+2 Opieka nad zwierzętami",
             "Światowiec": "+1 Historia, +1 Religia"
+        };
+
+        const bonusyArchetypow = {
+            "BARBARZYŃCA": "+3 Sprawność fizyczna, +2 Sztuka Przetrwania, +1 Zastraszanie",
+            "KAPŁAN": "+3 Religia, +2 Czarnoksięstwo, +1 Medycyna",
+            "KOCZOWNIK": "+3 Sztuka Przetrwania, +2 Odporność, +1 Opieka nad zwierzętami",
+            "ŁOTR": "+3 Zwinne Dłonie, +2 Skradanie, +1 Akrobatyka",
+            "ŁUCZNIK": "+3 Percepcja, +2 Zwinne Dłonie, +1 Opanowanie",
+            "PIRAT": "+3 Akrobatyka, +2 Oszustwo, +1 Zwinne dłonie",
+            "RYCERZ": "+3 Perswazja, +2 Sprawność fizyczna, +1 Odporność",
+            "SZAMAN / WIEDŹMA": "+3 Czarnoksięstwo, +2 Wiedza Tajemna, +1 Zastraszanie",
+            "UCZONY": "+3 Rzemiosło, +2 Medycyna, +1 Historia",
+            "NAJEMNIK": "+3 Odporność, +2 Sprawność fizyczna, +1 Intuicja"
         };
 
         const skazania = [
@@ -1182,6 +1203,8 @@
         function przelaczMenuSystemy() {
             const menu = document.getElementById('menu-systemy');
             const przycisk = document.getElementById('btn-menu-systemy');
+            const menuFabularne = document.getElementById('menu-fabularne');
+            const przyciskFabularne = document.getElementById('btn-menu-fabularne');
             const menuProfesje = document.getElementById('menu-profesje');
             const przyciskProfesje = document.getElementById('btn-menu-profesje');
             const menuPomniejsze = document.getElementById('menu-pomniejsze');
@@ -1204,6 +1227,11 @@
             przycisk.textContent = czyOtwarte ? 'Systemy ▲' : 'Systemy';
 
             if (!czyOtwarte) {
+                if (menuFabularne && przyciskFabularne) {
+                    menuFabularne.classList.remove('otwarte');
+                    przyciskFabularne.setAttribute('aria-expanded', 'false');
+                    przyciskFabularne.textContent = 'Fabularne';
+                }
                 if (menuProfesje && przyciskProfesje) {
                     menuProfesje.classList.remove('otwarte');
                     przyciskProfesje.setAttribute('aria-expanded', 'false');
@@ -1217,17 +1245,52 @@
             }
         }
 
+        function przelaczMenuFabularne() {
+            const menu = document.getElementById('menu-fabularne');
+            const przycisk = document.getElementById('btn-menu-fabularne');
+            const menuProfesje = document.getElementById('menu-profesje');
+            const przyciskProfesje = document.getElementById('btn-menu-profesje');
+            const menuPomniejsze = document.getElementById('menu-pomniejsze');
+            const przyciskPomniejsze = document.getElementById('btn-menu-pomniejsze');
+            if (!menu || !przycisk) return;
+
+            if (!menu.classList.contains('otwarte')) {
+                if (menuProfesje && przyciskProfesje) {
+                    menuProfesje.classList.remove('otwarte');
+                    przyciskProfesje.setAttribute('aria-expanded', 'false');
+                    przyciskProfesje.textContent = 'Profesje';
+                }
+                if (menuPomniejsze && przyciskPomniejsze) {
+                    menuPomniejsze.classList.remove('otwarte');
+                    przyciskPomniejsze.setAttribute('aria-expanded', 'false');
+                    przyciskPomniejsze.textContent = 'Pomniejsze';
+                }
+            }
+
+            menu.classList.toggle('otwarte');
+            const czyOtwarte = menu.classList.contains('otwarte');
+            przycisk.setAttribute('aria-expanded', czyOtwarte ? 'true' : 'false');
+            przycisk.textContent = czyOtwarte ? 'Fabularne ▲' : 'Fabularne';
+        }
+
         function przelaczMenuProfesje() {
             const menu = document.getElementById('menu-profesje');
             const przycisk = document.getElementById('btn-menu-profesje');
             const menuPomniejsze = document.getElementById('menu-pomniejsze');
             const przyciskPomniejsze = document.getElementById('btn-menu-pomniejsze');
+            const menuFabularne = document.getElementById('menu-fabularne');
+            const przyciskFabularne = document.getElementById('btn-menu-fabularne');
             if (!menu || !przycisk) return;
 
             if (!menu.classList.contains('otwarte') && menuPomniejsze && przyciskPomniejsze) {
                 menuPomniejsze.classList.remove('otwarte');
                 przyciskPomniejsze.setAttribute('aria-expanded', 'false');
                 przyciskPomniejsze.textContent = 'Pomniejsze';
+            }
+            if (!menu.classList.contains('otwarte') && menuFabularne && przyciskFabularne) {
+                menuFabularne.classList.remove('otwarte');
+                przyciskFabularne.setAttribute('aria-expanded', 'false');
+                przyciskFabularne.textContent = 'Fabularne';
             }
 
             menu.classList.toggle('otwarte');
@@ -1241,12 +1304,19 @@
             const przycisk = document.getElementById('btn-menu-pomniejsze');
             const menuProfesje = document.getElementById('menu-profesje');
             const przyciskProfesje = document.getElementById('btn-menu-profesje');
+            const menuFabularne = document.getElementById('menu-fabularne');
+            const przyciskFabularne = document.getElementById('btn-menu-fabularne');
             if (!menu || !przycisk) return;
 
             if (!menu.classList.contains('otwarte') && menuProfesje && przyciskProfesje) {
                 menuProfesje.classList.remove('otwarte');
                 przyciskProfesje.setAttribute('aria-expanded', 'false');
                 przyciskProfesje.textContent = 'Profesje';
+            }
+            if (!menu.classList.contains('otwarte') && menuFabularne && przyciskFabularne) {
+                menuFabularne.classList.remove('otwarte');
+                przyciskFabularne.setAttribute('aria-expanded', 'false');
+                przyciskFabularne.textContent = 'Fabularne';
             }
 
             menu.classList.toggle('otwarte');
@@ -1576,6 +1646,13 @@ const historieKast = {
                 return;
             }
 
+            if (dataArray === archetypy) {
+                const bonus = bonusyArchetypow[element.nazwa];
+                const opisZBonusem = bonus ? `${element.opis}<br><strong>Bonusy:</strong> ${bonus}` : element.opis;
+                document.getElementById(opisId).innerHTML = opisZBonusem;
+                return;
+            }
+
             document.getElementById(opisId).innerHTML = element.opis;
         }
 
@@ -1660,7 +1737,7 @@ const historieKast = {
                     </p>
                     
                     <p><strong>Archetyp:</strong> ${wynikArchetyp.nazwa}</p>
-                    <p class="opis-cechy">${wynikArchetyp.opis}</p>
+                    <p class="opis-cechy">${wynikArchetyp.opis}${bonusyArchetypow[wynikArchetyp.nazwa] ? `<br><strong>Bonusy:</strong> ${bonusyArchetypow[wynikArchetyp.nazwa]}` : ''}</p>
                     
                     <p><strong>Kasta:</strong> ${wynikKasta.nazwa}</p>
                     <p class="opis-cechy">${wynikKasta.opis}</p>
@@ -1863,7 +1940,11 @@ const historieKast = {
                             value: `${k.pochodzenie.kraina} - ${k.pochodzenie.cecha}`,
                             opis: [k.pochodzenie.opis, bonusyPochodzen[k.pochodzenie.cecha] ? `Bonusy pochodzenia: ${bonusyPochodzen[k.pochodzenie.cecha]}` : null].filter(Boolean).join('\n')
                         },
-                        { label: 'Archetyp', value: k.archetyp.nazwa, opis: k.archetyp.opis },
+                        {
+                            label: 'Archetyp',
+                            value: k.archetyp.nazwa,
+                            opis: [k.archetyp.opis, bonusyArchetypow[k.archetyp.nazwa] ? `Bonusy archetypu: ${bonusyArchetypow[k.archetyp.nazwa]}` : null].filter(Boolean).join('\n')
+                        },
                         { label: 'Kasta', value: k.kasta.nazwa, opis: k.kasta.opis },
                         { label: 'Historia', value: k.historia.nazwa, opis: k.historia.opis },
                         { label: 'Wykształcenie', value: k.wyksztalcenie.nazwa, opis: k.wyksztalcenie.opis },
